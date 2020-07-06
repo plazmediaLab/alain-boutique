@@ -1,0 +1,6 @@
+@tailwind base;
+
+/* Agregue cualquier estilo global aquí */
+body{
+    font-family: 'Noto Sans JP', sans-serif;
+}
