@@ -1,28 +1,36 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import Layout from "../components/layout"
 import firebase from '../auth/firebase'
 import { navigate } from 'gatsby';
 import UserContext from '../context/user/UserContext';
 
 export default function Home() {
-  // TODO · Actualizar el estado global para autemticar 07/08/2020 
 
   // Context
   const userContext = useContext(UserContext);
-  const { Test } = userContext;
+  const { getUser, user } = userContext;
+
+  useEffect(() => {
+    if(localStorage.getItem('token-user')){
+      firebase.auth().onAuthStateChanged(res => {
+        getUser(res); 
+        navigate('/home');
+      })
+    }
+  }, [/* dependencia */]);
 
   // Iniciar sesión
   const Login = () => {
-    Test()
-    // let provider = new firebase.auth.GoogleAuthProvider();
-
-    // firebase.auth().signInWithPopup(provider).then(res => {
-    //   let token = res.credential.accessToken;
-    //   localStorage.setItem("token-user", token);
-    //   navigate('/home');
-    // }).catch(err => {
-    //   console.log(err);
-    // })
+    let provider = new firebase.auth.GoogleAuthProvider();
+    
+    firebase.auth().signInWithPopup(provider).then(res => {
+      let token = res.credential.accessToken;
+      localStorage.setItem("token-user", token);
+      getUser(res.user);
+      navigate('/home');
+    }).catch(err => {
+      console.log(err);
+    })
   };
 
   return(

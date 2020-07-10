@@ -3,7 +3,8 @@ import UserContext from './UserContext';
 import UserReducer from './UserReducer';
 
 import {
-  
+  GET_USER,
+  LOG_OUT
 } from '../types';
 
 const UserState = ({ children }) => {
@@ -15,16 +16,27 @@ const UserState = ({ children }) => {
 
   const [ state, dispatch ] = useReducer(UserReducer, initialState);
 
-  // Functions
-  const Test = () => {
-    console.log('Test Context');
+  // Functions /////////////////////////////////////////////////////
+  // Obtener datos de usuario
+  const getUser = user => {
+    dispatch({
+      type: GET_USER,
+      payload: user
+    })
+  };
+  // Cerrar sesión
+  const logOut = () => {
+    dispatch({
+      type: LOG_OUT
+    })
   };
 
   return (
     <UserContext.Provider
       value={{
         user: state.user,
-        Test
+        getUser,
+        logOut
       }}
     >
 

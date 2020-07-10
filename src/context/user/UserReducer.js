@@ -1,14 +1,19 @@
 import {
-  
+  GET_USER,
+  LOG_OUT
 } from '../types';
 
 export default ( state, action ) => {
   switch (action.type) {
-    // case SELECT_CLIENT:
-    //   return{
-    //     ...state,
-    //     client: action.payload
-    //   }
+    case GET_USER:
+      return{
+        ...state,
+        user: action.payload
+      }
+    case LOG_OUT:
+      return{
+        user: null
+      }
       
   
     default:
