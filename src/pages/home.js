@@ -1,26 +1,27 @@
-import React, { useEffect, useContext } from 'react';
-import firebase from '../utils/firebase'
-import { navigate } from 'gatsby';
-import UserContext from '../context/user/UserContext'
+import React, { useContext, useEffect } from 'react';
 import Layout from '../components/layout';
+import UserContext from '../context/user/UserContext';
+import { navigate } from 'gatsby';
+import firebase from '../utils/firebase';
+// Custom Hooks
+import useLogOut from '../hooks/useLogOut';
 
 export default function Home(){
 
   const userContext = useContext(UserContext);
-  const { user, logOut } = userContext;
+  const { user, getUser } = userContext;
+
+  const [ LogOut ] = useLogOut();
 
   useEffect(() => {
-    if(!user) navigate('/')
-  }, [user]);
-
-  // Cerrar sesión
-  const Logout = () => {
-    firebase.auth().signOut().then(() => {
-      localStorage.removeItem('token-user');
-      logOut();
-    })
-    navigate('/');
-  };
+    if(!localStorage.getItem('token-user')){
+      navigate('/');
+    }else{
+      firebase.auth().onAuthStateChanged(res => {
+        getUser(res); 
+      })
+    }
+  }, [/* dependencia */]);
 
   return (
     <>
@@ -35,7 +36,7 @@ export default function Home(){
             </div>
             <button 
               className="py-2 px-4 bg-red-600 text-white text-sm rounded hover:bg-red-500 mt-3"
-              onClick={Logout}
+              onClick={LogOut}
             >
               Log Out
             </button>

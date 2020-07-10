@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import Layout from "../components/layout"
 // Custom Hooks
 import useAuthUser from '../hooks/useAuthUser';
-import useStatusAuth from '../hooks/useStatetAuth';
+import useStatusAuth from '../hooks/useStatusAuth';
 
 export default function Home() {
 
