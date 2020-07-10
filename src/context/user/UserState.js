@@ -16,11 +16,15 @@ const UserState = ({ children }) => {
   const [ state, dispatch ] = useReducer(UserReducer, initialState);
 
   // Functions
+  const Test = () => {
+    console.log('Test Context');
+  };
 
   return (
     <UserContext.Provider
       value={{
-        user: state.user
+        user: state.user,
+        Test
       }}
     >
 

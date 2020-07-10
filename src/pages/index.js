@@ -1,22 +1,28 @@
-import React from "react"
+import React, { useContext } from "react"
 import Layout from "../components/layout"
 import firebase from '../auth/firebase'
 import { navigate } from 'gatsby';
+import UserContext from '../context/user/UserContext';
 
 export default function Home() {
   // TODO · Actualizar el estado global para autemticar 07/08/2020 
 
+  // Context
+  const userContext = useContext(UserContext);
+  const { Test } = userContext;
+
   // Iniciar sesión
   const Login = () => {
-    let provider = new firebase.auth.GoogleAuthProvider();
+    Test()
+    // let provider = new firebase.auth.GoogleAuthProvider();
 
-    firebase.auth().signInWithPopup(provider).then(res => {
-      let token = res.credential.accessToken;
-      localStorage.setItem("token-user", token);
-      navigate('/home');
-    }).catch(err => {
-      console.log(err);
-    })
+    // firebase.auth().signInWithPopup(provider).then(res => {
+    //   let token = res.credential.accessToken;
+    //   localStorage.setItem("token-user", token);
+    //   navigate('/home');
+    // }).catch(err => {
+    //   console.log(err);
+    // })
   };
 
   return(
