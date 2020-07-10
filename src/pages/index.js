@@ -1,38 +1,17 @@
-import React, { useContext, useEffect } from "react"
+import React, { useEffect } from "react"
 import Layout from "../components/layout"
-import firebase from '../auth/firebase'
-import { navigate } from 'gatsby';
-import UserContext from '../context/user/UserContext';
+// Custom Hooks
+import useAuthUser from '../hooks/useAuthUser';
+import useStatusAuth from '../hooks/useStatetAuth';
 
 export default function Home() {
 
-  // Context
-  const userContext = useContext(UserContext);
-  const { getUser } = userContext;
+  const [ status, Login ] = useAuthUser();
+  const [ statusAuth ] = useStatusAuth();
 
   useEffect(() => {
-    if(localStorage.getItem('token-user')){
-      firebase.auth().onAuthStateChanged(res => {
-        getUser(res); 
-        navigate('/home');
-      })
-    }
-    // eslint-disable-next-line
+    statusAuth();
   }, [/* dependencia */]);
-
-  // Iniciar sesión
-  const Login = () => {
-    let provider = new firebase.auth.GoogleAuthProvider();
-    
-    firebase.auth().signInWithPopup(provider).then(res => {
-      let token = res.credential.accessToken;
-      localStorage.setItem("token-user", token);
-      getUser(res.user);
-      navigate('/home');
-    }).catch(err => {
-      console.log(err);
-    })
-  };
 
   return(
     <>
@@ -49,6 +28,7 @@ export default function Home() {
           </button>
         </Layout>
       )}
+      { status ? <h1>Loading...</h1> : null }
     </>
   )
 }

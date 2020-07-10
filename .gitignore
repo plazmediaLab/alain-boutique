@@ -67,5 +67,6 @@ yarn-error.log
 .pnp.js
 # Yarn Integrity file
 .yarn-integrity
-src/auth
-src/auth/*
+
+# Ignores important files 
+src/utils/firebase.js

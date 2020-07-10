@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import firebase from '../auth/firebase'
+import firebase from '../utils/firebase'
 import { navigate } from 'gatsby';
 import UserContext from '../context/user/UserContext'
 import Layout from '../components/layout';
