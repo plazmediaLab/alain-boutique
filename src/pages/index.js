@@ -30,11 +30,12 @@ export default function Home() {
             <img src={ isotype } alt="isotype" className="w-40 h-40"/>
             <h1 className="text-3xl font-semibold text-carbon-500">Alain Boutique</h1>
             <p className="text-carbon-200 text-sm">Sales manager 1.0.0</p>
-            <aside className="flex mt-16 mb-20">
+            <p className="text-p_blue-500 mt-12 mb-6">Login with</p>
+            <aside className="flex mb-20">
               <button
                 className="btn-login mr-8"
                 type="button"
-                // onClick={ Login }
+                onClick={ Login }
               >
                 <img src={ G } alt="Google iso"/>
               </button>
