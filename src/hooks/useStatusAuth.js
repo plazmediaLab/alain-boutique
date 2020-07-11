@@ -13,7 +13,7 @@ export default function useStatusAuth(){
     if(localStorage.getItem('token-user')){
       firebase.auth().onAuthStateChanged(res => {
         getUser(res); 
-        navigate('/home');
+        navigate('/app');
       }) 
     }
   };

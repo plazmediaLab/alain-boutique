@@ -23,7 +23,7 @@ export default function useAuthUser(){
       // Set data on Global State
       getUser(res.user);
       // Go to
-      navigate('/home');
+      navigate('/app');
       setAuthState(false);
     }).catch(err => {
       console.log(err);

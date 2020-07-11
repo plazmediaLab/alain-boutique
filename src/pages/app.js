@@ -6,7 +6,7 @@ import firebase from '../utils/firebase';
 // Custom Hooks
 import useLogOut from '../hooks/useLogOut';
 
-export default function Home(){
+export default function App(){
 
   const userContext = useContext(UserContext);
   const { user, getUser } = userContext;
