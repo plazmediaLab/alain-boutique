@@ -5,4 +5,23 @@
 /* Agregue cualquier estilo global aquí */
 body{
     font-family: 'Noto Sans JP', sans-serif;
+    height: 100vh;
+}
+#___gatsby,
+#gatsby-focus-wrapper{
+    min-height: 100vh;
+}
+
+.btn-login{
+    transition: all .3s ease-in-out;
+    background: linear-gradient(180deg, #E8EEFB 0%, #E2E7EE 0.01%, rgba(255, 255, 255, 0) 100%), #ECF0F3;
+    box-shadow: 7px 7px 15px #D1D9E6, -10px -10px 15px #FFFFFF;
+    border-radius: 10px;
+    @apply w-16 h-16 flex justify-center items-center
+}
+.btn-login:hover{
+    background: linear-gradient(180deg, #FFFFFF 0%, #E2E7EE 100%), #ECF0F3;
+}
+.btn-login:active{
+    box-shadow: inset 7px 7px 15px #D1D9E6, inset -10px -10px 15px #FFFFFF;
 }

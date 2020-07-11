@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 // Context (State)
 import UserState from './src/context/user/UserState';
 

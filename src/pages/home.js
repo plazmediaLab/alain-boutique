@@ -21,6 +21,7 @@ export default function Home(){
         getUser(res); 
       })
     }
+    //eslint-disable-next-line
   }, [/* dependencia */]);
 
   return (
