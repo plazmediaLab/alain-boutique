@@ -1,19 +1,19 @@
 import React, { useEffect } from "react"
+import { Link } from 'gatsby';
 // Custom Hooks
-import useAuthUser from '../hooks/useAuthUser';
 import useStatusAuth from '../hooks/useStatusAuth';
 // Images
 import isotype from '../images/isotype.svg'
-import G from '../images/G-google-icon.svg'
-import F from '../images/F-facebook-icon.svg'
-import PlazmediaLogo from '../images/plazmedia-logo-ligth.svg'
+//Styles Components
+import { MainContainer } from '../components/Styled Components/index';
 // Components
 import Layout from "../components/layout";
-
+import ButtonsLoginGF from "../components/login/buttons-login-gf";
+import FromLogin from "../components/login/form-login";
+import FooterIndex from "../components/footer-index";
 
 export default function Home() {
 
-  const [ status, Login ] = useAuthUser();
   const [ statusAuth ] = useStatusAuth();
 
   useEffect(() => {
@@ -26,35 +26,24 @@ export default function Home() {
       {localStorage.getItem('token-user') ? null :
       (
         <Layout>
-          <section className="flex flex-col justify-center items-center bg-background relative min-h-screen">
-            <img src={ isotype } alt="isotype" className="w-40 h-40"/>
-            <h1 className="text-3xl font-semibold text-carbon-500">Alain Boutique</h1>
+          <MainContainer>
+            <img src={ isotype } alt="isotype" className="w-32 h-32 sm:w-40 sm:h-40"/>
+            <h1 className="text-2xl font-semibold text-carbon-500 sm:text-3xl">Alain Boutique</h1>
             <p className="text-carbon-200 text-sm">Sales manager 1.0.0</p>
-            <p className="text-p_blue-500 mt-12 mb-6">Login with</p>
-            <aside className="flex mb-20">
-              <button
-                className="btn-login mr-8"
-                type="button"
-                onClick={ Login }
-              >
-                <img src={ G } alt="Google iso"/>
-              </button>
-              <button
-                className="btn-login ml-8"
-                type="button"
-                // onClick={ }
-              >
-                <img src={ F } alt="Google iso"/>
-              </button>
-            </aside>
-            <footer className="flex justify-center items-center absolute bottom-0 mb-5">
-              <p className="text-carbon-200 text-sm">Created by</p>&nbsp;&nbsp;
-              <img src={ PlazmediaLogo } alt="Plazmedia imagotype"/>
-            </footer>
-          </section>
+
+            <ButtonsLoginGF />
+
+            <FromLogin />
+
+            <hr className="mb-4 border-carbon-100 w-full sm:w-64"/>
+            <p className="text-xs text-carbon-200 w-64 text-center">
+              Si no cuentas con una cuenta activa, puedes <Link to="/sign-up" className="text-p_blue-500">registrarte con tu corre</Link>
+            </p>
+
+            <FooterIndex />
+          </MainContainer>
         </Layout>
       )}
-      { status ? <h1>Loading...</h1> : null }
     </>
   )
 }

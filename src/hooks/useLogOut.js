@@ -13,8 +13,8 @@ export default function useLogOut(){
     firebase.auth().signOut().then(() => {
       localStorage.removeItem('token-user');
       logOut();
+      navigate('/');
     })
-    navigate('/');
   };
   
   return [ LogOut ];
