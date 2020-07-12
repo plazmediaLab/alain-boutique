@@ -9,7 +9,7 @@ import { MainContainer } from '../components/Styled Components/index';
 // Components
 import Layout from "../components/layout";
 import ButtonsLoginGF from "../components/login/buttons-login-gf";
-import FromLogin from "../components/login/form-login";
+import FormLogin from "../components/login/form-login";
 import FooterIndex from "../components/footer-index";
 
 export default function Home() {
@@ -33,7 +33,7 @@ export default function Home() {
 
             <ButtonsLoginGF />
 
-            <FromLogin />
+            <FormLogin />
 
             <hr className="mb-4 border-carbon-100 w-full sm:w-64"/>
             <p className="text-xs text-carbon-200 w-64 text-center">
