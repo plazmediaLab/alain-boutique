@@ -3,6 +3,8 @@ import UserContext from '../context/user/UserContext';
 import { navigate, Link } from 'gatsby';
 import { Router } from '@reach/router';
 import firebase from '../utils/firebase';
+// Images 
+import PerfilDefaultImage from '../images/perfil-default-img.png'
 // Custom Hooks
 import useLogOut from '../hooks/useLogOut';
 // Components
@@ -36,7 +38,7 @@ export default function App(){
         <Layout>
           <div className="flex justify-between items-center">
             <div className="p-2 flex items-center">
-              <img src={user.photoURL} alt="Avatar Google" className="w-10 h-10 rounded-full mr-2"/>
+              <img src={user.photoURL ? user.photoURL : PerfilDefaultImage} alt="Avatar Google" className="w-10 h-10 rounded-full mr-2"/>
               <p>{user.email}</p>
             </div>
             <button 
