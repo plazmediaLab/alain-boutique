@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Link } from 'gatsby';
-// Custom Hooks
-import useStatusAuth from '../hooks/useStatusAuth';
+import UserContext from '../context/user/UserContext';
 //Styles Components
 import { MainContainer } from '../components/Styled Components/index';
 // Components
@@ -10,10 +9,12 @@ import FooterIndex from '../components/footer-index';
 import FormSignUp from '../components/sign-up/form-sign-up';
 
 export default function SignUp(){
-  const [ statusAuth ] = useStatusAuth();
+
+  const userContext = useContext(UserContext);
+  const { authState } = userContext;
 
   useEffect(() => {
-    statusAuth();
+    authState();
     //eslint-disable-next-line
   }, [/* dependencia */]);
 

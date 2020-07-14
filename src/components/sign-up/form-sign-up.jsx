@@ -1,62 +1,41 @@
-import React from 'react';
-import { navigate } from 'gatsby';
+import React, { useContext } from 'react';
+// Context
+import UserContext from '../../context/user/UserContext';
 // Formik 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Error from '../messages/error';
 // SweetAlert
 import Swal from 'sweetalert2';
-// firebase
-import firebase from '../../utils/firebase';
+
 
 export default function FormSignUp(){
+
+  // Context
+  const userContext = useContext(UserContext);
+  const { signOut } = userContext;
 
   // Validación de formulario
   const formik = useFormik({
     // Valores iniciales de los datos a validar
     initialValues: {
       email: '',
-      password: '',
-      password_repeat: ''
+      pass1: '',
+      pass2: ''
     },
     validationSchema: Yup.object({
       email: Yup.string().email('Introduce un correo valido').required('El correo electrónico es obligatorio'),
-      password: Yup.string().required('La contraseña es obligatoria').min(6, 'La contraseña tiene que tener al menos 6 caracteres'),
-      password_repeat: Yup.string().required('La confirmación de contraseña es obligatoria').min(6, 'La contraseña tiene que tener al menos 6 caracteres')
+      pass1: Yup.string().required('La contraseña es obligatoria').min(6, 'La contraseña tiene que tener al menos 6 caracteres'),
+      pass2: Yup.string().required('La confirmación de contraseña es obligatoria').min(6, 'La contraseña tiene que tener al menos 6 caracteres')
     }),
     onSubmit: async (val) => {
 
       // console.log(val);
-      const { email, password, password_repeat } = val;
+      const { email, pass1, pass2 } = val;
 
-      if(password === password_repeat){
+      if(pass1 === pass2){
 
-          firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
-
-            Swal.fire({
-              icon: 'success',
-              title: 'Tu registro fue exitoso',
-              showConfirmButton: false,
-              timer: 1500,
-              timerProgressBar: true,
-            })
-  
-            navigate('/');
-
-          }).catch(function(error) {
-            Swal.fire({
-              icon: 'warning',
-              text: 'La dirección de correo electrónico ya está en uso por otra cuenta.',
-              showConfirmButton: false,
-              timer: 4000,
-              timerProgressBar: true,
-              onOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-              }
-            })
-
-          });
+        signOut( email, pass1 );
 
       }else{
         Swal.fire({
@@ -99,32 +78,32 @@ export default function FormSignUp(){
         ) : null }
         <input 
           type="password"
-          name="password"
+          name="pass1"
           placeholder="Contraseña"
           className="input-form sm:w-64"
-          value={formik.values.password}
+          value={formik.values.pass1}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         />
-        { formik.touched.password && formik.errors.password ? (
+        { formik.touched.pass1 && formik.errors.pass1 ? (
           <Error 
-            message={ formik.errors.password }
+            message={ formik.errors.pass1 }
             sm_w='w-64'
             mb='mb-2'
           />
         ) : null }
         <input 
           type="password"
-          name="password_repeat"
+          name="pass2"
           placeholder="Confirma tu contraseña"
           className="input-form sm:w-64"
-          value={formik.values.password_repeat}
+          value={formik.values.pass2}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         />
-        { formik.touched.password_repeat && formik.errors.password_repeat ? (
+        { formik.touched.pass2 && formik.errors.pass2 ? (
           <Error 
-          message={ formik.errors.password_repeat }
+          message={ formik.errors.pass2 }
           sm_w='w-64'
           mb='mb-2'
         />

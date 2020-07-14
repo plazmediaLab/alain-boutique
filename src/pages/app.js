@@ -1,12 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import UserContext from '../context/user/UserContext';
-import { navigate, Link } from 'gatsby';
+import { Link } from 'gatsby';
 import { Router } from '@reach/router';
-import firebase from '../utils/firebase';
 // Images 
 import PerfilDefaultImage from '../images/perfil-default-img.png'
-// Custom Hooks
-import useLogOut from '../hooks/useLogOut';
 // Components
 import Layout from '../components/layout';
 import Home from '../components/home/home';
@@ -17,18 +14,10 @@ import NewProduct from '../components/new/new-product';
 export default function App(){
 
   const userContext = useContext(UserContext);
-  const { user, getUser } = userContext;
-
-  const [ LogOut ] = useLogOut();
+  const { user, logOut, authState } = userContext;
 
   useEffect(() => {
-    if(!localStorage.getItem('token-user')){
-      navigate('/');
-    }else{
-      firebase.auth().onAuthStateChanged(res => {
-        getUser(res); 
-      })
-    }
+    authState();
     //eslint-disable-next-line
   }, [/* dependencia */]);
 
@@ -43,7 +32,7 @@ export default function App(){
             </div>
             <button 
               className="py-2 px-4 bg-red-600 text-white text-sm rounded hover:bg-red-500 mt-3"
-              onClick={LogOut}
+              onClick={logOut}
             >
               Log Out
             </button>

@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { navigate } from 'gatsby';
 import UserContext from '../../context/user/UserContext'
 // Formik 
 import { useFormik } from 'formik';
@@ -7,14 +6,12 @@ import * as Yup from 'yup';
 import Error from '../messages/error';
 // SweetAlert
 import Swal from 'sweetalert2';
-// firebase
-import firebase from '../../utils/firebase';
 
 export default function FormLogin(){
 
   // Context
   const userContext = useContext(UserContext);
-  const { getUser } = userContext;
+  const { emailAuth } = userContext;
 
   // Validación de formulario
   const formik = useFormik({
@@ -33,27 +30,8 @@ export default function FormLogin(){
 
       if(email !== '' && password !== ''){
 
-        firebase.auth().signInWithEmailAndPassword(email, password).then(res => {
+        emailAuth(email, password);
 
-          let token = res.user.refreshToken;
-          localStorage.setItem("token-user", token);
-          // Set user info 
-          getUser(res.user);
-          navigate('/app');
-
-        }).catch(function() {
-          Swal.fire({
-            icon: 'error',
-            text: 'El correo o la contraseña son incorrectos, revisar que esten bien escritos.',
-            showConfirmButton: false,
-            timer: 4000,
-            timerProgressBar: true,
-            onOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-        });
       }else{
         Swal.fire({
           icon: 'warning',

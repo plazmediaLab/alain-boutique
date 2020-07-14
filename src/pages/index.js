@@ -1,7 +1,7 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useContext } from "react"
 import { Link } from 'gatsby';
-// Custom Hooks
-import useStatusAuth from '../hooks/useStatusAuth';
+// Context 
+import UserContext from '../context/user/UserContext';
 // Images
 import isotype from '../images/isotype.svg'
 //Styles Components
@@ -12,12 +12,13 @@ import ButtonsLoginGF from "../components/login/buttons-login-gf";
 import FormLogin from "../components/login/form-login";
 import FooterIndex from "../components/footer-index";
 
-export default function Home() {
+export default function Home(props) {
 
-  const [ statusAuth ] = useStatusAuth();
+  const userContext = useContext(UserContext);
+  const { authState } = userContext;
 
   useEffect(() => {
-    statusAuth();
+    authState();
     //eslint-disable-next-line
   }, [/* dependencia */]);
 

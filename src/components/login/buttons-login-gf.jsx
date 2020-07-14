@@ -1,14 +1,15 @@
-import React from 'react';
-// Custom Hooks
-import useAuth from '../../hooks/useAuth';
+import React, { useContext } from 'react';
+// Context
+import UserContext from '../../context/user/UserContext';
 // Images
 import G from '../../images/G-google-icon.svg'
 import F from '../../images/F-facebook-icon.svg'
 
 export default function ButtonsLoginGF(){
 
-  // Custom Hokks
-  const [ status, Login ] = useAuth();
+  // Context
+  const userContext = useContext(UserContext);
+  const { googleAuth } = userContext;  
 
   return (
     <>
@@ -17,7 +18,7 @@ export default function ButtonsLoginGF(){
         <button
           className="btn-login mr-8"
           type="button"
-          onClick={ Login }
+          onClick={ googleAuth }
         >
           <img src={ G } alt="Google iso"/>
         </button>
@@ -29,7 +30,7 @@ export default function ButtonsLoginGF(){
           <img src={ F } alt="Google iso"/>
         </button>
       </section>
-      { status ? <h1>Loading...</h1> : null }
+      {/* { status ? <h1>Loading...</h1> : null } */}
     </>
   );
 };
