@@ -17,7 +17,7 @@ body{
     background: linear-gradient(180deg, #E8EEFB 0%, #E2E7EE 0.01%, rgba(255, 255, 255, 0) 100%), #ECF0F3;
     box-shadow: 7px 7px 15px #D1D9E6, -10px -10px 15px #FFFFFF;
     border-radius: 10px;
-    @apply w-16 h-16 flex justify-center items-center
+    @apply w-24 h-12 flex justify-center items-center
 }
 .btn-login:hover{
     background: linear-gradient(180deg, #FFFFFF 0%, #E2E7EE 100%), #ECF0F3;

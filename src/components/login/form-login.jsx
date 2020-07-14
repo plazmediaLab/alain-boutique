@@ -1,17 +1,16 @@
-import React, { useContext } from 'react';
-import UserContext from '../../context/user/UserContext'
+import React from 'react';
 // Formik 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Error from '../messages/error';
 // SweetAlert
 import Swal from 'sweetalert2';
+// Custom Hooks
+import useAuthMethods from '../../hooks/useAuthMethods';
 
 export default function FormLogin(){
 
-  // Context
-  const userContext = useContext(UserContext);
-  const { emailAuth } = userContext;
+  const { emailAuth } = useAuthMethods();
 
   // Validación de formulario
   const formik = useFormik({

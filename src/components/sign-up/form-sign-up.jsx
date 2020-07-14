@@ -1,19 +1,16 @@
-import React, { useContext } from 'react';
-// Context
-import UserContext from '../../context/user/UserContext';
+import React from 'react';
 // Formik 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Error from '../messages/error';
 // SweetAlert
 import Swal from 'sweetalert2';
-
+// Custom Hooks
+import useAuthMethods from '../../hooks/useAuthMethods';
 
 export default function FormSignUp(){
 
-  // Context
-  const userContext = useContext(UserContext);
-  const { signOut } = userContext;
+  const { signUp } = useAuthMethods();
 
   // Validación de formulario
   const formik = useFormik({
@@ -35,7 +32,7 @@ export default function FormSignUp(){
 
       if(pass1 === pass2){
 
-        signOut( email, pass1 );
+        signUp( email, pass1 );
 
       }else{
         Swal.fire({

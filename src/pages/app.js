@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from 'react';
-import UserContext from '../context/user/UserContext';
+import React, { useEffect, useContext } from 'react';
 import { Link } from 'gatsby';
 import { Router } from '@reach/router';
+import UserContext from '../context/user/UserContext';
 // Images 
 import PerfilDefaultImage from '../images/perfil-default-img.png'
 // Components
@@ -10,11 +10,15 @@ import Home from '../components/home/home';
 import Sales from '../components/sales/sales';
 import Sumary from '../components/sumary/sumary';
 import NewProduct from '../components/new/new-product';
+// Custom Hooks
+import useAuthMethods from '../hooks/useAuthMethods';
 
 export default function App(){
 
+  const { authState, logOut } = useAuthMethods();
+
   const userContext = useContext(UserContext);
-  const { user, logOut, authState } = userContext;
+  const { user } = userContext;
 
   useEffect(() => {
     authState();
