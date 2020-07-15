@@ -45,7 +45,7 @@ export default function App({ location }){
           </div>
 
           <Router>
-            <Home path="/app"/>
+            <Home path="/app" title={ 'Inicio' }/>
             <Sales path="/app/sales"/>
             <Sumary path="/app/sumary"/>
             <NewProduct path="/app/new"/>

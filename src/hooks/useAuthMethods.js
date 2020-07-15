@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import UserContext from '../context/user/UserContext';
 import { useNavigate } from '@reach/router';
 // Firebase
-import firebase from '../utils/firebase';
+import { auth, authProvider } from '../utils/firebase';
 // SweetAlert
 import Swal from 'sweetalert2';
 
@@ -20,7 +20,7 @@ export default function useAuthMethods(){
 
   // Registro de usuario
   const signUp = (email, pass) => {
-    firebase.auth().createUserWithEmailAndPassword(email, pass).then(res => {
+    auth.createUserWithEmailAndPassword(email, pass).then(res => {
 
       console.log(res);
       Swal.fire({
@@ -49,7 +49,7 @@ export default function useAuthMethods(){
   };
   // Autenticación por correo electrónico
   const emailAuth = (email, pass) => {
-    firebase.auth().signInWithEmailAndPassword(email, pass).then((res) => {
+    auth.signInWithEmailAndPassword(email, pass).then((res) => {
 
       // Set token in LocalStorage
       localStorage.setItem("token-user", res.user.refreshToken);
@@ -81,8 +81,8 @@ export default function useAuthMethods(){
   };
   // Autenticación con Google
   const googleAuth = () => {
-    let provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider).then(res => {
+    
+    auth.signInWithPopup(authProvider).then(res => {
       
       // Set token in LocalStorage
       localStorage.setItem("token-user", res.user.refreshToken);
@@ -103,14 +103,14 @@ export default function useAuthMethods(){
     })
   };
   const logOut = () => {
-    firebase.auth().signOut().then(() => {
+    auth.signOut().then(() => {
       localStorage.removeItem("token-user");
       logOutMethod()
       push('/');
     });
   };
   const authState = () => {
-    firebase.auth().onAuthStateChanged( user => {
+    auth.onAuthStateChanged( user => {
 
       if(user) {
         // Set token in LocalStorage
