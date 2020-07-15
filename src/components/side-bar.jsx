@@ -7,7 +7,7 @@ const NavLink = props => {
     {...props}
     getProps={({ isCurrent }) => {
         return {
-          className: isCurrent ? "text-p_blue-500 bg-gray-200 p-1" : "text-bluegray-300 p-1" 
+          className: isCurrent ? "text-p_blue-500 p-1" : "text-bluegray-300 p-1" 
         };
       }}
     />

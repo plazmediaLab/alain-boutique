@@ -1,19 +1,18 @@
 import React, { useEffect, useContext } from 'react';
 import { Router } from '@reach/router';
 import UserContext from '../context/user/UserContext';
-// Images 
-import PerfilDefaultImage from '../images/perfil-default-img.png';
+// Custom Hooks
+import useAuthMethods from '../hooks/useAuthMethods';
 // Components
 import Layout from '../components/layout';
 import Home from '../components/home/home';
 import Sales from '../components/sales/sales';
 import Sumary from '../components/sumary/sumary';
 import NewProduct from '../components/new/new-product';
-// Custom Hooks
-import useAuthMethods from '../hooks/useAuthMethods';
-import SideBar from '../components/home/side-bar';
+import SideBar from '../components/side-bar';
+import Header from '../components/header';
 
-export default function App(){
+export default function App({ location }){
 
   const { authState, logOut } = useAuthMethods();
 
@@ -29,9 +28,12 @@ export default function App(){
     <>
       {user ? (
         <Layout>
+
+          <Header location={ location.pathname } photo={ user.photo }/>
+
           <div className="flex justify-between items-center">
             <div className="p-2 flex items-center">
-              <img src={user.photoURL ? user.photoURL : PerfilDefaultImage} alt="Avatar Google" className="w-10 h-10 rounded-full mr-2"/>
+              {/* <img src={user.photo ? user.photo : PerfilDefaultImage} alt="Avatar Google" className="w-10 h-10 rounded-full mr-2"/> */}
               <p>{user.email}</p>
             </div>
             <button 
@@ -48,6 +50,7 @@ export default function App(){
             <Sumary path="/app/sumary"/>
             <NewProduct path="/app/new"/>
           </Router>
+
           <SideBar />
         </Layout>
       ) : null}

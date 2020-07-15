@@ -31,7 +31,14 @@ body{
 .input-form:focus{
     @apply outline-none shadow-outline
 }
-
+/* ---------------------------- */
+/* Header */
+/* --------ˇˇˇˇˇˇˇˇˇˇˇˇ-------- */
+.header{
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    @apply col-gap-2 items-center text-carbon-500 px-3 py-1 bg-transparent
+}
 /* ---------------------------- */
 /* Menu container */
 /* --------ˇˇˇˇˇˇˇˇˇˇˇˇ-------- */
