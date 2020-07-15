@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import UserContext from '../context/user/UserContext';
 import { useNavigate } from '@reach/router';
 // Firebase
-import { auth, authProvider } from '../utils/firebase';
+import { auth, googleProvider, facebookProvier } from '../utils/firebase';
 // SweetAlert
 import Swal from 'sweetalert2';
 
@@ -82,7 +82,7 @@ export default function useAuthMethods(){
   // Autenticación con Google
   const googleAuth = () => {
     
-    auth.signInWithPopup(authProvider).then(res => {
+    auth.signInWithPopup(googleProvider).then(res => {
       
       // Set token in LocalStorage
       localStorage.setItem("token-user", res.user.refreshToken);
@@ -102,6 +102,15 @@ export default function useAuthMethods(){
       console.log(err);
     })
   };
+  // Autenticación con Facebook
+  const facebookAuth = () => {
+    auth.signInWithPopup(facebookProvier).then(res => {
+      // console.log(res);
+    }).catch(error => {
+      console.log(error);
+    })
+  };
+  // Cerrar sesión
   const logOut = () => {
     auth.signOut().then(() => {
       localStorage.removeItem("token-user");
@@ -109,6 +118,7 @@ export default function useAuthMethods(){
       push('/');
     });
   };
+  // Estado de usuario auteticado
   const authState = () => {
     auth.onAuthStateChanged( user => {
 
@@ -139,6 +149,7 @@ export default function useAuthMethods(){
     signUp,
     emailAuth,
     googleAuth,
+    facebookAuth,
     logOut,
     authState
   };

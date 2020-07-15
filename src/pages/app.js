@@ -16,6 +16,8 @@ import Editproduct from '../components/edit/edit-product';
 
 export default function App({ location }){
 
+  const uid = 'NV2BByha5jWLIe38zdR1wmCMW4z1'
+
   const { authState, logOut } = useAuthMethods();
 
   const userContext = useContext(UserContext);
@@ -45,7 +47,7 @@ export default function App({ location }){
               Log Out
             </button>
           </div>
-          <Link to="/app/edit/001564dfd4s61f5s1d00151dfs">Editar producto</Link>
+          <Link to={`/app/edit/${ uid }`}>Editar producto</Link>
 
           <Router>
             <Home path="/app"/>

@@ -7,7 +7,7 @@ import useAuthMethods from '../../hooks/useAuthMethods';
 
 export default function ButtonsLoginGF(){
  
-  const { googleAuth } = useAuthMethods();
+  const { googleAuth, facebookAuth } = useAuthMethods();
 
   return (
     <>
@@ -23,7 +23,7 @@ export default function ButtonsLoginGF(){
         <button
           className="btn-login ml-8"
           type="button"
-          // onClick={ }
+          onClick={ () => facebookAuth() }
         >
           <img src={ F } alt="Google iso" className="h-6"/>
         </button>

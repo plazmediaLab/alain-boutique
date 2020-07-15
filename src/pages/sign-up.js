@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'gatsby';
+import { Link, navigate } from 'gatsby';
 //Styles Components
 import { MainContainer } from '../components/Styled Components/index';
 // Components
@@ -11,7 +11,7 @@ export default function SignUp(){
 
   return(
     <>
-      {localStorage.getItem('token-user') ? null :
+      {localStorage.getItem('token-user') ? navigate('/') :
       (
         <Layout>
           <MainContainer>
