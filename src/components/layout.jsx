@@ -5,7 +5,7 @@ export default function Layout({ children }){
   return (
       <>
         <Seo/>
-        <main className="min-h-screen">
+        <main className="min-h-screen relative bg-background">
           { children }
         </main>
       </>

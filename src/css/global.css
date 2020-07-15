@@ -31,3 +31,22 @@ body{
 .input-form:focus{
     @apply outline-none shadow-outline
 }
+
+/* ---------------------------- */
+/* Menu container */
+/* --------ˇˇˇˇˇˇˇˇˇˇˇˇ-------- */
+.menu-container{
+    background: #FFFFFF;
+    box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.03), 0px 2px 4px rgba(0, 0, 0, 0.4);
+    @apply absolute bottom-0 w-full px-5 py-2
+}
+.btn-add{
+    box-shadow: 0px 3px 8px rgba(100, 140, 225, 0.7);
+    @apply bg-p_blue-500 text-white rounded-full p-1
+}
+.btn-add:hover{
+    @apply bg-p_blue-400
+}
+.btn-add:active{
+    box-shadow: none;
+}

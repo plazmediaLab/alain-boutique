@@ -1,9 +1,8 @@
 import React, { useEffect, useContext } from 'react';
-import { Link } from 'gatsby';
 import { Router } from '@reach/router';
 import UserContext from '../context/user/UserContext';
 // Images 
-import PerfilDefaultImage from '../images/perfil-default-img.png'
+import PerfilDefaultImage from '../images/perfil-default-img.png';
 // Components
 import Layout from '../components/layout';
 import Home from '../components/home/home';
@@ -12,6 +11,7 @@ import Sumary from '../components/sumary/sumary';
 import NewProduct from '../components/new/new-product';
 // Custom Hooks
 import useAuthMethods from '../hooks/useAuthMethods';
+import SideBar from '../components/home/side-bar';
 
 export default function App(){
 
@@ -41,19 +41,14 @@ export default function App(){
               Log Out
             </button>
           </div>
-          <div className="flex justify-between px-5">
-            <Link to="/app">Home</Link>
-            <Link to="/app/sales">Sales</Link>
-            <Link to="/app/sumary">Sumary</Link>
-            <Link to="/app/new">Crear Lista</Link>
-          </div>
-          <hr className="my-3"/>
+
           <Router>
             <Home path="/app"/>
             <Sales path="/app/sales"/>
             <Sumary path="/app/sumary"/>
             <NewProduct path="/app/new"/>
           </Router>
+          <SideBar />
         </Layout>
       ) : null}
     </>
