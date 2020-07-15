@@ -6,7 +6,7 @@ import {
   EMAIL_AUTH,
   GOOGLE_AUTH,
   LOG_OUT,
-  AUTH_STATE
+  AUTH_STATE,
 } from '../types';
 
 
@@ -14,7 +14,8 @@ const UserState = ({ children }) => {
   
   // State de pedidos
   const initialState = {
-    user: null
+    user: null,
+    page: ''
   };
 
   const [ state, dispatch ] = useReducer(UserReducer, initialState);
@@ -51,7 +52,7 @@ const UserState = ({ children }) => {
         emailAuthMethod,
         googleAuthMethod,
         logOutMethod,
-        authStateMethod
+        authStateMethod,
       }}
     >
 

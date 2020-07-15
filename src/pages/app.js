@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { Router } from '@reach/router';
+import { Router, Link } from '@reach/router';
 import UserContext from '../context/user/UserContext';
 // Custom Hooks
 import useAuthMethods from '../hooks/useAuthMethods';
@@ -11,6 +11,8 @@ import Sumary from '../components/sumary/sumary';
 import NewProduct from '../components/new/new-product';
 import SideBar from '../components/side-bar';
 import Header from '../components/header';
+import Editproduct from '../components/edit/edit-product';
+
 
 export default function App({ location }){
 
@@ -43,12 +45,14 @@ export default function App({ location }){
               Log Out
             </button>
           </div>
+          <Link to="/app/edit/001564dfd4s61f5s1d00151dfs">Editar producto</Link>
 
           <Router>
-            <Home path="/app" title={ 'Inicio' }/>
+            <Home path="/app"/>
             <Sales path="/app/sales"/>
             <Sumary path="/app/sumary"/>
             <NewProduct path="/app/new"/>
+            <Editproduct path="/app/edit/:productID"/>
           </Router>
 
           <SideBar />

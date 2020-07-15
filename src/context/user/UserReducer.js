@@ -2,7 +2,7 @@ import {
   EMAIL_AUTH,
   GOOGLE_AUTH,
   LOG_OUT,
-  AUTH_STATE
+  AUTH_STATE,
 } from '../types';
 
 export default ( state, action ) => {
