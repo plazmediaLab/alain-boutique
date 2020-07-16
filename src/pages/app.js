@@ -3,6 +3,7 @@ import { Router, Link } from '@reach/router';
 import UserContext from '../context/user/UserContext';
 // Custom Hooks
 import useAuthMethods from '../hooks/useAuthMethods';
+import useDbMethods from '../hooks/useDbMethods';
 // Components
 import Layout from '../components/layout';
 import Home from '../components/home/home';
@@ -13,20 +14,24 @@ import SideBar from '../components/side-bar';
 import Header from '../components/header';
 import Editproduct from '../components/edit/edit-product';
 
-
 export default function App({ location }){
 
   const uid = 'NV2BByha5jWLIe38zdR1wmCMW4z1'
 
   const { authState, logOut } = useAuthMethods();
+  const { getProducts } = useDbMethods();
 
   const userContext = useContext(UserContext);
   const { user } = userContext;
 
   useEffect(() => {
+
     authState();
+    if(user){
+      getProducts(user.uid);
+    }
     //eslint-disable-next-line
-  }, [/* dependencia */]);
+  }, []);
 
   return (
     <>

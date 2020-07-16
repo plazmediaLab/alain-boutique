@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import UserContext from '../context/user/UserContext';
 import { useNavigate } from '@reach/router';
 // Firebase
-import { auth, googleProvider, facebookProvier } from '../utils/firebase';
+import { auth, db, googleProvider, facebookProvier } from '../utils/firebase';
 // SweetAlert
 import Swal from 'sweetalert2';
 
@@ -13,10 +13,37 @@ export default function useAuthMethods(){
   const { 
     emailAuthMethod,
     googleAuthMethod,
+    facebookAuthMethod,
     logOutMethod,
-    authStateMethod
+    authStateMethod,
+    getProductsState
    } = userContext;
 
+  const getProducts = collectionName => {
+    let products = [];
+    db.collection(collectionName).onSnapshot(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        // console.log(`${doc.id} => ${doc.data()}`);
+        if(products.length === 0){
+          
+        }
+        products = [
+          ...products,
+          {
+            id: doc.id,
+            name: doc.data().name,
+            value: doc.data().value,
+            price: doc.data().price,
+            comment: doc.data().comment,
+            date: doc.data().date,
+            status: doc.data().status,
+          }
+        ];
+      })
+      getProductsState(products);
+      products = [];
+    })
+  };
 
   // Registro de usuario
   const signUp = (email, pass) => {
@@ -63,6 +90,9 @@ export default function useAuthMethods(){
       }
       
       emailAuthMethod(data)
+
+      getProducts(data.uid)
+
       push('/app');
       
     }).catch(() => {
@@ -96,6 +126,9 @@ export default function useAuthMethods(){
       }
 
       googleAuthMethod(data)
+
+      getProducts(data.uid)
+
       push('/app');
 
     }).catch(err => {
@@ -105,7 +138,24 @@ export default function useAuthMethods(){
   // Autenticación con Facebook
   const facebookAuth = () => {
     auth.signInWithPopup(facebookProvier).then(res => {
-      // console.log(res);
+      
+      // Set token in LocalStorage
+      localStorage.setItem("token-user", res.user.refreshToken);
+
+      const data = {
+        name: res.user.displayName,
+        email: res.user.email,
+        uid: res.user.uid,
+        photo: res.user.photoURL,
+        token: res.user.refreshToken,
+      }
+
+      facebookAuthMethod(data)
+
+      getProducts(data.uid)
+
+      push('/app');
+
     }).catch(error => {
       console.log(error);
     })
@@ -135,6 +185,8 @@ export default function useAuthMethods(){
         }
   
         authStateMethod(data)
+
+        getProducts(data.uid)
   
         push('/app');
   

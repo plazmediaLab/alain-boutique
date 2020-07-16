@@ -5,8 +5,10 @@ import UserReducer from './UserReducer';
 import {
   EMAIL_AUTH,
   GOOGLE_AUTH,
+  FACEBOOK_AUTH,
   LOG_OUT,
   AUTH_STATE,
+  GET_PRODUCTS
 } from '../types';
 
 
@@ -15,7 +17,7 @@ const UserState = ({ children }) => {
   // State de pedidos
   const initialState = {
     user: null,
-    page: ''
+    products: null
   };
 
   const [ state, dispatch ] = useReducer(UserReducer, initialState);
@@ -33,6 +35,12 @@ const UserState = ({ children }) => {
       payload: data
     })
   };
+  const facebookAuthMethod = data => {
+    dispatch({
+      type: FACEBOOK_AUTH,
+      payload: data
+    })
+  };
   const logOutMethod = () => {
     dispatch({
       type: LOG_OUT
@@ -44,15 +52,24 @@ const UserState = ({ children }) => {
       payload: data
     })
   }
+  const getProductsState = data => {
+    dispatch({
+      type: GET_PRODUCTS,
+      payload: data
+    })
+  };
   
   return (
     <UserContext.Provider
       value={{
         user: state.user,
+        products: state.products,
         emailAuthMethod,
         googleAuthMethod,
+        facebookAuthMethod,
         logOutMethod,
         authStateMethod,
+        getProductsState
       }}
     >
 
