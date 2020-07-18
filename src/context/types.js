@@ -3,5 +3,3 @@ export const GOOGLE_AUTH = 'GOOGLE_AUTH';
 export const FACEBOOK_AUTH = 'FACEBOOK_AUTH';
 export const LOG_OUT = 'LOG_OUT';
 export const AUTH_STATE = 'AUTH_STATE';
-
-export const GET_PRODUCTS = 'GET_PRODUCTS';

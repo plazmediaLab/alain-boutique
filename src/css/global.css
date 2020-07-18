@@ -31,6 +31,9 @@ body{
 .input-form:focus{
     @apply outline-none shadow-outline
 }
+.label-form{
+    @apply text-xs text-p_blue-200 inline-block
+}
 /* ---------------------------- */
 /* Header */
 /* --------ˇˇˇˇˇˇˇˇˇˇˇˇ-------- */
@@ -45,7 +48,7 @@ body{
 .menu-container{
     background: #FFFFFF;
     box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.03), 0px 2px 4px rgba(0, 0, 0, 0.4);
-    @apply absolute bottom-0 w-full px-5 py-2
+    @apply w-full px-5 py-2
 }
 .btn-add{
     box-shadow: 0px 3px 8px rgba(100, 140, 225, 0.7);

@@ -3,7 +3,6 @@ import { Router, Link } from '@reach/router';
 import UserContext from '../context/user/UserContext';
 // Custom Hooks
 import useAuthMethods from '../hooks/useAuthMethods';
-import useDbMethods from '../hooks/useDbMethods';
 // Components
 import Layout from '../components/layout';
 import Home from '../components/home/home';
@@ -19,7 +18,6 @@ export default function App({ location }){
   const uid = 'NV2BByha5jWLIe38zdR1wmCMW4z1'
 
   const { authState, logOut } = useAuthMethods();
-  const { getProducts } = useDbMethods();
 
   const userContext = useContext(UserContext);
   const { user } = userContext;
@@ -27,9 +25,6 @@ export default function App({ location }){
   useEffect(() => {
 
     authState();
-    if(user){
-      getProducts(user.uid);
-    }
     //eslint-disable-next-line
   }, []);
 
@@ -54,15 +49,20 @@ export default function App({ location }){
           </div>
           <Link to={`/app/edit/${ uid }`}>Editar producto</Link>
 
-          <Router>
-            <Home path="/app"/>
-            <Sales path="/app/sales"/>
-            <Sumary path="/app/sumary"/>
-            <NewProduct path="/app/new"/>
-            <Editproduct path="/app/edit/:productID"/>
-          </Router>
+          <div className="px-3">
+            <Router>
+              <Home path="/app"/>
+              <Sales path="/app/sales"/>
+              <Sumary path="/app/sumary"/>
+              <NewProduct path="/app/new"/>
+              <Editproduct path="/app/edit/:productID"/>
+            </Router>
+          </div>
 
           <SideBar />
+
+          <div className="block w-full h-20"/>
+
         </Layout>
       ) : null}
     </>

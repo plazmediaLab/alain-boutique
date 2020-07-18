@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import UserContext from '../context/user/UserContext';
 import { useNavigate } from '@reach/router';
 // Firebase
-import { auth, db, googleProvider, facebookProvier } from '../utils/firebase';
+import { auth, googleProvider, facebookProvier } from '../utils/firebase';
 // SweetAlert
 import Swal from 'sweetalert2';
 
@@ -10,40 +10,13 @@ export default function useAuthMethods(){
   const push = useNavigate()
 
   const userContext = useContext(UserContext);
-  const { 
+  const {
     emailAuthMethod,
     googleAuthMethod,
     facebookAuthMethod,
     logOutMethod,
     authStateMethod,
-    getProductsState
    } = userContext;
-
-  const getProducts = collectionName => {
-    let products = [];
-    db.collection(collectionName).onSnapshot(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        // console.log(`${doc.id} => ${doc.data()}`);
-        if(products.length === 0){
-          
-        }
-        products = [
-          ...products,
-          {
-            id: doc.id,
-            name: doc.data().name,
-            value: doc.data().value,
-            price: doc.data().price,
-            comment: doc.data().comment,
-            date: doc.data().date,
-            status: doc.data().status,
-          }
-        ];
-      })
-      getProductsState(products);
-      products = [];
-    })
-  };
 
   // Registro de usuario
   const signUp = (email, pass) => {
@@ -91,8 +64,6 @@ export default function useAuthMethods(){
       
       emailAuthMethod(data)
 
-      getProducts(data.uid)
-
       push('/app');
       
     }).catch(() => {
@@ -127,8 +98,6 @@ export default function useAuthMethods(){
 
       googleAuthMethod(data)
 
-      getProducts(data.uid)
-
       push('/app');
 
     }).catch(err => {
@@ -151,8 +120,6 @@ export default function useAuthMethods(){
       }
 
       facebookAuthMethod(data)
-
-      getProducts(data.uid)
 
       push('/app');
 
@@ -185,8 +152,6 @@ export default function useAuthMethods(){
         }
   
         authStateMethod(data)
-
-        getProducts(data.uid)
   
         push('/app');
   

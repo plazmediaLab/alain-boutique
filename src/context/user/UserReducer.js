@@ -4,7 +4,6 @@ import {
   FACEBOOK_AUTH,
   LOG_OUT,
   AUTH_STATE,
-  GET_PRODUCTS
 } from '../types';
 
 export default ( state, action ) => {
@@ -33,11 +32,6 @@ export default ( state, action ) => {
       return{
         ...state,
         user: action.payload
-      }
-    case GET_PRODUCTS:
-      return{
-        ...state,
-        products: action.payload
       }
   
     default:
