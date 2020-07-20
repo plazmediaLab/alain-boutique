@@ -5,10 +5,13 @@ import { useNavigate } from '@reach/router';
 import { auth, googleProvider, facebookProvier } from '../utils/firebase';
 // SweetAlert
 import Swal from 'sweetalert2';
+import useDbMethods from './useDbMethods';
 
 export default function useAuthMethods(){
+
   const push = useNavigate()
 
+  
   const userContext = useContext(UserContext);
   const {
     emailAuthMethod,
@@ -16,8 +19,10 @@ export default function useAuthMethods(){
     facebookAuthMethod,
     logOutMethod,
     authStateMethod,
-   } = userContext;
+  } = userContext;
 
+  const { init, getProducts } = useDbMethods();
+  
   // Registro de usuario
   const signUp = (email, pass) => {
     auth.createUserWithEmailAndPassword(email, pass).then(res => {
@@ -96,7 +101,9 @@ export default function useAuthMethods(){
         token: res.user.refreshToken,
       }
 
-      googleAuthMethod(data)
+      googleAuthMethod(data);
+
+      init(res.user.uid);
 
       push('/app');
 
@@ -119,7 +126,9 @@ export default function useAuthMethods(){
         token: res.user.refreshToken,
       }
 
-      facebookAuthMethod(data)
+      facebookAuthMethod(data);
+
+      init(res.user.uid);
 
       push('/app');
 
@@ -152,6 +161,8 @@ export default function useAuthMethods(){
         }
   
         authStateMethod(data)
+
+        getProducts(user.uid);
   
         push('/app');
   

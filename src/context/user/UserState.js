@@ -3,11 +3,13 @@ import UserContext from './UserContext';
 import UserReducer from './UserReducer';
 
 import {
+  NEW_USER,
   EMAIL_AUTH,
   GOOGLE_AUTH,
   FACEBOOK_AUTH,
   LOG_OUT,
   AUTH_STATE,
+  GET_PRODUCTS
 } from '../types';
 
 
@@ -16,10 +18,18 @@ const UserState = ({ children }) => {
   // State de pedidos
   const initialState = {
     user: null,
+    products: [],
+    newuser: false
   };
 
   const [ state, dispatch ] = useReducer(UserReducer, initialState);
 
+  // User 
+  const newUser = () => {
+    dispatch({
+      type: NEW_USER
+    })
+  };
   // Metodos de autenticación
   const emailAuthMethod = data => {
     dispatch({
@@ -50,16 +60,27 @@ const UserState = ({ children }) => {
       payload: data
     })
   }
+  // Products
+  const getProductsMethod = data => {
+    dispatch({
+      type: GET_PRODUCTS,
+      payload: data
+    })
+  };
   
   return (
     <UserContext.Provider
       value={{
         user: state.user,
+        newuser: state.newuser,
+        products: state.products,
+        newUser,
         emailAuthMethod,
         googleAuthMethod,
         facebookAuthMethod,
         logOutMethod,
         authStateMethod,
+        getProductsMethod
       }}
     >
 

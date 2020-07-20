@@ -5,7 +5,59 @@ import { db } from '../utils/firebase';
 export default function useDbMethods(){
 
   const userContext = useContext(UserContext);
-  const { groups } = userContext;
+  const { newUser, user, groups, getProductsMethod } = userContext;
+
+  const productsDoc = 'products';
+  const subCollection = 'items';
+  
+  // Usuario nuevo, primer registro de prueba
+  const init = collectionName => {
+    let collectionRef = db.collection(collectionName);
+
+    collectionRef
+    .doc(productsDoc)
+    .collection(subCollection)
+    .get()
+    .then(snapshot => {
+      if(snapshot.empty){
+        collectionRef.doc(productsDoc).collection(subCollection).add({
+          id: "1819222020",
+          name: "Plazmedia initial product test",
+          value: 18,
+          price: 22,
+          date: new Date(),
+          comment: "This is an initial info test to how add one item on your product list",
+          group: "Sister's clothes",
+          status: "STOCK",
+          init: true
+        })
+      }
+    });
+
+  };
+  const getProducts = collectionName => {
+    let collectionRef = db.collection(collectionName);
+
+    collectionRef
+    .doc(productsDoc)
+    .collection(subCollection)
+    .onSnapshot(snapshot => {
+      let products = []
+      snapshot.forEach(a => {
+        products = [...products, {
+          id: a.id,
+          name: a.data().name,
+          name: a.data().value,
+          price: a.data().price,
+          date: a.data().date,
+          comment: a.data().comment,
+          group: a.data().group,
+          init: a.data().init,
+        }]
+      })
+      getProductsMethod(products);
+    });
+  };
 
     // db.collection(docID).doc("groups").set({"name": [
     //   "evan",
@@ -60,15 +112,9 @@ export default function useDbMethods(){
     //   getProductsState(products);
     //   products = [];
     // })
-    const addGroup = (userID, name) => {
-      const newArray = [...groups, name]
-      console.log(newArray);
-      console.log(userID);
-      
-      db.collection(userID).doc("groups").set({newArray});
-    };
 
   return {
-    addGroup
+    init,
+    getProducts
   };
 };
