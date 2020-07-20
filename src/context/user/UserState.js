@@ -3,7 +3,6 @@ import UserContext from './UserContext';
 import UserReducer from './UserReducer';
 
 import {
-  NEW_USER,
   EMAIL_AUTH,
   GOOGLE_AUTH,
   FACEBOOK_AUTH,
@@ -19,17 +18,10 @@ const UserState = ({ children }) => {
   const initialState = {
     user: null,
     products: [],
-    newuser: false
   };
 
   const [ state, dispatch ] = useReducer(UserReducer, initialState);
 
-  // User 
-  const newUser = () => {
-    dispatch({
-      type: NEW_USER
-    })
-  };
   // Metodos de autenticación
   const emailAuthMethod = data => {
     dispatch({
@@ -72,9 +64,7 @@ const UserState = ({ children }) => {
     <UserContext.Provider
       value={{
         user: state.user,
-        newuser: state.newuser,
         products: state.products,
-        newUser,
         emailAuthMethod,
         googleAuthMethod,
         facebookAuthMethod,

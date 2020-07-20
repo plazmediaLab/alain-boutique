@@ -1,5 +1,3 @@
-export const NEW_USER = 'NEW_USER';
-
 export const EMAIL_AUTH = 'EMAIL_AUTH';
 export const GOOGLE_AUTH = 'GOOGLE_AUTH';
 export const FACEBOOK_AUTH = 'FACEBOOK_AUTH';
