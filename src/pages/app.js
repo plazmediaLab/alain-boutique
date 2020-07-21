@@ -47,7 +47,7 @@ export default function App({ location }){
               Log Out
             </button>
           </div>
-          <Link to={`/app/edit/${ uid }`}>Editar producto</Link>
+          {/* <Link to={`/app/edit/${ uid }`}>Editar producto</Link> */}
 
           <div className="px-3">
             <Router>

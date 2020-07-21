@@ -60,3 +60,9 @@ body{
 .btn-add:active{
     box-shadow: none;
 }
+/* ---------------------------- */
+/* Details & Summary */
+/* --------ˇˇˇˇˇˇˇˇˇˇˇˇ-------- */
+summary::-webkit-details-marker{
+    display: none
+}
