@@ -5,7 +5,7 @@ import { db } from '../utils/firebase';
 export default function useDbMethods(){
 
   const userContext = useContext(UserContext);
-  const { getProductsMethod } = userContext;
+  const { user,products , getProductsMethod } = userContext;
 
   const productsDoc = 'products';
   const userDoc = 'user';
@@ -70,8 +70,20 @@ export default function useDbMethods(){
     });
   };
 
+  const activateSale = producId => {
+    let productDocRef = db.collection(user.uid).doc(productsDoc).collection(subCollection);
+    productDocRef.get().then(snapshot => {
+      snapshot.forEach(a => console.log(a.data()));
+    })
+
+    console.log(products);
+
+    console.log(producId)
+  };
+
   return {
     init,
-    getProducts
+    getProducts,
+    activateSale
   };
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import 'moment/locale/es';
+import useDbMethods from '../../hooks/useDbMethods';
 
 export default function ItemsSales({ products }){
 
@@ -10,9 +11,10 @@ export default function ItemsSales({ products }){
     minimumFractionDigits: 0
   });
   const statusActive = (status) => {
-    console.log(status);
     return status === 'ACTIVE' ? 'text-yellow-500' : 'text-bluegray-300'
   };
+
+  const { activateSale } = useDbMethods();
 
   return (
     <ul>
@@ -51,6 +53,7 @@ export default function ItemsSales({ products }){
                   >Editar</button>
                   <button
                     className="btn-gen text-p_blue-500"
+                    onClick={ () => activateSale(item.id) }
                   >En venta</button>
                 </section>
               </div>
