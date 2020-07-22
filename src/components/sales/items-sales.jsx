@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import moment from 'moment';
 import 'moment/locale/es';
 
@@ -10,21 +10,15 @@ export default function ItemsSales({ products }){
     minimumFractionDigits: 0
   });
   const statusActive = (status) => {
+    console.log(status);
     return status === 'ACTIVE' ? 'text-yellow-500' : 'text-bluegray-300'
   };
-  
-  useEffect(() => {
-    if(products.length > 0){
-      const formatted = moment.utc(products[0].date.seconds*1000).fromNow();
-      console.log(formatted);
-    }
-  }, [/* dependencia */]);
 
   return (
     <ul>
       { products.map( item => (
           <details key={ item.id }>
-            <summary className="flex items-center py-2 cursor-pointer">
+            <summary className="flex items-center p-2 cursor-pointer bg-white shadow-md">
               <svg className={`w-4 h-4 mr-2 ${statusActive(item.status)}`} fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd"></path></svg>
               <h2 className="flex-1 text-xl font-light text-carbon-500 pr-2">{ item.name }</h2>
               <p className="flex items-center bg-teal-500 text-white rounded-full pl-1 pr-2" title="valor">
@@ -35,10 +29,31 @@ export default function ItemsSales({ products }){
                 { formatter.format(item.price) }
               </p>
             </summary>
-            <div className="bg-teal-200 text-sm pl-6">
-              <p>{ item.comment }</p>
-              <p>{ item.group }</p>
-              <p>{ moment.utc(item.date.seconds*1000).fromNow() }</p>
+            <div className="bg-p_blue-500 text-sm pl-8 pr-2 py-2 rounded-bl-lg rounded-br-lg border border-t-0 border-p_blue-600 text-white shadow-md">
+              <p><span className="font-bold">Descrip:</span> { item.comment }</p>
+              <div className="grid grid-rows-2 gap-2 grid-flow-col mt-2 sm:mt-4 sm:grid-rows-1">
+                <section className="text-xs flex items-center">
+                  <p className="bg-p_blue-300 rounded-full py-1 px-2 mr-2 flex">
+                    <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                    { item.group }
+                  </p>
+                  <p className="bg-p_blue-300 rounded-full py-1 px-2 flex">
+                    <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd"></path></svg>
+                    { moment.utc(item.date.seconds*1000).fromNow() }
+                  </p>
+                </section>
+                <section className="grid grid-cols-3 gap-2 justify-start sm:justify-end">
+                  <button
+                    className="btn-gen text-red-600"
+                  >Eliminar</button>
+                  <button
+                    className="btn-gen text-yellow-600" 
+                  >Editar</button>
+                  <button
+                    className="btn-gen text-p_blue-500"
+                  >En venta</button>
+                </section>
+              </div>
             </div>
           </details>
         ))

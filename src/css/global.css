@@ -66,3 +66,16 @@ body{
 summary::-webkit-details-marker{
     display: none
 }
+details[open] > summary {
+    @apply border border-p_blue-600 border-b-0 outline-none shadow-outline
+}
+/* ---------------------------- */
+/* Btn gen */
+/* --------ˇˇˇˇˇˇˇˇˇˇˇˇ-------- */
+.btn-gen{
+    background: linear-gradient(180deg, #E2E7EE 0%, #FFFFFF 100%), #ECF0F3;
+    @apply p-1 rounded shadow-md cursor-pointer
+}
+.btn-gen:active{
+    @apply shadow-none
+}
