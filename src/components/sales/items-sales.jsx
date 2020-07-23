@@ -14,7 +14,7 @@ export default function ItemsSales({ products }){
     return status === 'ACTIVE' ? 'text-yellow-500' : 'text-bluegray-300'
   };
 
-  const { activateSale } = useDbMethods();
+  const { activeProduct } = useDbMethods();
 
   return (
     <ul>
@@ -53,7 +53,7 @@ export default function ItemsSales({ products }){
                   >Editar</button>
                   <button
                     className="btn-gen text-p_blue-500"
-                    onClick={ () => activateSale(item.id) }
+                    onClick={ () => activeProduct(item.id) }
                   >En venta</button>
                 </section>
               </div>

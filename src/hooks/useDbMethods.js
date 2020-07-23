@@ -5,7 +5,7 @@ import { db } from '../utils/firebase';
 export default function useDbMethods(){
 
   const userContext = useContext(UserContext);
-  const { user,products , getProductsMethod } = userContext;
+  const { user, products , getProductsMethod } = userContext;
 
   const productsDoc = 'products';
   const userDoc = 'user';
@@ -70,20 +70,41 @@ export default function useDbMethods(){
     });
   };
 
-  const activateSale = producId => {
-    let productDocRef = db.collection(user.uid).doc(productsDoc).collection(subCollection);
-    productDocRef.get().then(snapshot => {
-      snapshot.forEach(a => console.log(a.data()));
-    })
+  const activeProduct = producId => {
+    // Remover lo no deseado de productos
+    // const obj = products.map( ({ status, ...product }) => product );
+    let obj = products.find(p => p.id === producId);
 
-    console.log(products);
+    let action;
 
-    console.log(producId)
+    switch (obj.status) {
+      case 'ACTIVE': 
+        action = 'STOCK'
+        break
+      case 'STOCK': 
+        action = 'ACTIVE'
+        break
+    }
+
+    delete obj.status
+    delete obj.id
+
+    const data = {...obj, status: action}
+
+    db.collection(user.uid)
+    .doc(productsDoc)
+    .collection(subCollection)
+    .doc(producId)
+    .update(data);
+  };
+
+  const nameConst = () => {
+    // Function content ...
   };
 
   return {
     init,
     getProducts,
-    activateSale
+    activeProduct
   };
 };

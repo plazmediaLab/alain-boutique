@@ -7,8 +7,6 @@ export default function Sales(){
   const userContext = useContext(UserContext);
   const { products } = userContext;
 
-  console.log(products);
-
   return (
     <ItemsSales products={ products } />
   );
