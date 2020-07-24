@@ -5,6 +5,7 @@ import Swal from 'sweetalert2'
 
 export default function useDbMethods(){
 
+
   const userContext = useContext(UserContext);
   const { user, products , getProductsMethod } = userContext;
 
@@ -104,13 +105,53 @@ export default function useDbMethods(){
   const createProduct = data => {
     db.collection(user.uid)
     .doc(productsDoc)
-    .collection(subCollection).add(data).catch(error => error);
+    .collection(subCollection).add(data).then(() => {
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Producto agregado correctamente',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        onOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+    }).catch(error => {
+      return error
+    });
+  };
+
+  const deleteProduct = producId => {
+    Swal.fire({
+      title: '¿Estas segur@ de querer eliminar este producto?',
+      text: "Esto acción no podrá ser revertida",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#5480DE',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Si, eliminarlo!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Producto eliminado correctamente',
+          'Tu producto ya no aparecerá en la lista',
+          'success'
+        )
+        db.collection(user.uid)
+        .doc(productsDoc)
+        .collection(subCollection)
+        .doc(producId).delete()
+      }
+    })
   };
 
   return {
     init,
     getProducts,
     activeProduct,
-    createProduct
+    createProduct,
+    deleteProduct
   };
 };

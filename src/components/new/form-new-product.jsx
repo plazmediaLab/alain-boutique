@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Required from '../messages/required';
 import useDbMethods from '../../hooks/useDbMethods';
-import Swal from 'sweetalert2';
 
 export default function FormNewProduct(){
-
-  const [loading, setLoading] = useState(false);
 
   const { createProduct } = useDbMethods();
 
@@ -31,8 +28,6 @@ export default function FormNewProduct(){
     }),
     onSubmit: async (val, { resetForm }) => {
       
-      setLoading(true);
-      
       if(val.price === ''){
         val.price = val.value
       }
@@ -50,15 +45,9 @@ export default function FormNewProduct(){
       }
 
       try {
+
         createProduct(data);
-        setLoading(false)
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Your work has been saved',
-          showConfirmButton: false,
-          timer: 1500
-        })
+        
         resetForm(formik.initialValues);
       } catch (error) {
         console.log(error.message);
@@ -163,24 +152,9 @@ export default function FormNewProduct(){
         />
       </div>
 
-      <p className="flex items-center justify-center text-sm mt-1 mb-4 text-carbon-300">
-        Producto:
-        <svg className="w-4 h-4 text-green-500 mx-1" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd"></path></svg>
-        Nuevo
-      </p>
-
       <hr className="mb-2"/>
 
       <section className="my-4">
-        { loading ? (
-          <div className="flex items-center justify-center">
-            <div className="spinner">
-              <div className="double-bounce1"></div>
-              <div className="double-bounce2"></div>
-            </div>
-            <p className="text-xs text-p_blue-500 ml-2">Cargando...</p>
-          </div>
-        )  : null }
         { formik.errors.name && formik.touched.name ? <Required message={formik.errors.name} /> : null }
         { formik.errors.value && formik.touched.value ? <Required message={formik.errors.value} /> : null }
         { formik.errors.price && formik.touched.price ? <Required message={formik.errors.price} /> : null }
