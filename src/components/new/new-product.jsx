@@ -6,7 +6,6 @@ export default function NewProduct(){
 
   return (
     <>
-      <h1>Agrega un nuevo producto</h1>
       <FormNewProduct/>
       <GroupList/>
     </>

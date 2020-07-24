@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import UserContext from '../context/user/UserContext';
 import { db } from '../utils/firebase';
+import Swal from 'sweetalert2'
 
 export default function useDbMethods(){
 
@@ -35,7 +36,8 @@ export default function useDbMethods(){
                 comment: "This is an initial info test to how add one item on your product list",
                 group: "Sister's clothes",
                 status: "STOCK",
-                init: "1819222020"
+                init: "1819222020",
+                mode: "NEW"
               })
             }
           });
@@ -63,6 +65,7 @@ export default function useDbMethods(){
           comment: a.data().comment,
           group: a.data().group,
           status: a.data().status,
+          mode: a.data().mode,
           init: a.data().init === "1819222020" ? a.data().init : false 
         }]
       })
@@ -98,13 +101,16 @@ export default function useDbMethods(){
     .update(data);
   };
 
-  const nameConst = () => {
-    // Function content ...
+  const createProduct = data => {
+    db.collection(user.uid)
+    .doc(productsDoc)
+    .collection(subCollection).add(data).catch(error => error);
   };
 
   return {
     init,
     getProducts,
-    activeProduct
+    activeProduct,
+    createProduct
   };
 };
