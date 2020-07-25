@@ -8,8 +8,6 @@ export default function GroupList({ groups }){
   const userContext = useContext(UserContext);
   const { openModal } = userContext;
 
-  console.log(groups);
-
   return (
     <section className="bg-bluegray-200 p-2 rounded border-t-8 border-bluegray-300 flex items-center text-bluegray-500">
 

@@ -88,6 +88,9 @@ export default function useDbMethods(){
       case 'STOCK': 
         action = 'ACTIVE'
         break
+
+        default:
+          break;
     }
 
     delete obj.status
