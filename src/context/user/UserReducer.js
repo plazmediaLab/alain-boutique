@@ -4,9 +4,12 @@ import {
   FACEBOOK_AUTH,
   LOG_OUT,
   AUTH_STATE,
-  GET_PRODUCTS
+  GET_PRODUCTS,
+  OPEN_MODAL,
+  CLOSE_MODAL
 } from '../types';
 
+// TODO · Refactorisar los reducer que se puedan 07/24/2020 
 export default ( state, action ) => {
   switch (action.type) {
     case EMAIL_AUTH:
@@ -38,6 +41,16 @@ export default ( state, action ) => {
       return{
         ...state,
         products: action.payload
+      }
+    case OPEN_MODAL:
+      return{
+        ...state,
+        modalOpen: true
+      }
+    case CLOSE_MODAL:
+      return{
+        ...state,
+        modalOpen: false
       }
   
     default:

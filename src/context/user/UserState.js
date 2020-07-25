@@ -8,7 +8,9 @@ import {
   FACEBOOK_AUTH,
   LOG_OUT,
   AUTH_STATE,
-  GET_PRODUCTS
+  GET_PRODUCTS,
+  OPEN_MODAL,
+  CLOSE_MODAL
 } from '../types';
 
 
@@ -18,6 +20,7 @@ const UserState = ({ children }) => {
   const initialState = {
     user: null,
     products: [],
+    modalOpen: false
   };
 
   const [ state, dispatch ] = useReducer(UserReducer, initialState);
@@ -59,18 +62,33 @@ const UserState = ({ children }) => {
       payload: data
     })
   };
+
+  // Modal 
+  function openModal() {
+    dispatch({
+      type: OPEN_MODAL
+    })
+  }
+  function closeModal(){
+    dispatch({
+      type: CLOSE_MODAL
+    })
+  }
   
   return (
     <UserContext.Provider
       value={{
         user: state.user,
         products: state.products,
+        modalOpen: state.modalOpen,
         emailAuthMethod,
         googleAuthMethod,
         facebookAuthMethod,
         logOutMethod,
         authStateMethod,
-        getProductsMethod
+        getProductsMethod,
+        openModal,
+        closeModal
       }}
     >
 
