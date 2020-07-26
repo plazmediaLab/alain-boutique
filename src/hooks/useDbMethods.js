@@ -7,15 +7,17 @@ export default function useDbMethods(){
 
 
   const userContext = useContext(UserContext);
-  const { user, products , getProductsMethod } = userContext;
+  const { user, products, groups, activeGroup, getProductsMethod, getGroupsMethod, activeGroupMethod } = userContext;
 
   const productsDoc = 'products';
   const userDoc = 'user';
   const subCollection = 'items';
+  const groupDoc = 'groups';
+  const subCollectionG = 'list';
   
   // Usuario nuevo, primer registro de prueba
-  const init = collectionName => {
-    let collectionRef = db.collection(collectionName);
+  const init = userId => {
+    let collectionRef = db.collection(userId);
 
     collectionRef.get().then(userRegister => {
       if(userRegister.empty){
@@ -48,8 +50,8 @@ export default function useDbMethods(){
     });
   };
 
-  const getProducts = collectionName => {
-    let collectionRef = db.collection(collectionName);
+  const getProducts = userId => {
+    let collectionRef = db.collection(userId);
 
     collectionRef
     .doc(productsDoc)
@@ -72,6 +74,27 @@ export default function useDbMethods(){
       })
       getProductsMethod(products);
     });
+  };
+
+  const getGroups = userId => {
+    db.collection(userId).doc(groupDoc).collection(subCollectionG).onSnapshot(snapshot => {
+      let groupsList = [];
+      snapshot.forEach(item => {
+        return  groupsList = [...groupsList, {
+          id: item.id,
+          name: item.data().name,
+          date: item.data().date
+        }];
+      });
+  
+      groupsList.sort(function (a, b){
+        return (b.date.seconds - a.date.seconds)
+      })
+  
+      if(activeGroup === '' && groups.length > 0) activeGroupMethod(groupsList[0].name);
+
+      getGroupsMethod(groupsList);
+    })
   };
 
   const activeProduct = producId => {
@@ -137,15 +160,75 @@ export default function useDbMethods(){
       confirmButtonText: '¡Si, eliminarlo!'
     }).then((result) => {
       if (result.value) {
-        Swal.fire(
-          'Producto eliminado correctamente',
-          'Tu producto ya no aparecerá en la lista',
-          'success'
-        )
         db.collection(user.uid)
         .doc(productsDoc)
         .collection(subCollection)
-        .doc(producId).delete()
+        .doc(producId).delete().then(() => {
+          Swal.fire(
+            'Producto eliminado correctamente',
+            'Tu producto ya no aparecerá en la lista',
+            'success'
+          )
+        })
+      }
+    })
+  };
+
+  const createGroup = data => {
+
+    const { name } = data;
+
+    db.collection(user.uid)
+    .doc(groupDoc)
+    .collection(subCollectionG)
+    .add(data).then(() => {
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Grupo creado exitosamente',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        onOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      });
+      activeGroupMethod(name);
+    })
+    .catch(error => console.log(error))
+
+    // console.log(capitalize(data.name.replace('_', ' ')))
+  };
+
+  const deleteGroup = nameGroup => {
+
+    const group = groups.find(item => item.name === nameGroup);
+    const { id } = group;
+    
+    Swal.fire({
+      title: '¿Estas segur@ de querer eliminar este grupo?',
+      text: "Esto eliminara todos los productos relacionados a este y esta acción no podrá ser revertida",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#5480DE',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Si, eliminarlo!'
+    }).then((result) => {
+      if (result.value) {
+        db.collection(user.uid)
+        .doc(groupDoc)
+        .collection(subCollectionG)
+        .doc(id)
+        .delete().then(() => {
+          
+          Swal.fire(
+            'Grupo eliminado correctamente',
+            'El grupo y sus productos ya no aparecerán en la lista',
+            'success'
+          )
+
+        });
       }
     })
   };
@@ -153,8 +236,11 @@ export default function useDbMethods(){
   return {
     init,
     getProducts,
+    getGroups,
     activeProduct,
     createProduct,
-    deleteProduct
+    deleteProduct,
+    createGroup,
+    deleteGroup
   };
 };

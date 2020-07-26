@@ -21,7 +21,7 @@ export default function useAuthMethods(){
     authStateMethod,
   } = userContext;
 
-  const { init, getProducts } = useDbMethods();
+  const { init, getProducts, getGroups } = useDbMethods();
   
   // Registro de usuario
   const signUp = (email, pass) => {
@@ -163,6 +163,8 @@ export default function useAuthMethods(){
         authStateMethod(data)
 
         getProducts(user.uid);
+
+        getGroups(user.uid)
   
         push('/app');
   

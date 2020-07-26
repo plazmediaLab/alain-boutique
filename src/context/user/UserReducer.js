@@ -5,6 +5,8 @@ import {
   LOG_OUT,
   AUTH_STATE,
   GET_PRODUCTS,
+  GET_GROUPS,
+  ACTIVE_GROUP,
   OPEN_MODAL,
   CLOSE_MODAL
 } from '../types';
@@ -30,7 +32,10 @@ export default ( state, action ) => {
     case LOG_OUT:
       return{
         user: null,
-        products: null,
+        products: [],
+        groups: [],
+        activeGroup: '',
+        modalOpen: false,
       }
     case AUTH_STATE:
       return{
@@ -41,6 +46,16 @@ export default ( state, action ) => {
       return{
         ...state,
         products: action.payload
+      }
+    case GET_GROUPS:
+      return{
+        ...state,
+        groups: action.payload
+      }
+    case ACTIVE_GROUP:
+      return{
+        ...state,
+        activeGroup: action.payload
       }
     case OPEN_MODAL:
       return{

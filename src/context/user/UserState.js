@@ -9,6 +9,8 @@ import {
   LOG_OUT,
   AUTH_STATE,
   GET_PRODUCTS,
+  GET_GROUPS,
+  ACTIVE_GROUP,
   OPEN_MODAL,
   CLOSE_MODAL
 } from '../types';
@@ -20,7 +22,9 @@ const UserState = ({ children }) => {
   const initialState = {
     user: null,
     products: [],
-    modalOpen: false
+    groups: [],
+    modalOpen: false,
+    activeGroup: ''
   };
 
   const [ state, dispatch ] = useReducer(UserReducer, initialState);
@@ -55,11 +59,23 @@ const UserState = ({ children }) => {
       payload: data
     })
   }
-  // Products
+  // Products & Groups
   const getProductsMethod = data => {
     dispatch({
       type: GET_PRODUCTS,
       payload: data
+    })
+  };
+  const getGroupsMethod = data => {
+    dispatch({
+      type: GET_GROUPS,
+      payload: data
+    })
+  };
+  const activeGroupMethod = group => {
+    dispatch({
+      type: ACTIVE_GROUP,
+      payload: group
     })
   };
 
@@ -80,13 +96,17 @@ const UserState = ({ children }) => {
       value={{
         user: state.user,
         products: state.products,
+        groups: state.groups,
         modalOpen: state.modalOpen,
+        activeGroup: state.activeGroup,
         emailAuthMethod,
         googleAuthMethod,
         facebookAuthMethod,
         logOutMethod,
         authStateMethod,
         getProductsMethod,
+        getGroupsMethod,
+        activeGroupMethod,
         openModal,
         closeModal
       }}

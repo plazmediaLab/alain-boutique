@@ -3,13 +3,17 @@ import UserContext from '../../context/user/UserContext';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Required from '../messages/required';
+import useDbMethods from '../../hooks/useDbMethods';
+import slugify  from 'slugify';
 
 export default function NewGroup(){
 
   const input = useRef(null);
 
   const userContext = useContext(UserContext);
-  const { closeModal } = userContext
+  const { closeModal, activeGroupMethod } = userContext;
+
+  const { createGroup } = useDbMethods();
 
   useEffect(() => {
     input.current.focus();
@@ -23,7 +27,17 @@ export default function NewGroup(){
       nameGroup: Yup.string().required('El campo no puede estar vacío').trim()
     }),
     onSubmit: val => {
-      console.log(val);
+
+      const data = {
+        name: slugify(val.nameGroup, {
+          replacement: '_',  // replace spaces with replacement character, defaults to `-`
+          lower: true,      // convert to lower case, defaults to `false`
+        }),
+        date: new Date()
+      }
+
+      createGroup(data);
+
       closeModal();
     }
   })
