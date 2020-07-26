@@ -89,11 +89,18 @@ export default function useDbMethods(){
   
       groupsList.sort(function (a, b){
         return (b.date.seconds - a.date.seconds)
-      })
-  
-      if(activeGroup === '' && groups.length > 0) activeGroupMethod(groupsList[0].name);
+      });
+
+      if(activeGroup === ''){
+        if(groupsList.length > 0){
+          activeGroupMethod(groupsList[0].name);
+        }else{
+          activeGroupMethod('');
+        }
+      };
 
       getGroupsMethod(groupsList);
+
     })
   };
 
