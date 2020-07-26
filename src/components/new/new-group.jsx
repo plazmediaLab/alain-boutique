@@ -11,7 +11,7 @@ export default function NewGroup(){
   const input = useRef(null);
 
   const userContext = useContext(UserContext);
-  const { closeModal, activeGroupMethod } = userContext;
+  const { closeModal } = userContext;
 
   const { createGroup } = useDbMethods();
 

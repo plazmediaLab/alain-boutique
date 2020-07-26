@@ -185,25 +185,37 @@ export default function useDbMethods(){
 
     const { name } = data;
 
-    db.collection(user.uid)
-    .doc(groupDoc)
-    .collection(subCollectionG)
-    .add(data).then(() => {
+    if(!groups.find(item => item.name === name)){
+      db.collection(user.uid)
+      .doc(groupDoc)
+      .collection(subCollectionG)
+      .add(data).then(() => {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Grupo creado exitosamente',
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          onOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        });
+        activeGroupMethod(name);
+      })
+      .catch(error => console.log(error))
+    }else{
+      console.log('');
       Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Grupo creado exitosamente',
-        showConfirmButton: false,
-        timer: 2000,
+        icon: 'error',
+        title: 'Ese grupo ya existe!',
+        text: 'Selecciona de la lista el grupo existente o crea uno con otro nombre',
         timerProgressBar: true,
-        onOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-      });
-      activeGroupMethod(name);
-    })
-    .catch(error => console.log(error))
+        timer: 3500,
+      })
+    }
+
 
     // console.log(capitalize(data.name.replace('_', ' ')))
   };
