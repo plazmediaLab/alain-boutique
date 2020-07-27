@@ -57,7 +57,7 @@ export default function ItemsSales({ products }){
                 <section className="text-xs flex items-center">
                   <p className="bg-p_blue-300 rounded-full py-1 px-2 mr-2 flex items-center">
                     <svg className={`w-4 h-4 ${item.group ? 'mr-1' : 'text-p_blue-200'}`} fill="currentColor" viewBox="0 0 20 20"><path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-                    { capitalize(item.group.replace(/(_)/g, ' ')) }
+                    { item.group ? capitalize( item.group.replace(/(_)/g, ' ')) : null }
                   </p>
                   <p className="bg-p_blue-300 rounded-full py-1 px-2 flex items-center">
                     <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd"></path></svg>

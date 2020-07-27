@@ -70,3 +70,4 @@ yarn-error.log
 
 # Ignores important files 
 src/utils/firebase.js
+.vercel
