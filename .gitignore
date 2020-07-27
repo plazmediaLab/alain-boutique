@@ -68,6 +68,9 @@ yarn-error.log
 # Yarn Integrity file
 .yarn-integrity
 
-# Ignores important files 
-src/utils/firebase.js
+# Vercel
 .vercel
+
+# Credenciales de Firebase
+./credentials.js
+credentials.js
