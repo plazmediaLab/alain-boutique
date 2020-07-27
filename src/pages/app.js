@@ -48,7 +48,7 @@ export default function App({ location }){
           </div>
           {/* <Link to={`/app/edit/${ uid }`}>Editar producto</Link> */}
 
-          <div className="px-3">
+          <div className="px-3 box-content">
             <Router>
               <Home path="/app"/>
               <Sales path="/app/sales"/>

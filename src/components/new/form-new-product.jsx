@@ -3,8 +3,13 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Required from '../messages/required';
 import useDbMethods from '../../hooks/useDbMethods';
+import { useContext } from 'react';
+import UserContext from '../../context/user/UserContext';
 
 export default function FormNewProduct(){
+
+  const userContext = useContext(UserContext);
+  const { activeGroup } = userContext;
 
   const { createProduct } = useDbMethods();
 
@@ -38,10 +43,10 @@ export default function FormNewProduct(){
         price: val.price,
         status: val.status,
         mode: val.mode,
-        comment: val.comment,
+        comment: val.comment.trim(),
         date: new Date(),
         init: false,
-        group: null
+        group: activeGroup
       }
 
       try {
@@ -149,6 +154,9 @@ export default function FormNewProduct(){
           className="p-3 mb-2 pr-8 new-product-input rounded bg-bluegray-100 border-b border-gray-400 w-full text-gray-700 leading-tight text-sm placeholder-bluegray-300"
           rows="3"
           placeholder="Playera roja con estampado de súper héroes, con detalles en las manga"
+          value={ formik.values.comment }
+          onChange={ formik.handleChange }
+          onBlur={ formik.handleBlur }
         />
       </div>
 

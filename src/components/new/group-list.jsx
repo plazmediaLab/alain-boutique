@@ -44,7 +44,7 @@ export default function GroupList(){
           onChange={ () => activeGroupMethod(select.current.value) }
           value={ activeGroup !== '' ? activeGroup : null }
         >
-          { groups.length === 0 ? <option value="" label="--- No hay grupos creados ---"></option> : null }
+          { groups.length === 0 ? <option value="" label="--- No hay grupos creados ---"></option> : '' }
           { groups.map(item => (
         
             <option key={ item.id } value={ item.name }>{ capitalize(item.name.replace(/(_)/g, ' ')) }</option>
