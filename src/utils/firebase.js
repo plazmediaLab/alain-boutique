@@ -3,8 +3,15 @@ import firebase from 'gatsby-plugin-firebase';
 export let googleProvider = new firebase.auth.GoogleAuthProvider();
 export let facebookProvier = new firebase.auth.FacebookAuthProvider();
 
-export const auth = firebase.auth();
-export const db = firebase.firestore();
+let auth;
+let db;
+
+if (typeof window !== 'undefined') {
+  auth = firebase.auth();
+  db = firebase.firestore();
+}
+
+export { auth, db }
 
 // Add file [CredentialsContainer.js] on root folder with the firebase's credentials data
 

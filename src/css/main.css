@@ -1,6 +1,8 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
 
 /* Agregue cualquier estilo global aquí */
 body{
@@ -33,12 +35,6 @@ body{
 }
 .label-form{
     @apply text-xs text-p_blue-200 inline-block
-}
-.new-product-input{
-    @apply 
-}
-.new-product-label{
-    @apply 
 }
 /* ---------------------------- */
 /* Header */

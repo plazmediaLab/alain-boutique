@@ -1,4 +1,4 @@
-import "./src/css/global.css"
+import "./src/css/main.css"
 
 import "firebase/auth"
 import "firebase/firestore"

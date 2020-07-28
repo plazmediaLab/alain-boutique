@@ -24,18 +24,12 @@ module.exports = {
         }
       }
     },
-    {
-      resolve: `gatsby-plugin-emotion`,
-      options: {
-        // Acepta todas las opciones definidas por el complemento `babel-plugin-emotion`.
-      },
-    },
-    {
-      resolve: `gatsby-plugin-postcss`,
-      options: {
-        // Acepta todas las opciones definidas por el complemento `gatsby-plugin-postcss`.
-      },
-    },
+    // {
+    //   resolve: ``,
+    //   options: {
+    //     // Acepta todas las opciones definidas por el complemento `gatsby-plugin-postcss`.
+    //   },
+    // },
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
@@ -48,6 +42,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-create-client-paths`,
       options: { prefixes: [`/app/*`] },
-    }
-  ],
+    },
+    `gatsby-plugin-postcss`
+  ]
 }

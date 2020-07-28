@@ -66,9 +66,9 @@ export default function FormNewProduct(){
       className="bg-white p-2 rounded shadow border-t-8 border-p_blue-500 mt-2"
     >
       <div>
-        <label className="new-product-label text-xs text-p_blue-500 mb-1 inline-block" htmlFor="name">Producto</label>
+        <label className="text-xs text-p_blue-500 mb-1 inline-block" htmlFor="name">Producto</label>
         <input 
-          className="new-product-input rounded bg-bluegray-100 appearance-none border-b border-gray-400 w-full p-3 mb-2 text-gray-700 leading-tight text-sm placeholder-bluegray-300"
+          className="rounded bg-bluegray-100 appearance-none border-b border-gray-400 w-full p-3 mb-2 text-gray-700 leading-tight text-sm placeholder-bluegray-300"
           type="text"
           name="name" id="name"
           placeholder="Playera 2m"
@@ -79,12 +79,12 @@ export default function FormNewProduct(){
       </div>
       <div className="grid grid-cols-2 gap-2">
         <div>
-          <label className="new-product-label text-xs text-p_blue-500 my-1 flex items-center" htmlFor="value">
+          <label className="text-xs text-p_blue-500 my-1 flex items-center" htmlFor="value">
             <svg className="w-4 h-4 text-bluegray-300 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path></svg>
             Valor
           </label>
           <input 
-            className="new-product-input rounded bg-bluegray-100 border-b border-gray-400 w-full p-3 mb-2 text-gray-700 leading-tight text-sm placeholder-bluegray-300"
+            className="rounded bg-bluegray-100 border-b border-gray-400 w-full p-3 mb-2 text-gray-700 leading-tight text-sm placeholder-bluegray-300"
             type="number"
             name="value" id="value"
             min="0"
@@ -95,12 +95,12 @@ export default function FormNewProduct(){
           />        
         </div>
         <div>
-          <label className="new-product-label text-xs text-p_blue-500 my-1 flex items-center" htmlFor="price">
+          <label className="text-xs text-p_blue-500 my-1 flex items-center" htmlFor="price">
             <svg className="w-4 h-4 text-bluegray-300 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path></svg>
             Precio
           </label>
           <input 
-            className="new-product-input rounded bg-bluegray-100 border-b border-gray-400 w-full p-3 mb-2 text-gray-700 leading-tight text-sm placeholder-bluegray-300"
+            className="rounded bg-bluegray-100 border-b border-gray-400 w-full p-3 mb-2 text-gray-700 leading-tight text-sm placeholder-bluegray-300"
             type="number"
             name="price" id="price"
             min="0"
@@ -113,12 +113,12 @@ export default function FormNewProduct(){
       </div>
       <div className="grid grid-cols-2 gap-2">
         <div>
-          <label className="new-product-label text-xs text-p_blue-500 my-1 flex items-center" htmlFor="mode">
+          <label className="text-xs text-p_blue-500 my-1 flex items-center" htmlFor="mode">
             <svg className="w-4 h-4 text-bluegray-300 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path></svg>
             El producto es?
           </label>
           <select 
-            className="p-3 mb-2 pr-8 new-product-input rounded bg-bluegray-100 border-b border-gray-400 w-full text-gray-700 leading-tight text-sm placeholder-bluegray-300"
+            className="p-3 mb-2 pr-8 rounded bg-bluegray-100 border-b border-gray-400 w-full text-gray-700 leading-tight text-sm placeholder-bluegray-300"
             name="mode" id="mode"
             value={ formik.values.mode }
             onChange={ formik.handleChange }
@@ -130,12 +130,12 @@ export default function FormNewProduct(){
           </select>
         </div>
         <div>
-          <label className="new-product-label text-xs text-p_blue-500 my-1 flex items-center" htmlFor="status">
+          <label className="text-xs text-p_blue-500 my-1 flex items-center" htmlFor="status">
             <svg className="w-4 h-4 text-bluegray-300 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path></svg>
             El producto está en?
           </label>
           <select 
-            className="p-3 mb-2 pr-8 new-product-input rounded bg-bluegray-100 border-b border-gray-400 w-full text-gray-700 leading-tight text-sm placeholder-bluegray-300"
+            className="p-3 mb-2 pr-8 rounded bg-bluegray-100 border-b border-gray-400 w-full text-gray-700 leading-tight text-sm placeholder-bluegray-300"
             name="status" id="status"
             value={ formik.values.status }
             onChange={ formik.handleChange }
@@ -148,10 +148,10 @@ export default function FormNewProduct(){
         </div>
       </div>
       <div>
-        <label className="new-product-label text-xs text-p_blue-500 my-1 flex items-center" htmlFor="comment">Comentario</label>
+        <label className="text-xs text-p_blue-500 my-1 flex items-center" htmlFor="comment">Comentario</label>
         <textarea 
           name="comment" id="comment"
-          className="p-3 mb-2 pr-8 new-product-input rounded bg-bluegray-100 border-b border-gray-400 w-full text-gray-700 leading-tight text-sm placeholder-bluegray-300"
+          className="p-3 mb-2 pr-8 rounded bg-bluegray-100 border-b border-gray-400 w-full text-gray-700 leading-tight text-sm placeholder-bluegray-300"
           rows="3"
           placeholder="Playera roja con estampado de súper héroes, con detalles en las manga"
           value={ formik.values.comment }
