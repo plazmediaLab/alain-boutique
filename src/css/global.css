@@ -1,8 +1,6 @@
-@import "tailwindcss/base";
-
-@import "tailwindcss/components";
-
-@import "tailwindcss/utilities";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* Agregue cualquier estilo global aquí */
 body{
@@ -13,7 +11,6 @@ body{
 #gatsby-focus-wrapper{
     min-height: 100vh;
 }
-
 .btn-login{
     transition: all .3s ease-in-out;
     background: linear-gradient(180deg, #E8EEFB 0%, #E2E7EE 0.01%, rgba(255, 255, 255, 0) 100%), #ECF0F3;
