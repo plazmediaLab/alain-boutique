@@ -8,7 +8,11 @@ const tailwindcss = require("tailwindcss");
 const credentials = require('./credentials.js');
 
 module.exports = {
-  /* Your site config here */
+  siteMetadata: {
+    title: `Alain Boutique`,
+    siteUrl: `https://www.plaz.media`,
+    description: `Sales control system, for my two great loves, my heart Mireya Martinez and my first son and my greatest pride Evan Alain, I love you`,
+  },
   plugins: [
     {
       resolve: `gatsby-plugin-postcss`,
@@ -16,17 +20,17 @@ module.exports = {
         postCssPlugins: [tailwindcss]
       }
     },
-    // { 
-    //   resolve: `gatsby-plugin-purgecss`,
-    //   options: {
-    //     printRejected: true, // Print removed selectors and processed file names
-    //     // develop: true, // Enable while using `gatsby develop`
-    //     tailwind: true, // Enable tailwindcss support
-    //     // whitelist: ['whitelist'], // Don't remove this selector
-    //     // ignore: ['/ignored.css', 'prismjs/', 'docsearch.js/'], // Ignore files/folders
-    //     // purgeOnly : ['components/', '/main.css', 'bootstrap/'], // Purge only these files/folders
-    //   }
-    // },
+    { 
+      resolve: `gatsby-plugin-purgecss`,
+      options: {
+        printRejected: true, // Print removed selectors and processed file names
+        develop: false, // Enable while using `gatsby develop`
+        tailwind: true, // Enable tailwindcss support
+        // whitelist: ['whitelist'], // Don't remove this selector
+        // ignore: ['/ignored.css', 'prismjs/', 'docsearch.js/'], // Ignore files/folders
+        // purgeOnly : ['components/', '/main.css', 'bootstrap/'], // Purge only these files/folders
+      }
+    },
     {
       resolve: "gatsby-plugin-firebase",
       options: {
