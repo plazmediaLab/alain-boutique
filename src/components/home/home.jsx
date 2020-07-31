@@ -5,38 +5,36 @@ import ProductsSalesList from './products-sales-list';
 
 export default function Home(){
 
-  const [sales, setSales] = useState(0);
-  const [totalSales, setTotalSales] = useState(0);
+  const [salesTap, setSalesTap] = useState(true);
+  const [list, setlist] = useState([]);
 
   const userContext = useContext(UserContext);
   const { groups, products, activeGroup, activeGroupMethod } = userContext;
 
-  const productsSalesGroupCount = () => {
-    const number = products.filter(item => item.status === 'ACTIVE' && item.group === activeGroup );
-    setSales(number.length);
-  };
-  const productsGroupCount = () => {
-    const number = products.filter(item => item.group === activeGroup);
-    setTotalSales(number.length);
-  };
-
   useEffect(() => {
-    productsSalesGroupCount();
-    productsGroupCount();
-  }, [activeGroup]);
-
+    if(salesTap){
+      const productsList = products.filter(item => item.status === 'ACTIVE' && item.group === activeGroup );
+      setlist(productsList)
+    }else{
+      const productsList = products.filter(item => item.group === activeGroup);
+      setlist(productsList)
+    }
+  }, [activeGroup, products, salesTap]);
 
   return (
     <>
       <InfoHead 
         groups={ groups }
-        activeGroup={ activeGroup }
+        products={ products }
         activeGroupMethod={ activeGroupMethod }
-        sales={ sales }
-        totalSales={ totalSales }
+        activeGroup={ activeGroup }
+        setlist={ setlist }
+        salesTap={ salesTap }
+        setSalesTap={ setSalesTap }
       />
       
-      <ProductsSalesList products={ products } products={ products } />
+      <ProductsSalesList list={ list } />
+
     </>
   );
 };

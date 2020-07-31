@@ -68,6 +68,7 @@ summary::-webkit-details-marker{
 details[open] > summary {
     @apply border border-p_blue-600 border-b-0 outline-none shadow-outline
 }
+
 /* ---------------------------- */
 /* Btn gen */
 /* --------ˇˇˇˇˇˇˇˇˇˇˇˇ-------- */
@@ -80,46 +81,20 @@ details[open] > summary {
 }
 
 /* ---------------------------- */
-/* Spinners */
+/* Inner BTN */
 /* --------ˇˇˇˇˇˇˇˇˇˇˇˇ-------- */
-.spinner {
-    width: 25px;
-    height: 25px;
-  
-    position: relative;
-    /* margin: 100px auto; */
-  }
-  
-.double-bounce1, .double-bounce2 {
-width: 100%;
-height: 100%;
-border-radius: 50%;
-background-color: #5480DE;
-opacity: 0.6;
-position: absolute;
-top: 0;
-left: 0;
-
--webkit-animation: sk-bounce 2.0s infinite ease-in-out;
-animation: sk-bounce 2.0s infinite ease-in-out;
+.tap-primary-blue-select{
+    padding-top: .3rem;
+    padding-bottom: .3rem;
+    box-shadow: 0px 41.7776px 33.4221px rgba(84, 128, 222, 0.0086),
+                0px 22.3363px 250px rgba(84, 128, 222, 0.106),
+                0px 12.5216px 10.0172px rgba(84, 128, 222, 0.125),
+                0px 6.6501px 5.32008px rgba(84, 128, 222, 0.15),
+                0px 2.76726px 2.21381px rgba(84, 128, 222, 0.21);
+    @apply bg-p_blue-500 text-white text-sm rounded-full px-3 font-light
 }
-  
-.double-bounce2 {
-    -webkit-animation-delay: -1.0s;
-    animation-delay: -1.0s;
-}
-  
-@-webkit-keyframes sk-bounce {
-    0%, 100% { -webkit-transform: scale(0.0) }
-    50% { -webkit-transform: scale(1.0) }
-}
-  
-@keyframes sk-bounce {
-    0%, 100% { 
-      transform: scale(0.0);
-      -webkit-transform: scale(0.0);
-    } 50% { 
-      transform: scale(1.0);
-      -webkit-transform: scale(1.0);
-    }
+.tap-primary-blue-disable{
+    padding-top: .3rem;
+    padding-bottom: .3rem;
+    @apply bg-p_blue-100 text-p_blue-500 text-sm rounded-full px-3 font-light
 }
