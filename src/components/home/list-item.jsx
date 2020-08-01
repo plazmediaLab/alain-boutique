@@ -8,6 +8,9 @@ import 'moment/locale/es';
 const LiItem = styled(motion.div)`
   grid-template-columns: 1fr auto auto auto;
 `;
+const ContentHidden = styled(motion.section)`
+  box-shadow: inset 0px 2px 2px rgba(0, 0, 0, 0.15), inset 0px 2px 8px rgba(0, 0, 0, 0.26);
+`;
 const Comment = styled.p`
   @media (min-width: 640px) {
     width: 70%!important;
@@ -64,7 +67,7 @@ export default function ListItem({ item, expanded, setExpanded, hiddeIcon }){
       </LiItem>
       <AnimatePresence initial={false}>
         {isOpen && (
-          <motion.section
+          <ContentHidden
             key="content"
             initial="collapsed"
             animate="open"
@@ -82,7 +85,7 @@ export default function ListItem({ item, expanded, setExpanded, hiddeIcon }){
               transition={{ duration: 0.2 }}
               className="p-2 pl-6"
             >
-              { item.comment ? <p className="font-light text-sm"><span className="mb-2 inline-block font-semibold">Comentario:</span> { item.comment }</p> : null}
+              { item.comment ? <p className="font-light text-sm mb-2 "><span className="inline-block font-semibold">Comentario:</span> { item.comment }</p> : null}
               <div className="grid grid-rows-2 gap-2 grid-flow-col sm:grid-rows-1 sm:justify-between">
                 <section className="text-xs flex">
                   <p className="bg-white text-p_blue-500 rounded-full py-1 px-2 mr-1 flex items-center font-medium">
@@ -120,7 +123,7 @@ export default function ListItem({ item, expanded, setExpanded, hiddeIcon }){
               </div>
             </motion.div>
 
-          </motion.section>
+          </ContentHidden>
         )}
       </AnimatePresence>
     </>
