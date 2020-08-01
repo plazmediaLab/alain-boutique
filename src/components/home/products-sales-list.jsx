@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ListItem from './list-item';
 
-export default function ProductsSalesList({ list }){
+export default function ProductsSalesList({ list, activeStatusIcon, hiddeIcon }){
 
   const [expanded, setExpanded] = useState(false);
 
@@ -9,7 +9,14 @@ export default function ProductsSalesList({ list }){
     <ul className="mt-3">
       { list.map(item => (
 
-        <ListItem item={ item } expanded={expanded} setExpanded={setExpanded} key={ item.id } />
+        <ListItem 
+          item={ item }
+          expanded={expanded}
+          setExpanded={setExpanded}
+          key={ item.id + item.date.seconds }
+          activeStatusIcon={ activeStatusIcon } 
+          hiddeIcon={ hiddeIcon }
+        />
 
       )) }
     </ul>

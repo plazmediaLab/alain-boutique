@@ -6,6 +6,7 @@ import ProductsSalesList from './products-sales-list';
 export default function Home(){
 
   const [salesTap, setSalesTap] = useState(true);
+  const [hiddeIcon, setHiddeIcon] = useState(false);
   const [list, setlist] = useState([]);
 
   const userContext = useContext(UserContext);
@@ -31,9 +32,10 @@ export default function Home(){
         setlist={ setlist }
         salesTap={ salesTap }
         setSalesTap={ setSalesTap }
+        setHiddeIcon={ setHiddeIcon }
       />
       
-      <ProductsSalesList list={ list } />
+      <ProductsSalesList list={ list } hiddeIcon={ hiddeIcon } />
 
     </>
   );

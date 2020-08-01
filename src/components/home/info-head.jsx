@@ -5,7 +5,7 @@ const Header = styled.header`
   grid-template-columns: auto auto 1fr;
 `;
 
-export default function InfoHead({ groups, products, activeGroup, activeGroupMethod, salesTap, setSalesTap }){
+export default function InfoHead({ groups, products, activeGroup, activeGroupMethod, salesTap, setSalesTap, setHiddeIcon }){
 
   const select = useRef(null);
 
@@ -25,11 +25,13 @@ export default function InfoHead({ groups, products, activeGroup, activeGroupMet
   const sales = () => {
     if(!salesTap){
       setSalesTap(true);
+      setHiddeIcon(false);
     }
   };
   const total = () => {
     if(salesTap){
       setSalesTap(false);
+      setHiddeIcon(true);
     }
   };
 

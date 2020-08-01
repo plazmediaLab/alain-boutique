@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from '@emotion/styled'
 import useDbMethods from '../../hooks/useDbMethods';
@@ -6,7 +6,7 @@ import moment from 'moment';
 import 'moment/locale/es';
 
 const LiItem = styled(motion.div)`
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: 1fr auto auto auto;
 `;
 const Comment = styled.p`
   @media (min-width: 640px) {
@@ -14,7 +14,9 @@ const Comment = styled.p`
   }
 `;
 
-export default function ListItem({ item, expanded, setExpanded }){
+export default function ListItem({ item, expanded, setExpanded, hiddeIcon }){
+
+  const [activeStatus, setActiveStatus] = useState(false);
 
   const { deleteProduct, activeProduct,  } = useDbMethods();
 
@@ -30,6 +32,14 @@ export default function ListItem({ item, expanded, setExpanded }){
     minimumFractionDigits: 0
   });
 
+  useEffect(() => {
+    if(item.status === 'ACTIVE'){
+      setActiveStatus(true)
+    }else{
+      setActiveStatus(false)
+    }
+  }, [item.status]);
+
   return (
     <>
       <LiItem
@@ -40,9 +50,16 @@ export default function ListItem({ item, expanded, setExpanded }){
       >
         <div>
           <p className="text-carbon-500 font-light">{ item.name }</p>
-          <Comment className="text-sm text-carbon-200 truncate w-56">{ item.comment }</Comment>
+          <Comment className="text-sm text-carbon-200 truncate w-48">{ item.comment }</Comment>
         </div>
         <p className="text-base text-p_blue-500">{ formatter.format(item.price) }</p>
+        { hiddeIcon ? (
+          activeStatus && hiddeIcon ? (
+            <svg className="w-5 h-5 ml-1 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M8 2a1 1 0 000 2h2a1 1 0 100-2H8z"></path><path d="M3 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v6h-4.586l1.293-1.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L10.414 13H15v3a2 2 0 01-2 2H5a2 2 0 01-2-2V5zM15 11h2a1 1 0 110 2h-2v-2z"></path></svg>
+          ) : (
+            <svg className="w-5 h-5 ml-1 text-bluegray-200" fill="currentColor" viewBox="0 0 20 20"><path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path><path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path></svg>
+          ) 
+        ) : null }
         <svg className={`w-5 h-5 ml-1 ${productMode(item.mode)}`} fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd"></path></svg>
       </LiItem>
       <AnimatePresence initial={false}>
@@ -65,8 +82,9 @@ export default function ListItem({ item, expanded, setExpanded }){
               transition={{ duration: 0.2 }}
               className="p-2 pl-6"
             >
+              { item.comment ? <p className="font-light text-sm"><span className="mb-2 inline-block font-semibold">Comentario:</span> { item.comment }</p> : null}
               <div className="grid grid-rows-2 gap-2 grid-flow-col sm:grid-rows-1 sm:justify-between">
-                <section className="text-xs flex justify-between sm:justify-start">
+                <section className="text-xs flex">
                   <p className="bg-white text-p_blue-500 rounded-full py-1 px-2 mr-1 flex items-center font-medium">
                     <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"></path><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clipRule="evenodd"></path></svg>
                     Valor: &nbsp;{ formatter.format(item.value) }
