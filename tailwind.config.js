@@ -2,6 +2,9 @@ module.exports = {
   purge: false,
   theme: {
     extend: {
+      boxShadow: {
+        menutoggle: '10px 0px 15px 0px rgba(0,0,0,0.4), 3px 0px 6px 0px rgba(0,0,0,0.25)'
+      },
       colors: {
         p_blue: {
           100: "#DDE6F8",

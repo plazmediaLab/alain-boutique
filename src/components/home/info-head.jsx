@@ -51,7 +51,8 @@ export default function InfoHead({ groups, products, activeGroup, activeGroupMet
         className="py-2 pl-2 bg-transparent text-carbon-300"
         ref={ select }
         onChange={ () => activeGroupMethod(select.current.value) }
-        value={ activeGroup !== '' ? activeGroup : null }
+        // value={  }
+        selected={ activeGroup !== '' ? activeGroup : null } 
       >
         { groups.length === 0 ? <option value="" label="--- No hay grupos creados ---"></option> : null }
         { groups.map(item => (

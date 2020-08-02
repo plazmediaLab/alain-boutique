@@ -1,8 +1,37 @@
 import React from 'react';
-// Images 
-import PerfilDefaultImage from '../images/perfil-default-img.png';
+import { motion, useCycle } from 'framer-motion';
+import styled from '@emotion/styled';
+import BtnToggleOpen from './nav-bar-toggle/btn-toggle-open';
+import MenuContent from './nav-bar-toggle/navigation-menu';
+// Images
+import PlazmediaLogo from '../images/plazmedia-logo-ligth.svg';
 
-export default function Header({ location, photo }){
+const MotionDivToggle = styled(motion.div)`
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 350px;
+    height: 100vh;
+    background: #fff;
+`;
+const MotionDivToggleBackground = styled(motion.div)`
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+`;
+const MenuContainer = styled(motion.div)`
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 350px;
+`;
+
+export default function Header({ location }){
 
   const title = () => {
     switch (location) {
@@ -20,13 +49,72 @@ export default function Header({ location, photo }){
     }
   };
 
+  const sidebar = {
+    open: (height = 1000) => ({
+      clipPath: `circle(${height * 2 + 200}px at 40px 40px)`,
+      transition: {
+        type: "spring",
+        stiffness: 15,
+        restDelta: 2
+      }
+    }),
+    closed: {
+      clipPath: "circle(0px at 32px 28px)",
+      transition: {
+        delay: 0.3,
+        type: "spring",
+        stiffness: 400,
+        damping: 40
+      }
+    },
+  };
+  const toggleVariants = {
+    open: {
+      opacity: 1,
+      display: "initial"
+    },
+    closed: {
+      opacity: 0,
+      transitionEnd: {
+        display: "none"
+      },
+      transition: {
+        delay: 0.7
+      }
+    },
+  };
+
+  const [isOpen, toggleOpen] = useCycle(false, true);
+
   return (
-    <header className="header">
-      <button className="pr-2 py-2">
-        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path></svg>
-      </button>
+    <header className="header relative">
+      <BtnToggleOpen toggle={() => toggleOpen()} isOpen={ isOpen }/>
       <h1 className="text-2xl text-center">{ title() }</h1>
-      <img src={photo ? photo : PerfilDefaultImage} alt="Avatar Google" className="w-10 h-10 rounded-full bg-white"/>
+      {/* BTN searh */}
+      <motion.nav
+        initial={false}
+        animate={isOpen ? "open" : "closed"}
+        // custom={height}
+        // ref={containerRef}
+        // style={{ display: `${!isOpen ? 'none' : ''}` }}
+        variants={ toggleVariants }
+      >
+        <MenuContainer className="z-40">
+          <MenuContent />
+        </MenuContainer>
+        <MotionDivToggle className={`shadow-menutoggle z-30`} variants={sidebar} >
+          <footer className="flex justify-center items-center absolute w-full bottom-0 mb-5">
+            <p className="text-carbon-200 text-sm">Created by</p>&nbsp;&nbsp;
+            <img src={ PlazmediaLogo } alt="Plazmedia imagotype"/>
+          </footer>
+        </MotionDivToggle>
+        <MotionDivToggleBackground
+          className="bg-carbon-900 opacity-50 z-20"
+          variants={sidebar}
+          onClick={ () => toggleOpen() }
+        />
+        {/* <Navigation /> */}
+      </motion.nav>
     </header>
   );
 };

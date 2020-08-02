@@ -98,3 +98,10 @@ details[open] > summary {
     padding-bottom: .3rem;
     @apply bg-p_blue-100 text-p_blue-500 text-sm rounded-full px-3 font-light
 }
+
+/* ---------------------------- */
+/* Menu Toggle */
+/* --------ˇˇˇˇˇˇˇˇˇˇˇˇ-------- */
+.menu-toggle-item{
+    @apply w-full p-3 pl-4 border-r-4 border-transparent
+}

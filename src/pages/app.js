@@ -16,7 +16,7 @@ import Editproduct from '../components/edit/edit-product';
 
 export default function App({ location }){
 
-  const { authState, logOut } = useAuthMethods();
+  const { authState } = useAuthMethods();
 
   const userContext = useContext(UserContext);
   const { user } = userContext;
@@ -34,18 +34,6 @@ export default function App({ location }){
 
           <Header location={ location.pathname } photo={ user.photo }/>
 
-          <div className="flex justify-between items-center">
-            <div className="p-2 flex items-center">
-              {/* <img src={user.photo ? user.photo : PerfilDefaultImage} alt="Avatar Google" className="w-10 h-10 rounded-full mr-2"/> */}
-              <p>{user.email}</p>
-            </div>
-            <button 
-              className="py-2 px-4 bg-red-600 text-white text-sm rounded hover:bg-red-500 mt-3"
-              onClick={logOut}
-            >
-              Log Out
-            </button>
-          </div>
           {/* <Link to={`/app/edit/${ uid }`}>Editar producto</Link> */}
 
           <div className="px-3 box-content">
