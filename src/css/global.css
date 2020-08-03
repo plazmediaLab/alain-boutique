@@ -11,6 +11,11 @@ body{
 #gatsby-focus-wrapper{
     min-height: 100vh;
 }
+* {
+    @apply box-border
+}
+
+
 .btn-login{
     transition: all .3s ease-in-out;
     background: linear-gradient(180deg, #E8EEFB 0%, #E2E7EE 0.01%, rgba(255, 255, 255, 0) 100%), #ECF0F3;
@@ -91,12 +96,12 @@ details[open] > summary {
                 0px 12.5216px 10.0172px rgba(84, 128, 222, 0.125),
                 0px 6.6501px 5.32008px rgba(84, 128, 222, 0.15),
                 0px 2.76726px 2.21381px rgba(84, 128, 222, 0.21);
-    @apply bg-p_blue-500 text-white text-sm rounded-full px-3 font-light
+    @apply bg-p_blue-500 text-white text-xs rounded-full px-3 font-light whitespace-no-wrap
 }
 .tap-primary-blue-disable{
     padding-top: .3rem;
     padding-bottom: .3rem;
-    @apply bg-p_blue-100 text-p_blue-500 text-sm rounded-full px-3 font-light
+    @apply bg-p_blue-100 text-p_blue-500 text-xs rounded-full px-3 font-light whitespace-no-wrap
 }
 
 /* ---------------------------- */

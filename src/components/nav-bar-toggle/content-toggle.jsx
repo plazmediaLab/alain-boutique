@@ -27,8 +27,8 @@ export default function ContentToggle({ reference }){
       `}
     >
       <div css={css`
-        width: 350px;
-        min-width: 350px;
+        width: 330px;
+        min-width: 330px;
       `}>
         <ul className="pt-20">
           <div className="p-4 flex whitespace-no-wrap">

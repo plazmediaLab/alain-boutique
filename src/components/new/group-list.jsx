@@ -39,7 +39,7 @@ export default function GroupList(){
         <select 
           name="groupList"
           id="groupList"
-          className="p-2 pl-1 bg-transparent block flex-1"
+          className="p-2 pl-1 bg-transparent block flex-1 overflow-hidden w-full truncate"
           ref={ select }
           onChange={ () => activeGroupMethod(select.current.value) }
           value={ activeGroup !== '' ? activeGroup : null }

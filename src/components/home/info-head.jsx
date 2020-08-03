@@ -1,5 +1,7 @@
+/** @jsx jsx */
 import React, { useRef, useState } from 'react';
 import styled from '@emotion/styled';
+import { jsx, css } from '@emotion/core';
 
 const Header = styled.header`
   grid-template-columns: auto auto 1fr;
@@ -36,28 +38,34 @@ export default function InfoHead({ groups, products, activeGroup, activeGroupMet
   };
 
   return (
-    <Header className="grid gap-2 text-sm items-center">
+    <Header className="grid gap-2 text-sm items-center box-border">
       <button 
         type="button"
-        className={`${ salesTap ? 'tap-primary-blue-select' : 'tap-primary-blue-disable'}`}
+        className={`${ salesTap ? 'tap-primary-blue-select' : 'tap-primary-blue-disable'} box-border`}
         onClick={ () => sales() }
       ><span className="font-bold">{ productsSalesGroupCount() }</span> En venta</button>
       <button 
         type="button"
-        className={`${ !salesTap ? 'tap-primary-blue-select' : 'tap-primary-blue-disable'}`}
+        className={`${ !salesTap ? 'tap-primary-blue-select' : 'tap-primary-blue-disable'} box-border`}
         onClick={ () => total() }
       ><span className="font-bold">{ productsGroupCount() }</span> Totales</button>
       <select 
-        className="py-2 pl-2 bg-transparent text-carbon-300"
+        className="py-2 pl-2 bg-transparent text-carbon-300 box-border overflow-hidden w-full truncate"
         ref={ select }
         onChange={ () => activeGroupMethod(select.current.value) }
         // value={  }
         selected={ activeGroup !== '' ? activeGroup : null } 
       >
-        { groups.length === 0 ? <option value="" label="--- No hay grupos creados ---"></option> : null }
+        { groups.length === 0 ? <option value="" label="--- No hay grupos creados ---" title="007"></option> : null }
         { groups.map(item => (
       
-          <option key={ item.id } value={ item.name }>{ capitalize(item.name.replace(/(_)/g, ' ')) }</option>
+          <option 
+            key={ item.id }
+            value={ item.name }
+            className="overflow-hidden w-full truncate"
+          >
+            { capitalize(item.name.replace(/(_)/g, ' ')) }
+          </option>
           
         ))}
       </select>

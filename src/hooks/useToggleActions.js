@@ -34,7 +34,7 @@ export default function useToggleActions(){
     if(!status){
       setToggleStatus(true)
       FadeIn(backgroundToggle.current, 0.8);
-      containerToggle.current.style.width = '350px';
+      containerToggle.current.style.width = '330px';
     }else{
       setToggleStatus(false)
       containerToggle.current.style.width = '0px';

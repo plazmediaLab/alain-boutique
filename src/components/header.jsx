@@ -28,7 +28,7 @@ export default function Header({ location }){
   };
 
   return (
-    <header className="header text-carbon-500 relative col-gap-2 items-center px-3 py-1">
+    <header className="header text-carbon-500 relative col-gap-2 items-center px-3 py-1 mb-2">
       {/* <BtnToggleOpen toggle={() => toggleOpen()} isOpen={ isOpen }/> */}
       <button type="button" className="p-2 z-50" onClick={ () => openToggle(backgroundToggle, containerToggle ) }>
         <svg 

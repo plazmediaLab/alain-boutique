@@ -135,7 +135,7 @@ export default function FormNewProduct(){
             El producto está en?
           </label>
           <select 
-            className="p-3 mb-2 pr-8 rounded bg-bluegray-100 border-b border-gray-400 w-full text-gray-700 leading-tight text-sm placeholder-bluegray-300"
+            className="p-3 mb-2 pr-8 rounded bg-bluegray-100 border-b border-gray-400 w-full text-gray-700 leading-tight text-sm placeholder-bluegray-300 overflow-hidden truncate"
             name="status" id="status"
             value={ formik.values.status }
             onChange={ formik.handleChange }
