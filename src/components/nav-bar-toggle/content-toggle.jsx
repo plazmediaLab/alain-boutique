@@ -6,14 +6,14 @@ import UserContext from '../../context/user/UserContext';
 import PlazmediaLogo from '../../images/plazmedia-logo-ligth.svg';
 import PerfilDefaultImage from '../../images/perfil-default-img.png';
 // ---------------------------------------------------------------
-import useDbMethods from '../../hooks/useDbMethods';
+import useAuthMethods from '../../hooks/useAuthMethods';
 
 export default function ContentToggle({ reference }){
 
   const userContext = useContext(UserContext);
   const { user } = userContext;
 
-  const { logOut } = useDbMethods();
+  const { logOut } = useAuthMethods()
 
   return (
     <div
@@ -51,7 +51,10 @@ export default function ContentToggle({ reference }){
             <hr className="border-bluegray-100"/>
             <button 
               className="w-full min-w-full whitespace-no-wrap py-2 px-4 border border-red-600 bg-transparent text-red-600 text-sm rounded-full mt-3 hover:bg-red-600 hover:text-white"
-              onClick={logOut}
+              onClick={() => {
+                logOut()
+                console.log('Click...');
+              }}
             >
               Cerrar sesión
             </button>
