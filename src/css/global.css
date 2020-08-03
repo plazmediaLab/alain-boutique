@@ -39,7 +39,7 @@ body{
 .header{
     display: grid;
     grid-template-columns: auto 1fr auto;
-    @apply col-gap-2 items-center text-carbon-500 px-3 py-1 bg-transparent
+    @apply 
 }
 /* ---------------------------- */
 /* Menu container */
@@ -102,6 +102,10 @@ details[open] > summary {
 /* ---------------------------- */
 /* Menu Toggle */
 /* --------ˇˇˇˇˇˇˇˇˇˇˇˇ-------- */
-.menu-toggle-item{
-    @apply w-full p-3 pl-4 border-r-4 border-transparent
+.bg-toggle{
+    display: none;
+    -moz-opacity: 0;
+    opacity:0;
+    filter: alpha(opacity=0);
+    @apply bg-carbon-500 top-0 left-0 w-full h-screen fixed z-30
 }

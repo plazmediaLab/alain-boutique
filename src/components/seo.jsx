@@ -8,6 +8,7 @@ export default function Seo(){
     <Helmet>
       <title>Alain Boutique</title>
       <link rel="icon" type="image/png" href={ Favicon } /> 
+      <meta name="theme-color" content="#13191C" />
     </Helmet>
   );
 };
