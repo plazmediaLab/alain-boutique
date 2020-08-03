@@ -1,7 +1,11 @@
 import React from 'react';
 
-export default function BackgroundToggle(){
+export default function BackgroundToggle({ reference, openToggle }){
   return (
-    <h1>Content...</h1>
+    <div 
+      ref={ reference }
+      onClick={ openToggle }
+      className={`bg-toggle`}
+    ></div>
   );
 };
