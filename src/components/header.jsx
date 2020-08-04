@@ -1,7 +1,11 @@
+/**@jsx jsx */
 import React, { useRef } from 'react';
 import BackgroundToggle from './nav-bar-toggle/background-toggle';
 import ContentToggle from './nav-bar-toggle/content-toggle';
 import useToggleActions from '../hooks/useToggleActions';
+import { jsx, css } from '@emotion/core';
+import BtnToggle from './nav-bar-toggle/btn-toggle';
+
 
 export default function Header({ location }){
 
@@ -28,17 +32,16 @@ export default function Header({ location }){
   };
 
   return (
-    <header className="header text-carbon-500 relative col-gap-2 items-center px-3 py-1 mb-2">
-      {/* <BtnToggleOpen toggle={() => toggleOpen()} isOpen={ isOpen }/> */}
-      <button type="button" className="p-2 z-50" onClick={ () => openToggle(backgroundToggle, containerToggle ) }>
-        <svg 
-          className="w-8 h-8"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-        >
-          <path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path>
-        </svg>
-      </button>
+    <header 
+      className="text-carbon-500 relative col-gap-2 items-center px-3 py-1 mb-2"
+      css={css`
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+      `}
+    >
+      
+      <BtnToggle openToggle={ () => openToggle(backgroundToggle, containerToggle ) } />
+
       <h1 className="text-2xl text-center">{ title() }</h1>
       <button type="button" className="p-2" onClick={ () => console.log('Serach...') }>
         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"></path></svg>

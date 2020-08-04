@@ -15,6 +15,8 @@ export default function ContentToggle({ reference }){
 
   const { logOut } = useAuthMethods()
 
+
+
   return (
     <div
       ref={ reference }

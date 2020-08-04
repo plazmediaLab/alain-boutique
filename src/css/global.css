@@ -39,14 +39,6 @@ body{
     @apply text-xs text-p_blue-200 inline-block
 }
 /* ---------------------------- */
-/* Header */
-/* --------ˇˇˇˇˇˇˇˇˇˇˇˇ-------- */
-.header{
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    @apply 
-}
-/* ---------------------------- */
 /* Menu container */
 /* --------ˇˇˇˇˇˇˇˇˇˇˇˇ-------- */
 .menu-container{
