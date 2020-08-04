@@ -3,6 +3,7 @@ import { useState } from 'react';
 export default function useToggleActions(){
 
   const [status, setToggleStatus] = useState(false);
+  const [active, setActive] = useState(false);
   
   function FadeIn(element, maxOpacity = 1) {
     var op = 0.1;  // initial opacity
@@ -29,14 +30,17 @@ export default function useToggleActions(){
     }, 8);
   }
   
-  const openToggle = (backgroundToggle, containerToggle) => {
+  const openToggle = (refItem, backgroundToggle, containerToggle) => {
+    let item = refItem.current.querySelector('span');
     containerToggle.current.classList.toggle("shadow-menutoggle");
     if(!status){
       setToggleStatus(true)
       FadeIn(backgroundToggle.current, 0.8);
       containerToggle.current.style.width = '330px';
+      item.classList.add('active');
     }else{
       setToggleStatus(false)
+      item.classList.remove('active');
       containerToggle.current.style.width = '0px';
       setTimeout(() => {
         FadeOut(backgroundToggle.current, 0.8);
@@ -44,5 +48,8 @@ export default function useToggleActions(){
     }
   };
 
-  return [ status, openToggle ];
+  return { 
+    status,
+    openToggle
+  };
 };

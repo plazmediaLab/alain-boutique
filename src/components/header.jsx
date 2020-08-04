@@ -11,9 +11,10 @@ export default function Header({ location }){
 
   let backgroundToggle = useRef(null);
   let containerToggle = useRef(null);
+  let btnToggle = useRef(null);
 
   // eslint-disabled-next-line
-  const [ status, openToggle ] = useToggleActions();
+  const { openToggle } = useToggleActions();
 
   const title = () => {
     switch (location) {
@@ -40,7 +41,7 @@ export default function Header({ location }){
       `}
     >
       
-      <BtnToggle openToggle={ () => openToggle(backgroundToggle, containerToggle ) } />
+      <BtnToggle reference={ btnToggle } openToggle={ () => openToggle(btnToggle, backgroundToggle, containerToggle ) } />
 
       <h1 className="text-2xl text-center">{ title() }</h1>
       <button type="button" className="p-2" onClick={ () => console.log('Serach...') }>
@@ -49,7 +50,7 @@ export default function Header({ location }){
 
       <ContentToggle reference={ containerToggle } />
 
-      <BackgroundToggle reference={ backgroundToggle } openToggle={ () => openToggle(backgroundToggle, containerToggle ) } />
+      <BackgroundToggle reference={ backgroundToggle } openToggle={ () => openToggle(btnToggle, backgroundToggle, containerToggle ) } />
 
     </header>
   );
