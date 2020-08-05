@@ -42,8 +42,6 @@ export default function FormNewProduct(){
       name: Yup.string().required('El campo NOMBRE es obligatorio').trim(),
       value: Yup.number().required('El campo VALOR es obligatorio').min(0, 'El VALOR no puede ser menor a 0'),
       price: Yup.number().min(0, 'El VALOR no puede ser menor a 0').moreThan(Yup.ref('value'), 'El PRECIO no puede ser menor al VALOR'),
-      status: Yup.string().required('El STADO del producto es obligatorio').trim(),
-      mode: Yup.string().required('El MODO del producto es obligatorio').trim(),
     }),
     onSubmit: async (val, { resetForm }) => {
       
@@ -65,6 +63,7 @@ export default function FormNewProduct(){
 
       try {
 
+        console.log(data);
         createProduct(data);
         
         resetForm(formik.initialValues);
@@ -137,7 +136,6 @@ export default function FormNewProduct(){
               name="mode" id="mode"
               value={ mode }
               onChange={ handleMode }
-              onBlur={ formik.handleBlur }
             >
               <option value="USED">Usado</option>
               <option value="NEW">Nuevo</option>
@@ -157,7 +155,6 @@ export default function FormNewProduct(){
               name="status" id="status"
               value={ statusItem }
               onChange={ handleStatus }
-              onBlur={ formik.handleBlur }
             >
               <option value="STOCK">Stock</option>
               <option value="ACTIVE">Venta</option>
