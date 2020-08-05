@@ -5,6 +5,13 @@ module.exports = {
       boxShadow: {
         menutoggle: '10px 0px 15px 0px rgba(0,0,0,0.4), 3px 0px 6px 0px rgba(0,0,0,0.25)'
       },
+      fontSize: {
+        'title-page': '18px',
+        'title-item': '14px',
+        'description': '12px',
+        'price': '13px',
+        'label': '10px',
+      },
       colors: {
         p_blue: {
           100: "#DDE6F8",

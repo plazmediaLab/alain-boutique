@@ -1,5 +1,5 @@
 /**@jsx jsx */
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import { btnAnimateIcon } from './styled-css-class';
 import { jsx, css } from '@emotion/core';
 

@@ -106,3 +106,12 @@ details[open] > summary {
     filter: alpha(opacity=0);
     @apply bg-carbon-500 top-0 left-0 w-full h-screen fixed z-30
 }
+/* ---------------------------- */
+/* Input New Product */
+/* --------ˇˇˇˇˇˇˇˇˇˇˇˇ-------- */
+.input-form-new{
+    @apply bg-transparent rounded border border-bluegray-200 w-full p-3 text-carbon-500 leading-tight text-description
+}
+.label-form-new{
+    @apply inline-block text-label text-bluegray-400 uppercase font-medium tracking-wider mb-1 flex items-center
+}

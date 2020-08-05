@@ -48,19 +48,19 @@ export default function ListItem({ item, expanded, setExpanded, hiddeIcon }){
       <LiItem
         initial={false}
         // animate={{ backgroundColor: isOpen ? "#FF0088" : "#0055FF" }}
-        className={`bg-white w-full py-2 px-3 text-carbon-500 text-lg grid gap-2 items-center shadow-sm ${!isOpen ? 'mb-1' : ''} cursor-pointer`}
+        className={`bg-white w-full py-2 px-3 text-carbon-500 grid gap-2 items-center shadow-sm ${!isOpen ? 'mb-1' : ''} cursor-pointer`}
         onClick={() => setExpanded(isOpen ? false : item)}
       >
         <div>
-          <p className="text-carbon-500 font-light">{ item.name }</p>
-          <Comment className="text-sm text-carbon-200 truncate w-48">{ item.comment }</Comment>
+          <p className="text-carbon-500 font-light text-title-item">{ item.name }</p>
+          <Comment className="text-description text-carbon-200 truncate w-48">{ item.comment }</Comment>
         </div>
-        <p className="text-base text-p_blue-500">{ formatter.format(item.price) }</p>
+        <p className="text-price font-medium text-p_blue-500">{ formatter.format(item.price) }</p>
         { hiddeIcon ? (
           activeStatus && hiddeIcon ? (
-            <svg className="w-5 h-5 ml-1 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M8 2a1 1 0 000 2h2a1 1 0 100-2H8z"></path><path d="M3 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v6h-4.586l1.293-1.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L10.414 13H15v3a2 2 0 01-2 2H5a2 2 0 01-2-2V5zM15 11h2a1 1 0 110 2h-2v-2z"></path></svg>
-          ) : (
-            <svg className="w-5 h-5 ml-1 text-bluegray-200" fill="currentColor" viewBox="0 0 20 20"><path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path><path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path></svg>
+            <svg className="w-5 h-5 ml-1 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path></svg>
+            ) : (
+            <svg className="w-5 h-5 ml-1 text-bluegray-200" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path></svg>
           ) 
         ) : null }
         <svg className={`w-5 h-5 ml-1 ${productMode(item.mode)}`} fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd"></path></svg>
@@ -97,9 +97,9 @@ export default function ListItem({ item, expanded, setExpanded, hiddeIcon }){
                     { moment.utc(item.date.seconds*1000).fromNow() }
                   </p>
                 </section>
-                <section className="grid grid-cols-3 gap-2 justify-start sm:justify-end">
+                <section className="grid grid-cols-3 gap-2 justify-start sm:justify-end text-xs md:text-sm">
                   <button
-                    className="btn-gen text-red-600 sm:px-3"
+                    className="btn-gen text-red-600 sm:px-3 whitespace-no-wrap"
                     onClick={ () => deleteProduct(item.id) }
                   >Eliminar</button>
                   <button
@@ -108,13 +108,13 @@ export default function ListItem({ item, expanded, setExpanded, hiddeIcon }){
                   { item.status === 'STOCK' ?
                     ( 
                       <button
-                        className="btn-gen text-p_blue-500 sm:px-3"
+                        className="btn-gen text-p_blue-500 sm:px-3 whitespace-no-wrap"
                         onClick={ () => activeProduct(item.id) }
                       >Activar venta</button>
                       ):
                     (
                       <button
-                        className="btn-gen text-carbon-300 sm:px-3"
+                        className="btn-gen text-carbon-300 sm:px-3 whitespace-no-wrap"
                         onClick={ () => activeProduct(item.id) }
                       >A stock</button>
                     )
