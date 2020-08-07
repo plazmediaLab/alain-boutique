@@ -2,10 +2,21 @@ module.exports = {
   purge: false,
   theme: {
     extend: {
+      borderRadius: {
+        container: '10px',
+        card: '5px',
+      },
       boxShadow: {
-        menutoggle: '10px 0px 15px 0px rgba(0,0,0,0.4), 3px 0px 6px 0px rgba(0,0,0,0.25)'
+        blue: '0px 41.7776px 33.4221px rgba(84, 128, 222, 0.0086), 0px 22.3363px 250px rgba(84, 128, 222, 0.106), 0px 12.5216px 10.0172px rgba(84, 128, 222, 0.125), 0px 6.6501px 5.32008px rgba(84, 128, 222, 0.15), 0px 2.76726px 2.21381px rgba(84, 128, 222, 0.21)',
+        btncircle: 'drop-shadow(0px 3px 8px rgba(100, 140, 225, 0.7))',
+        btnsquare: '-10px -10px 15px #FFFFFF, 5px 5px 10px rgba(84, 128, 222, 0.15)',
+        container: '0px 1px 3px rgba(187, 204, 242, 0.3), 0px 3px 12px -2px rgba(187, 204, 242, 0.8)',
+        item: '0px 1px 3px rgba(187, 204, 242, 0.3), 0px 3px 12px -2px rgba(187, 204, 242, 0.8)',
+        menutoggle: '10px 0px 15px 0px rgba(0,0,0,0.4), 3px 0px 6px 0px rgba(0,0,0,0.25)',
+        under: '-5px -5px 15px #FFFFFF, 5px 5px 10px rgba(84, 128, 222, 0.15), inset -2px -2px 9px #FFFFFF, inset 5px 5px 10px rgba(84, 128, 222, 0.15)'
       },
       fontSize: {
+        'number-h1': '24px',
         'title-page': '18px',
         'title-item': '14px',
         'description': '12px',

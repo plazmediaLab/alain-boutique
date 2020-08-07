@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { jsx, css } from '@emotion/core';
 import UserContext from '../../context/user/UserContext';
 // Images
@@ -32,7 +32,9 @@ export default function ContentToggle({ reference }){
         width: 330px;
         min-width: 330px;
       `}>
-        <ul className="pt-20">
+        <ul 
+          className="pt-20"
+        >
           <div className="p-4 flex whitespace-no-wrap">
             <img src={user.photo ? user.photo : PerfilDefaultImage} alt="Avatar Google" className="rounded-full bg-white" css={css`
               width: 2.5rem;

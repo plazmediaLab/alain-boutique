@@ -63,7 +63,6 @@ export default function FormNewProduct(){
 
       try {
 
-        console.log(data);
         createProduct(data);
         
         resetForm(formik.initialValues);

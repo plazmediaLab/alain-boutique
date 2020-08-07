@@ -46,7 +46,7 @@ export default function App({ location }){
             </Router>
           </div>
 
-          <SideBar />
+          <SideBar location={ location } />
 
           <div className="block w-full h-20"/>
 

@@ -6,6 +6,7 @@
 
 const tailwindcss = require("tailwindcss");
 const credentials = require('./credentials.js');
+const path = require('path');
 
 module.exports = {
   siteMetadata: {
@@ -14,6 +15,22 @@ module.exports = {
     description: `Sales control system, for my two great loves, my heart Mireya Martinez and my first son and my greatest pride Evan Alain, I love you`,
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-alias-imports`,
+      options: {
+        alias: {
+          "components": path.resolve(__dirname, 'src/components'),
+          "pages": path.resolve(__dirname, 'src/pages'),
+          "images": path.resolve(__dirname, 'src/images'),
+          "hooks": path.resolve(__dirname, 'src/hooks'),
+          "context": path.resolve(__dirname, 'src/context'),
+        },
+        extensions: [
+          "js",
+          "jsx",
+        ]
+      }
+    },
     {
       resolve: `gatsby-plugin-postcss`,
       options: {
