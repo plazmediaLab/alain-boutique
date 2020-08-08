@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link, navigate } from 'gatsby';
+import { Link } from 'gatsby';
 // Components
-import Layout from "../components/layout";
-import FooterIndex from '../components/footer-index';
-import FormSignUp from '../components/sign-up/form-sign-up';
+import Layout from "components/layout";
+import FooterIndex from 'components/footer-index';
+import FormSignUp from 'components/sign-up/form-sign-up';
 
 export default function SignUp(){
 

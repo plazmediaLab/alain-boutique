@@ -16,22 +16,6 @@ module.exports = {
   },
   plugins: [
     {
-      resolve: `gatsby-plugin-alias-imports`,
-      options: {
-        alias: {
-          "components": path.resolve(__dirname, 'src/components'),
-          "pages": path.resolve(__dirname, 'src/pages'),
-          "images": path.resolve(__dirname, 'src/images'),
-          "hooks": path.resolve(__dirname, 'src/hooks'),
-          "context": path.resolve(__dirname, 'src/context'),
-        },
-        extensions: [
-          "js",
-          "jsx",
-        ]
-      }
-    },
-    {
       resolve: `gatsby-plugin-postcss`,
       options: {
         postCssPlugins: [tailwindcss]

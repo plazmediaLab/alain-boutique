@@ -1,22 +1,23 @@
 import React, { useEffect, useContext } from 'react';
 // eslint-disable-next-line
-import { Router, Link } from '@reach/router';
-import UserContext from '../context/user/UserContext';
+import { Router } from '@reach/router';
+
 // Custom Hooks
-import useAuthMethods from '../hooks/useAuthMethods';
+import useAuthMethods from 'hooks/useAuthMethods';
+import UserContext from 'context/user/UserContext';
 // Components
-import Layout from '../components/layout';
-import Home from '../components/home/home';
-import Sales from '../components/sales/sales';
-import Sumary from '../components/sumary/sumary';
-import NewProduct from '../components/new/new-product';
-import SideBar from '../components/side-bar';
-import Header from '../components/header';
-import Editproduct from '../components/edit/edit-product';
+import Layout from 'components/layout';
+import Home from 'components/home/home';
+import Sales from 'components/sales/sales';
+import Sumary from 'components/sumary/sumary';
+import NewProduct from 'components/new/new-product';
+import SideBar from 'components/side-bar';
+import Header from 'components/header';
+import Editproduct from 'components/edit/edit-product';
 
 export default function App({ location }){
 
-  const { authState } = useAuthMethods();
+  const { authState } = useAuthMethods;
 
   const userContext = useContext(UserContext);
   const { user } = userContext;

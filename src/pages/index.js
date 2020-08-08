@@ -1,14 +1,14 @@
 import React, { useEffect } from "react"
 import { Link } from 'gatsby';
 // Images
-import isotype from '../images/isotype.svg'
+import isotype from 'images/isotype.svg'
 // Components
-import Layout from "../components/layout";
-import ButtonsLoginGF from "../components/login/buttons-login-gf";
-import FormLogin from "../components/login/form-login";
-import FooterIndex from "../components/footer-index";
+import Layout from "components/layout";
+import ButtonsLoginGF from "components/login/buttons-login-gf";
+import FormLogin from "components/login/form-login";
+import FooterIndex from "components/footer-index";
 // Custom Hooks
-import useAuthMethods from '../hooks/useAuthMethods';
+import useAuthMethods from 'hooks/useAuthMethods';
 
 export default function Home() {
 

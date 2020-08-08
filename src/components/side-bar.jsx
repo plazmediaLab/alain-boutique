@@ -15,8 +15,6 @@ const NavLink = props => {
 };
 
 export default function SideBar({ location }){
-  
-  console.log(location.pathname);
 
   return (
     <div className="relative">
