@@ -18,12 +18,11 @@ export default function Home(){
     if(filter === 'total'){
       setlist(products.filter(x => x.group === activeGroup && !x.sale))
     }
-    console.log(list);
   }, [filter, products, activeGroup]);
 
   return (
     <>
-
+      
       <InfoHead
         products={ products }
         setFilter={ setFilter }
