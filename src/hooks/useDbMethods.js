@@ -69,6 +69,7 @@ export default function useDbMethods(){
           group: a.data().group,
           status: a.data().status,
           mode: a.data().mode,
+          sale: a.data().sale,
           init: a.data().init === "1819222020" ? a.data().init : false 
         }]
       })

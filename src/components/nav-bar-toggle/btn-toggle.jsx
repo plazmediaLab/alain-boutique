@@ -11,7 +11,7 @@ export default function BtnToggle({ reference, openToggle }){
     <button 
       ref={ reference }
       type="button"
-      className="relative z-50 bg-teal-500"
+      className="relative z-50 bg-teal-500 appearance-none focus:outline-none"
       css={ btnAnimateIcon }
       onClick={ openToggle }
     >

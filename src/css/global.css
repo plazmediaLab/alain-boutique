@@ -14,6 +14,23 @@ body{
 * {
     @apply box-border
 }
+*:focus,
+*:active,
+button:focus {
+    outline: none;
+    @apply outline-none
+}
+
+/* ---------------------------- */
+/* Header */
+/* --------ˇˇˇˇˇˇˇˇˇˇˇˇ-------- */
+button.off{
+    @apply text-p_blue-500 p-1 text-description
+}
+button.on{
+    color: white!important;
+    @apply text-white bg-p_blue-500 shadow-blue rounded-full p-1 text-description
+}
 
 
 .btn-login{

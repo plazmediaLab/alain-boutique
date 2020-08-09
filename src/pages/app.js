@@ -17,7 +17,7 @@ import Editproduct from 'components/edit/edit-product';
 
 export default function App({ location }){
 
-  const { authState } = useAuthMethods;
+  const { authState } = useAuthMethods();
 
   const userContext = useContext(UserContext);
   const { user } = userContext;

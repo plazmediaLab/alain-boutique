@@ -1,41 +1,38 @@
 import React, { useContext, useState, useEffect } from 'react';
 import InfoHead from './info-head';
-import UserContext from '../../context/user/UserContext';
 import ProductsSalesList from './products-sales-list';
+import UserContext from 'context/user/UserContext';
 
 export default function Home(){
 
-  const [salesTap, setSalesTap] = useState(true);
-  const [hiddeIcon, setHiddeIcon] = useState(false);
+  const [filter, setFilter] = useState('active');
   const [list, setlist] = useState([]);
 
   const userContext = useContext(UserContext);
   const { groups, products, activeGroup, activeGroupMethod } = userContext;
 
   useEffect(() => {
-    if(salesTap){
-      const productsList = products.filter(item => item.status === 'ACTIVE' && item.group === activeGroup );
-      setlist(productsList)
-    }else{
-      const productsList = products.filter(item => item.group === activeGroup);
-      setlist(productsList)
+    if(filter === 'active'){
+      setlist(products.filter(x => x.status === 'ACTIVE' && x.group === activeGroup))
     }
-  }, [activeGroup, products, salesTap]);
+    if(filter === 'total'){
+      setlist(products.filter(x => x.group === activeGroup && !x.sale))
+    }
+    console.log(list);
+  }, [filter, products, activeGroup]);
 
   return (
     <>
-      <InfoHead 
-        groups={ groups }
+
+      <InfoHead
         products={ products }
-        activeGroupMethod={ activeGroupMethod }
+        setFilter={ setFilter }
+        groups={ groups }
         activeGroup={ activeGroup }
-        setlist={ setlist }
-        salesTap={ salesTap }
-        setSalesTap={ setSalesTap }
-        setHiddeIcon={ setHiddeIcon }
+        activeGroupMethod={ activeGroupMethod }
       />
-      
-      <ProductsSalesList list={ list } hiddeIcon={ hiddeIcon } />
+
+      <ProductsSalesList list={ list }/>
 
     </>
   );

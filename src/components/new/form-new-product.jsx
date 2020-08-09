@@ -58,6 +58,7 @@ export default function FormNewProduct(){
         comment: val.comment.trim(),
         date: new Date(),
         init: false,
+        sale: false,
         group: activeGroup
       }
 
