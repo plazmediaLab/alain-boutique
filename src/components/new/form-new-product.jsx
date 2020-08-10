@@ -1,5 +1,5 @@
 /**@jsx jsx */
-import React, { useContext, useState, useRef } from 'react';
+import { useContext, useState, useRef } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Required from '../messages/required';

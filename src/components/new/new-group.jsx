@@ -44,7 +44,7 @@ export default function NewGroup(){
 
   return (
     <form
-      className="w-full"
+      className="w-full relative"
       onSubmit={ formik.handleSubmit }
     >
       <button

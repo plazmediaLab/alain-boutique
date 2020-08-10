@@ -31,7 +31,7 @@ export default function Home(){
         activeGroupMethod={ activeGroupMethod }
       />
 
-      <ProductsSalesList list={ list }/>
+      <ProductsSalesList list={ list } filter={ filter }/>
 
     </>
   );

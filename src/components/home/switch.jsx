@@ -1,5 +1,5 @@
 /**@jsx jsx */
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { jsx, css } from '@emotion/core';
 
 export default function Switch({ countActive, countTotal, setFilter }){
@@ -17,7 +17,7 @@ export default function Switch({ countActive, countTotal, setFilter }){
 
   return (
     <div 
-      className="relative block h-full rounded-full bg-p_blue-100 text-p_blue-500"
+      className="relative block h-full rounded-full bg-p_blue-100 text-p_blue-500 cursor-pointer"
       css={css`
         span.on{
           left: calc(50% - .25rem);

@@ -3,7 +3,6 @@ import { useState } from 'react';
 export default function useToggleActions(){
 
   const [status, setToggleStatus] = useState(false);
-  const [active, setActive] = useState(false);
   
   function FadeIn(element, maxOpacity = 1) {
     var op = 0.1;  // initial opacity

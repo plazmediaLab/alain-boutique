@@ -1,5 +1,5 @@
 /**@jsx jsx */
-import React,{ useContext, useEffect, useRef } from 'react';
+import { useContext, useRef } from 'react';
 import UserContext from '../../context/user/UserContext';
 import ModalItem from '../Resources/modal-item';
 import NewGroup from './new-group';
@@ -20,7 +20,7 @@ export default function GroupList(){
   };
 
   return (
-    <section className="flex items-center mb-4">
+    <section className="flex items-center mb-4 relative">
 
       <ModalItem>
         <NewGroup />
@@ -34,6 +34,7 @@ export default function GroupList(){
           border-radius: 10px;
           padding: .1rem;
           padding-right: .6rem;
+          z-index: 6;
         `}
         className="flex items-center w-full mr-2"
       >
@@ -72,6 +73,7 @@ export default function GroupList(){
           background: #ECF0F3;
           box-shadow: -10px -10px 15px #FFFFFF, 7px 7px 15px #D1D9E6;
           border-radius: 10px;
+          z-index: 5;
         `}
         className="p-3 text-bluegray-300"
         onClick={ openModal }

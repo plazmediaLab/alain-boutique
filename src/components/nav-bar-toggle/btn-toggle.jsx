@@ -1,12 +1,8 @@
 /**@jsx jsx */
-import React from 'react';
+import { jsx } from '@emotion/core';
 import { btnAnimateIcon } from './styled-css-class';
-import { jsx, css } from '@emotion/core';
 
 export default function BtnToggle({ reference, openToggle }){
-
-  
-
   return (
     <button 
       ref={ reference }

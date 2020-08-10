@@ -1,5 +1,5 @@
 /**@jsx jsx */
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import BackgroundToggle from './nav-bar-toggle/background-toggle';
 import ContentToggle from './nav-bar-toggle/content-toggle';
 import useToggleActions from '../hooks/useToggleActions';
