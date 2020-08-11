@@ -49,10 +49,12 @@ export default function ModalItem({ children }){
       width                 : `${widthModal}`,
       padding               : '2rem 1rem 1rem',
       boxShadow             : '0px 7px 15px -3px rgba(0,0,0,0.45), 0px 5px 4px -2px rgba(0,0,0,0.3)',
-      position              : 'relative'
+      position              : 'relative',
+      zIndex                : 10
     },
     overlay: {
-      backgroundColor: "rgba(0,0,0,.5)",
+      backgroundColor       : "rgba(0,0,0,.5)",
+      zIndex                : 10
     }
   };
  

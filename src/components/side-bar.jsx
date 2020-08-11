@@ -18,7 +18,7 @@ export default function SideBar({ location }){
 
   return (
     <div className="relative">
-      <aside className="menu-container inset-x-0 bottom-0 fixed">
+      <aside className="menu-container inset-x-0 bottom-0 fixed z-40">
         <nav className="grid grid-flow-col justify-between items-center">
           <NavLink to="/app">
             { location.pathname === '/app' ? (

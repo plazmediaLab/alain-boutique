@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
-import InfoHead from './info-head';
 import ProductsSalesList from './products-sales-list';
 import UserContext from 'context/user/UserContext';
+import InfoHead from './InfoHead';
 
 export default function Home(){
 

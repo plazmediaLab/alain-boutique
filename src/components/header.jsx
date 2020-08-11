@@ -34,7 +34,7 @@ export default function Header({ location }){
 
   return (
     <header 
-      className="text-carbon-500 relative col-gap-2 items-center px-3 py-1 mb-6"
+      className="text-carbon-500 relative col-gap-2 items-center px-3 py-1 mb-6 z-50"
       css={css`
         display: grid;
         grid-template-columns: auto 1fr auto;

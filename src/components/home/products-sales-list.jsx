@@ -1,6 +1,7 @@
 /**@jsx jsx */
 import { jsx, css } from '@emotion/core';
 import ItemsSales from 'components/sales/items-sales';
+import ListItem from './list-item';
 
 
 export default function ProductsSalesList({ list, filter }){
@@ -14,7 +15,7 @@ export default function ProductsSalesList({ list, filter }){
       `}
     >
       { list.map(item => (
-        <ItemsSales item={ item } filter={ filter } />
+        <ListItem item={ item } filter={ filter } />
       )) }
     </ul>
   );
