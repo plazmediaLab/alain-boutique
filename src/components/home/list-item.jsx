@@ -1,4 +1,5 @@
 /**@jsx jsx */
+import { useState, useEffect } from 'react';
 import { jsx, css } from '@emotion/core';
 import { 
   handleClickToggleInfo, 
@@ -14,12 +15,38 @@ import useDbMethods from '../../hooks/useDbMethods';
 
 
 export default function ItemsSales({ item, filter }){
+  
+  const [Y, setY] = useState('');
 
   const { activeProduct, deleteProduct } = useDbMethods();
 
+  const OpenToggleInfo = e => {
+
+    handleClickToggleInfo(e)
+
+    let toggle = e.target.parentNode.parentNode.querySelector('.toggle-info');
+    let containerHeight = e.target.parentNode.parentNode.querySelector('.container-info');
+    let heightY = containerHeight.offsetHeight + 16;
+
+    setY(`${heightY}px`);
+
+    const list = document.querySelectorAll('.toggle-info');
+    list.forEach(x => {
+      if(x.className !== toggle.className){
+        x.className = 'toggle-info'
+      };
+    })
+
+    if(toggle.className === 'toggle-info'){
+      toggle.className = 'toggle-info on';
+    }else if(toggle.className === 'toggle-info on'){
+      toggle.className = 'toggle-info';
+    };
+
+  };
+
   return (
-    <li 
-      key={ item.id }
+    <li
       className="grid items-center w-full shadow-container rounded-card bg-white"
       css={css`
         grid-template-columns: auto 1fr;
@@ -29,8 +56,13 @@ export default function ItemsSales({ item, filter }){
         padding: 0;
         margin: 0; */
 
-        .on-toggle{
-
+        .toggle-info{
+          height: 0px;
+          transition: height .2s ease-in-out;
+          overflow: hidden;
+        }
+        .toggle-info.on{
+          height: ${Y};
         }
       `}
     >
@@ -49,8 +81,8 @@ export default function ItemsSales({ item, filter }){
         css={ titleItemContainer }
       >
         <section 
-          className="max-w-full overflow-hidden relative cursor-pointer"
-          onClick={ handleClickToggleInfo }
+          className="toggle-active max-w-full overflow-hidden relative cursor-pointer"
+          onClick={ e => OpenToggleInfo(e) }
           css={ rippleContent }
         >
           <p>{ item.name }</p>
@@ -65,37 +97,41 @@ export default function ItemsSales({ item, filter }){
         )}
       </div>
 
-      <div className="on-toggle bg-transparent rounded-b-card pr-3 pb-3 pt-1 pl-8 col-span-2 text-description text-bluegray-400">
-        { item.comment ? <p className="pb-6"><span className="font-bold">Comentario: </span>{ item.comment }</p> : null }
-        <section
-          className="grid items-center col-gap-2 font-light"
-          css={css`
-            grid-template-columns: 1fr auto auto;
-          `}
-        >
-          <div>
-            <span
-              className="bg-background rounded-full px-2 text-bluegray-200 whitespace-no-wrap"
+      <div className="bg-transparent rounded-b-card pr-3 pl-8 col-span-2 text-description text-bluegray-400">
+        <section className="toggle-info">
+          <div className="container-info mb-3 mt-1">
+            { item.comment ? <p className="pb-6"><span className="font-bold">Comentario: </span>{ item.comment }</p> : null }
+            <nav
+              className="grid items-center col-gap-2 font-light"
               css={css`
-                padding-top: .1rem; 
-                padding-bottom: .1rem; 
+                grid-template-columns: 1fr auto auto;
               `}
-            >{ moment.utc(item.date.seconds*1000).fromNow() }</span>
+            >
+              <div>
+                <span
+                  className="bg-background rounded-full px-2 text-bluegray-200 whitespace-no-wrap"
+                  css={css`
+                    padding-top: .1rem; 
+                    padding-bottom: .1rem; 
+                  `}
+                >{ moment.utc(item.date.seconds*1000).fromNow() }</span>
+              </div>
+              <button 
+                className="rounded py-1 px-2 border border-bluegray-100 text-red-600"
+                type="button"
+                onClick={ () => deleteProduct(item.id) }
+              >
+                Eliminar
+              </button>
+              <button 
+                className={`rounded py-1 px-2 border border-bluegray-100 ${item.status === 'STOCK' ? 'text-p_blue-500' : '' }`}
+                type="button"
+                onClick={ () => activeProduct(item.id) }
+              >
+                {item.status === 'STOCK' ? 'A venta' : 'A stock' }
+              </button>
+            </nav>
           </div>
-          <button 
-            className="rounded py-1 px-2 border border-bluegray-100 text-red-600"
-            type="button"
-            onClick={ () => deleteProduct(item.id) }
-          >
-            Eliminar
-          </button>
-          <button 
-            className={`rounded py-1 px-2 border border-bluegray-100 ${item.status === 'STOCK' ? 'text-p_blue-500' : '' }`}
-            type="button"
-            onClick={ () => activeProduct(item.id) }
-          >
-            {item.status === 'STOCK' ? 'A venta' : 'A stock' }
-          </button>
         </section>
       </div>
 

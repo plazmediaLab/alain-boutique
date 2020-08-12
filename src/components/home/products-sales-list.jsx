@@ -1,12 +1,11 @@
 /**@jsx jsx */
 import { jsx, css } from '@emotion/core';
-import ItemsSales from 'components/sales/items-sales';
 import ListItem from './list-item';
 
-
 export default function ProductsSalesList({ list, filter }){
+
   return (
-    <ul 
+    <ul
       className="mt-3"
       css={css`
         > *:not(:last-child){
@@ -15,7 +14,7 @@ export default function ProductsSalesList({ list, filter }){
       `}
     >
       { list.map(item => (
-        <ListItem item={ item } filter={ filter } />
+        <ListItem item={ item } filter={ filter } key={ item.id } />
       )) }
     </ul>
   );

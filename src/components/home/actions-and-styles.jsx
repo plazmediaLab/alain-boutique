@@ -33,7 +33,7 @@ export const rippleContent = css`
   span.ripple{
     position: absolute; 
     border-radius: 50%; 
-    background-color: rgba(84, 128, 222, .21); 
+    background-color: rgba(84, 128, 222, .27); 
     width: 20px; 
     height: 20px; 
 
@@ -53,7 +53,7 @@ export const rippleContent = css`
 `
 export const titleItemContainer = css`
   display: grid;
-  grid-template-columns: 1fr repeat(5, auto);
+  grid-template-columns: 1fr repeat(3, auto);
   align-items: center;
   column-gap: .25rem;
 `
