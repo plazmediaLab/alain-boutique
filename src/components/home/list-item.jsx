@@ -12,13 +12,14 @@ import {
 import moment from 'moment';
 import 'moment/locale/es';
 import useDbMethods from '../../hooks/useDbMethods';
+import FetchingIcon from 'components/Resources/fetching-icon';
 
 
 export default function ItemsSales({ item, filter }){
   
   const [Y, setY] = useState('');
 
-  const { activeProduct, deleteProduct } = useDbMethods();
+  const { activeProduct, deleteProduct, fetching } = useDbMethods();
 
   const OpenToggleInfo = e => {
 
@@ -47,6 +48,7 @@ export default function ItemsSales({ item, filter }){
 
   return (
     <li
+      key={ item.id }
       className="grid items-center w-full shadow-container rounded-card bg-white"
       css={css`
         grid-template-columns: auto 1fr;
@@ -124,10 +126,11 @@ export default function ItemsSales({ item, filter }){
                 Eliminar
               </button>
               <button 
-                className={`rounded py-1 px-2 border border-bluegray-100 ${item.status === 'STOCK' ? 'text-p_blue-500' : '' }`}
+                className={`rounded py-1 px-2 border border-bluegray-100 ${item.status === 'STOCK' ? 'text-p_blue-500' : '' } flex items-center`}
                 type="button"
                 onClick={ () => activeProduct(item.id) }
               >
+                { fetching ? <FetchingIcon strokeC='#5480DE' classN="mr-2"/> : null }
                 {item.status === 'STOCK' ? 'A venta' : 'A stock' }
               </button>
             </nav>

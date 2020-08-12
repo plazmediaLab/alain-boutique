@@ -21,7 +21,7 @@ export default function Header({ location }){
       case '/app':
         return 'Inicio'
       case '/app/sales':
-        return 'Productos'
+        return 'Vendidos'
       case '/app/sumary':
         return 'Resumen'
       case '/app/new':

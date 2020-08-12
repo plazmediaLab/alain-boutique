@@ -14,7 +14,7 @@ export default function ProductsSalesList({ list, filter }){
       `}
     >
       { list.map(item => (
-        <ListItem item={ item } filter={ filter } key={ item.id } />
+        <ListItem item={ item } filter={ filter } />
       )) }
     </ul>
   );

@@ -76,7 +76,7 @@ export default function FormNewProduct(){
   return (
     <form
       onSubmit={ formik.handleSubmit }
-      className="bg-white p-3 rounded shadow border-t-4 border-p_blue-500 mt-2 relative overflow-hidden"
+      className="bg-white p-3 rounded shadow-container border-t-4 border-p_blue-500 mt-2 relative overflow-hidden"
     >
       <div className="mb-2">
         <label className="label-form-new" htmlFor="name">Producto</label>
@@ -179,7 +179,6 @@ export default function FormNewProduct(){
       <section className="my-4">
         { formik.errors.name && formik.touched.name ? <Required message={formik.errors.name} /> : null }
         { formik.errors.value && formik.touched.value ? <Required message={formik.errors.value} /> : null }
-        { formik.errors.price && formik.touched.price ? <Required message={formik.errors.price} /> : null }
       </section>
 
       <button 

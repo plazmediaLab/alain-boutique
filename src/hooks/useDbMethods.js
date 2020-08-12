@@ -1,10 +1,11 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import UserContext from '../context/user/UserContext';
 import { db } from '../utils/firebase';
 import Swal from 'sweetalert2'
 
 export default function useDbMethods(){
 
+  const [fetching, setFetching] = useState(false);
 
   const userContext = useContext(UserContext);
   const { user, products, groups, activeGroup, getProductsMethod, getGroupsMethod, activeGroupMethod } = userContext;
@@ -39,6 +40,7 @@ export default function useDbMethods(){
                 comment: "This is an initial info test to how add one item on your product list",
                 group: "Sister's clothes",
                 status: "STOCK",
+                sale: false,
                 init: "1819222020",
                 mode: "NEW"
               })
@@ -106,35 +108,44 @@ export default function useDbMethods(){
   };
 
   const activeProduct = producId => {
+    setFetching(true)
+
     // Remover lo no deseado de productos
-    // const obj = products.map( ({ status, ...product }) => product );
     let obj = products.find(p => p.id === producId);
-
+    
     let action;
-
+    
     switch (obj.status) {
       case 'ACTIVE': 
-        action = 'STOCK'
-        break
+      action = 'STOCK'
+      break
       case 'STOCK': 
-        action = 'ACTIVE'
-        break
+      action = 'ACTIVE'
+      break
+      
+      default:
+        break;
+      }
+      
+      delete obj.status
+      delete obj.id
+      
+      const data = {...obj, status: action, sale: false}
+    
+    try {
+      db.collection(user.uid)
+        .doc(productsDoc)
+        .collection(subCollection)
+        .doc(producId)
+        .update(data);
 
-        default:
-          break;
+        setFetching(false);
+    } catch (error) {
+        console.log(error);
+        setFetching(false);
     }
 
-    delete obj.status
-    delete obj.id
-
-    const data = {...obj, status: action}
-
-    db.collection(user.uid)
-    .doc(productsDoc)
-    .collection(subCollection)
-    .doc(producId)
-    .update(data);
-  };
+    };
 
   const createProduct = data => {
     db.collection(user.uid)
@@ -168,6 +179,9 @@ export default function useDbMethods(){
       confirmButtonText: '¡Si, eliminarlo!'
     }).then((result) => {
       if (result.value) {
+        
+        setFetching(true);
+        
         db.collection(user.uid)
         .doc(productsDoc)
         .collection(subCollection)
@@ -177,8 +191,12 @@ export default function useDbMethods(){
             'Tu producto ya no aparecerá en la lista',
             'success'
           )
+          setFetching(false);
         })
       }
+    }).catch(error => {
+      console.log(error);
+      setFetching(false);
     })
   };
 
@@ -254,6 +272,7 @@ export default function useDbMethods(){
   };
 
   return {
+    fetching,
     init,
     getProducts,
     getGroups,

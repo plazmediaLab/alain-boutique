@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import UserContext from '../../context/user/UserContext';
-import ItemsSales from './items-sales';
 
 export default function Sales(){
 
@@ -8,6 +7,6 @@ export default function Sales(){
   const { products } = userContext;
 
   return (
-    <ItemsSales products={ products } />
+    <h1>List of products that have already been sold</h1>
   );
 };

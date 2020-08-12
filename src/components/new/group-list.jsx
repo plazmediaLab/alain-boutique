@@ -56,6 +56,12 @@ export default function GroupList(){
           ref={ select }
           onChange={ () => activeGroupMethod(select.current.value) }
           value={ activeGroup !== '' ? activeGroup : undefined }
+          disabled={ groups.length > 0 ? false : true }
+          css={css`
+            &:disabled{
+              color: #BFCBD1; 
+            }
+          `}
         >
           { groups.length === 0 ? <option defaultValue="" label="--- No hay grupos creados ---"></option> : '' }
           { groups.map(item => (
