@@ -14,7 +14,7 @@ export default function InfoTopCard(){
     <section 
       className="grid col-gap-3 p-3 rounded-container shadow-container mb-5 items-center justify-center leading-6 bg-white"
       css={css`
-        grid-template-columns: auto repeat(3, 1fr);
+        grid-template-columns: auto auto repeat(2, 1fr);
       `}
     >
       <div className="p-2 rounded-full text-green-500 bg-green-200">

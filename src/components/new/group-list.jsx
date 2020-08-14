@@ -19,6 +19,14 @@ export default function GroupList(){
     return word[0].toUpperCase() + word.slice(1);
   };
 
+  const setGroupSelect = nameGroup => {
+    const a = groups.filter(x => x.name === nameGroup);
+    activeGroupMethod({
+      name: nameGroup,
+      color: a[0].color
+    })
+  }
+
   return (
     <section className="flex items-center mb-4 relative">
 
@@ -43,7 +51,7 @@ export default function GroupList(){
             type="button"
             title="Crear un nuevo grupo"
             className="bg-transparent p-3"
-            onClick={ () => deleteGroup(activeGroup) }
+            onClick={ () => deleteGroup(activeGroup.name) }
           >
             <svg className="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
           </button>
@@ -54,8 +62,7 @@ export default function GroupList(){
           id="groupList"
           className="p-2 pl-1 bg-transparent block flex-1 overflow-hidden w-full truncate text-title-item text-bluegray-300"
           ref={ select }
-          onChange={ () => activeGroupMethod(select.current.value) }
-          value={ activeGroup !== '' ? activeGroup : undefined }
+          onChange={ () => setGroupSelect(select.current.value) }
           disabled={ groups.length > 0 ? false : true }
           css={css`
             &:disabled{
@@ -66,7 +73,9 @@ export default function GroupList(){
           { groups.length === 0 ? <option defaultValue="" label="--- No hay grupos creados ---"></option> : '' }
           { groups.map(item => (
         
-            <option key={ item.id } defaultValue={ item.name }>{ capitalize(item.name.replace(/(_)/g, ' ')) }</option>
+            <option key={ item.id } defaultValue={ item.name } value={ item.name } selected={ item.name === activeGroup.name ? true : false }>
+              { capitalize(item.name.replace(/(_)/g, ' ')) }
+            </option>
             
           )) }
         </select>

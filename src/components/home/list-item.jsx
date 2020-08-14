@@ -16,6 +16,8 @@ import FetchingIcon from 'components/Resources/fetching-icon';
 
 
 export default function ItemsSales({ item, filter }){
+
+  // TODO · SI se borra un grupo que ya tenia productos, estos ya no se mostraran por que ya no esta ese grupo, solucionar ese detalle 08/13/2020 
   
   const [Y, setY] = useState('');
 

@@ -24,7 +24,7 @@ const UserState = ({ children }) => {
     products: [],
     groups: [],
     modalOpen: false,
-    activeGroup: ''
+    activeGroup: {}
   };
 
   const [ state, dispatch ] = useReducer(UserReducer, initialState);

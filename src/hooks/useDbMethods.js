@@ -8,7 +8,15 @@ export default function useDbMethods(){
   const [fetching, setFetching] = useState(false);
 
   const userContext = useContext(UserContext);
-  const { user, products, groups, activeGroup, getProductsMethod, getGroupsMethod, activeGroupMethod } = userContext;
+  const { 
+    user,
+    products,
+    groups,
+    activeGroup,
+    getProductsMethod,
+    getGroupsMethod,
+    activeGroupMethod 
+  } = userContext;
 
   const productsDoc = 'products';
   const userDoc = 'user';
@@ -33,16 +41,17 @@ export default function useDbMethods(){
           .then(snapshot => {
             if(snapshot.empty){
               collectionRef.doc(productsDoc).collection(subCollection).add({
-                name: "Plazmedia initial product test",
-                value: 18,
-                price: 22,
-                date: new Date(),
                 comment: "This is an initial info test to how add one item on your product list",
+                color: '',
+                date: new Date(),
                 group: "Sister's clothes",
-                status: "STOCK",
-                sale: false,
                 init: "1819222020",
-                mode: "NEW"
+                mode: "NEW",
+                name: "Plazmedia initial product test",
+                price: 22,
+                sale: false,
+                status: "STOCK",
+                value: 18,
               })
             }
           });
@@ -62,17 +71,18 @@ export default function useDbMethods(){
       let products = []
       snapshot.forEach(a => {
         products = [...products, {
-          id: a.id,
-          name: a.data().name,
-          value: a.data().value,
-          price: a.data().price,
-          date: a.data().date,
           comment: a.data().comment,
+          color: a.color === undefined ? '' : a.color,
+          date: a.data().date,
           group: a.data().group,
-          status: a.data().status,
+          id: a.id,
+          init: a.data().init === "1819222020" ? a.data().init : false,
           mode: a.data().mode,
+          name: a.data().name,
+          price: a.data().price,
           sale: a.data().sale,
-          init: a.data().init === "1819222020" ? a.data().init : false 
+          status: a.data().status,
+          value: a.data().value,
         }]
       })
       getProductsMethod(products);
@@ -84,23 +94,16 @@ export default function useDbMethods(){
       let groupsList = [];
       snapshot.forEach(item => {
         return  groupsList = [...groupsList, {
+          color: item.data().color,
+          date: item.data().date,
           id: item.id,
           name: item.data().name,
-          date: item.data().date
         }];
       });
   
       groupsList.sort(function (a, b){
         return (b.date.seconds - a.date.seconds)
       });
-
-      if(activeGroup === ''){
-        if(groupsList.length > 0){
-          activeGroupMethod(groupsList[0].name);
-        }else{
-          activeGroupMethod('');
-        }
-      };
 
       getGroupsMethod(groupsList);
 
@@ -145,7 +148,7 @@ export default function useDbMethods(){
         setFetching(false);
     }
 
-    };
+  };
 
   const createProduct = data => {
     db.collection(user.uid)
@@ -202,7 +205,8 @@ export default function useDbMethods(){
 
   const createGroup = data => {
 
-    const { name } = data;
+    setFetching(true);
+    const { name, color } = data;
 
     if(!groups.find(item => item.name === name)){
       db.collection(user.uid)
@@ -221,11 +225,17 @@ export default function useDbMethods(){
             toast.addEventListener('mouseleave', Swal.resumeTimer)
           }
         });
-        activeGroupMethod(name);
+        activeGroupMethod({
+          name,
+          color
+        });
+        setFetching(false)
       })
-      .catch(error => console.log(error))
+      .catch(error => {
+        console.log(error.message)
+        setFetching(false)
+      })
     }else{
-      console.log('');
       Swal.fire({
         icon: 'error',
         title: 'Ese grupo ya existe!',
@@ -234,12 +244,11 @@ export default function useDbMethods(){
         timer: 3500,
       })
     }
-
-
-    // console.log(capitalize(data.name.replace('_', ' ')))
   };
 
   const deleteGroup = nameGroup => {
+
+    // TODO · No Actualiza el grupo activo, solucionarlo 08/13/2020 
 
     const group = groups.find(item => item.name === nameGroup);
     const { id } = group;
@@ -259,7 +268,16 @@ export default function useDbMethods(){
         .collection(subCollectionG)
         .doc(id)
         .delete().then(() => {
-          
+
+          if(groups.length === 0){
+            activeGroupMethod({});
+          }else{
+            activeGroupMethod({
+              name: groups[0].name,
+              color: groups[0].color
+            });
+          }
+
           Swal.fire(
             'Grupo eliminado correctamente',
             'El grupo y sus productos ya no aparecerán en la lista',

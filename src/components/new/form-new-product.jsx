@@ -6,6 +6,7 @@ import Required from '../messages/required';
 import useDbMethods from '../../hooks/useDbMethods';
 import UserContext from '../../context/user/UserContext';
 import { jsx, css } from '@emotion/core';
+import FetchingIcon from 'components/Resources/fetching-icon';
 
 export default function FormNewProduct(){
 
@@ -18,7 +19,7 @@ export default function FormNewProduct(){
   const userContext = useContext(UserContext);
   const { activeGroup } = userContext;
 
-  const { createProduct } = useDbMethods();
+  const { fetching, createProduct } = useDbMethods();
 
   const handleMode = () => {
     setMode(modeRef.current.value);
@@ -31,12 +32,12 @@ export default function FormNewProduct(){
   const formik = useFormik({
     // Valores iniciales de los datos a validar
     initialValues: {
+      comment: '',
+      mode: '',
       name: '',
-      value: '',
       price: '',
       status: '',
-      mode: '',
-      comment: '',
+      value: '',
     },
     validationSchema: Yup.object({
       name: Yup.string().required('El campo NOMBRE es obligatorio').trim(),
@@ -50,16 +51,17 @@ export default function FormNewProduct(){
       }
 
       const data = {
-        name: val.name,
-        value: val.value,
-        price: val.price,
-        status: statusItem,
-        mode: mode,
         comment: val.comment.trim(),
+        color: activeGroup.color,
         date: new Date(),
+        group: activeGroup.name,
         init: false,
+        mode: mode,
+        name: val.name,
+        price: val.price,
         sale: false,
-        group: activeGroup
+        status: statusItem,
+        value: val.value,
       }
 
       try {
@@ -183,8 +185,13 @@ export default function FormNewProduct(){
 
       <button 
         type="submit"
-        className="w-full bg-p_blue-500 text-white uppercase text-description font-medium p-3 rounded cursor-pointer"
-      >Agregar producto</button>
+        className="w-full bg-p_blue-500 text-white uppercase text-description font-medium p-3 rounded cursor-pointer flex items-center justify-center"
+      >
+        {fetching ? (
+          <FetchingIcon classN='mr-2' width='12' height='12' />
+        ) : null}
+        Agregar producto
+      </button>
 
       <hr
         className="absolute" 

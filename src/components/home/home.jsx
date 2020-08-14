@@ -13,12 +13,18 @@ export default function Home(){
 
   useEffect(() => {
     if(filter === 'active'){
-      setlist(products.filter(x => x.status === 'ACTIVE' && x.group === activeGroup))
+      setlist(products.filter(x => x.status === 'ACTIVE' && x.group === activeGroup.name))
     }
     if(filter === 'total'){
-      setlist(products.filter(x => x.group === activeGroup && !x.sale))
+      setlist(products.filter(x => x.group === activeGroup.name && !x.sale))
     }
-  }, [filter, products, activeGroup]);
+    if(Object.keys(activeGroup).length === 0 && groups.length > 0){
+      activeGroupMethod({
+        name: groups[0].name,
+        color: groups[0].color
+      })
+    }
+  }, [filter, products, activeGroup, groups]);
 
   return (
     <>
@@ -27,7 +33,7 @@ export default function Home(){
         products={ products }
         setFilter={ setFilter }
         groups={ groups }
-        activeGroup={ activeGroup }
+        activeGroup={ activeGroup.name }
         activeGroupMethod={ activeGroupMethod }
       />
 
