@@ -39,7 +39,7 @@ export default function NewGroup(){
     },
     {
       name: 'yellow',
-      value:'yellow-600'
+      value:'yellow-500'
     },
     {
       name: 'té',

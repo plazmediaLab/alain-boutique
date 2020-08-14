@@ -78,7 +78,7 @@ export default function FormNewProduct(){
   return (
     <form
       onSubmit={ formik.handleSubmit }
-      className="bg-white p-3 rounded shadow-container border-t-4 border-p_blue-500 mt-2 relative overflow-hidden"
+      className={`bg-white p-3 rounded shadow-container border-t-8 border-${activeGroup.color} mt-2 relative overflow-hidden`}
     >
       <div className="mb-2">
         <label className="label-form-new" htmlFor="name">Producto</label>

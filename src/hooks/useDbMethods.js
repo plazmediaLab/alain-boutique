@@ -6,6 +6,7 @@ import Swal from 'sweetalert2'
 export default function useDbMethods(){
 
   const [fetching, setFetching] = useState(false);
+  const [deletGroup, setDeletGroup] = useState(false);
 
   const userContext = useContext(UserContext);
   const { 
@@ -90,6 +91,7 @@ export default function useDbMethods(){
   };
 
   const getGroups = userId => {
+
     db.collection(userId).doc(groupDoc).collection(subCollectionG).onSnapshot(snapshot => {
       let groupsList = [];
       snapshot.forEach(item => {
@@ -263,26 +265,34 @@ export default function useDbMethods(){
       confirmButtonText: '¡Si, eliminarlo!'
     }).then((result) => {
       if (result.value) {
+
+        setDeletGroup(true);
+
         db.collection(user.uid)
         .doc(groupDoc)
         .collection(subCollectionG)
         .doc(id)
         .delete().then(() => {
-
-          if(groups.length === 0){
-            activeGroupMethod({});
-          }else{
-            activeGroupMethod({
-              name: groups[0].name,
-              color: groups[0].color
-            });
-          }
-
           Swal.fire(
             'Grupo eliminado correctamente',
             'El grupo y sus productos ya no aparecerán en la lista',
             'success'
           )
+
+          const newGroupsList = groups.filter(x => x.name !== nameGroup);
+
+          if(newGroupsList.length > 0){
+            activeGroupMethod({
+              name: newGroupsList[0].name,
+              color: newGroupsList[0].color
+            });
+          }else{
+            activeGroupMethod({
+              name: '',
+              color: 'bluegray-100'
+            });
+          }
+
 
         });
       }

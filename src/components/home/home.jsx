@@ -33,7 +33,7 @@ export default function Home(){
         products={ products }
         setFilter={ setFilter }
         groups={ groups }
-        activeGroup={ activeGroup.name }
+        activeGroup={ activeGroup }
         activeGroupMethod={ activeGroupMethod }
       />
 

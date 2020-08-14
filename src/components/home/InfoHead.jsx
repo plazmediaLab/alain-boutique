@@ -7,8 +7,8 @@ export default function InfoHead({ products, setFilter, groups, activeGroup, act
 
   const select = useRef(null);
 
-  const countActive   =   products.filter(x => x.status === 'ACTIVE' && x.group === activeGroup)
-  const countTotal    =   products.filter(x => x.group === activeGroup  && !x.sale)
+  const countActive   =   products.filter(x => x.status === 'ACTIVE' && x.group === activeGroup.name)
+  const countTotal    =   products.filter(x => x.group === activeGroup.name  && !x.sale)
 
   function capitalize(word) {
     return word[0].toUpperCase() + word.slice(1);
@@ -28,10 +28,9 @@ export default function InfoHead({ products, setFilter, groups, activeGroup, act
         className="grid gap-2 grid-flow-row text-sm items-center box-border"
       >
         <section className="flex items-center text-carbon-300">
-          <label htmlFor="selectGroup">
-            <svg className="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20"><path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-          </label>
+          <label htmlFor="selectGroup" className={`ml-2 w-4 h-4 inline-block rounded-full bg-${activeGroup.color}`}></label>
           <select 
+            name="selectGroup"
             id="selectGroup"
             className="bg-transparent p-2 box-border overflow-hidden w-full truncate"
             ref={ select }
@@ -45,7 +44,7 @@ export default function InfoHead({ products, setFilter, groups, activeGroup, act
                   key={ item.id }
                   value={ item.name }
                   className="overflow-hidden w-full truncate"
-                  selected={ item.name === activeGroup ? true : false }
+                  selected={ item.name === activeGroup.name ? true : false }
                 >
                   { capitalize(item.name.replace(/(_)/g, ' ')) }
                 </option>
