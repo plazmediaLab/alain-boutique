@@ -13,7 +13,7 @@ export default function Home(){
 
   useEffect(() => {
     if(filter === 'active'){
-      setlist(products.filter(x => x.status === 'ACTIVE' && x.group === activeGroup.name))
+      setlist(products.filter(x => x.status === 'ACTIVE' && x.group === activeGroup.name && !x.sale))
     }
     if(filter === 'total'){
       setlist(products.filter(x => x.group === activeGroup.name && !x.sale))
