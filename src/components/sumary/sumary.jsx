@@ -7,7 +7,7 @@ export default function Sumary(){
 
   const [loading, setLoading] = useState(true);
   const [step1, setStep1] = useState(false);
-  const [step2, setStep2] = useState(true);
+  const [step2, setStep2] = useState(false);
 
   useEffect(() => {
     if(step1 && step2){

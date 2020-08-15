@@ -135,7 +135,7 @@ export default function useDbMethods(){
       delete obj.status
       delete obj.id
       
-      const data = {...obj, status: action, sale: false}
+      const data = {...obj, status: action}
     
     try {
       db.collection(user.uid)
@@ -249,9 +249,6 @@ export default function useDbMethods(){
   };
 
   const deleteGroup = nameGroup => {
-
-    // TODO · No Actualiza el grupo activo, solucionarlo 08/13/2020 
-
     const group = groups.find(item => item.name === nameGroup);
     const { id } = group;
     
@@ -299,6 +296,31 @@ export default function useDbMethods(){
     })
   };
 
+  const productSold = productID => {
+    console.log(productID);
+    setFetching(true)
+
+    // Remover lo no deseado de productos
+    let obj = products.find(p => p.id === productID);
+    
+    delete obj.id
+    
+    const data = {...obj, status: 'STOCK', sale: true}
+    
+    try {
+      db.collection(user.uid)
+        .doc(productsDoc)
+        .collection(subCollection)
+        .doc(productID)
+        .update(data);
+
+        setFetching(false);
+    } catch (error) {
+        console.log(error);
+        setFetching(false);
+    }
+  };
+
   return {
     fetching,
     init,
@@ -308,6 +330,7 @@ export default function useDbMethods(){
     createProduct,
     deleteProduct,
     createGroup,
-    deleteGroup
+    deleteGroup,
+    productSold
   };
 };

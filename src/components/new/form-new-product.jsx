@@ -1,12 +1,12 @@
 /**@jsx jsx */
-import { useContext, useState, useRef } from 'react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import Required from '../messages/required';
-import useDbMethods from '../../hooks/useDbMethods';
-import UserContext from '../../context/user/UserContext';
-import { jsx, css } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 import FetchingIcon from 'components/Resources/fetching-icon';
+import { useFormik } from 'formik';
+import { useContext, useRef, useState } from 'react';
+import * as Yup from 'yup';
+import UserContext from '../../context/user/UserContext';
+import useDbMethods from '../../hooks/useDbMethods';
+import Required from '../messages/required';
 
 export default function FormNewProduct(){
 
@@ -41,13 +41,15 @@ export default function FormNewProduct(){
     },
     validationSchema: Yup.object({
       name: Yup.string().required('El campo NOMBRE es obligatorio').trim(),
-      value: Yup.number().required('El campo VALOR es obligatorio').min(0, 'El VALOR no puede ser menor a 0'),
-      price: Yup.number().min(0, 'El VALOR no puede ser menor a 0').moreThan(Yup.ref('value'), 'El PRECIO no puede ser menor al VALOR'),
+      value: Yup.number().min(0, 'El VALOR no puede ser menor a 0').lessThan(Yup.ref('price'), 'El VALOR no puede ser mayor al PRECIO'),
+      price: Yup.number().required('El campo PRECIO es obligatorio').min(0, 'El VALOR no puede ser menor a 0'),
     }),
     onSubmit: async (val, { resetForm }) => {
       
-      if(val.price === ''){
-        val.price = val.value
+      console.log(formik.errors);
+
+      if(val.value === ''){
+        val.value = 0
       }
 
       const data = {
@@ -99,11 +101,13 @@ export default function FormNewProduct(){
         </label>
         <label className="label-form-new" htmlFor="price">
           <svg className="w-4 h-4 text-bluegray-200 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path></svg>
-          <span>Precio</span>
+          Precio
         </label>
-        <div className="p-1 border border-bluegray-200 bg-transparent rounded col-span-2 grid grid-cols-2 col-gap-2">
+        <div 
+          className="p-1 border border-bluegray-200 bg-transparent rounded col-span-2 grid grid-cols-2 col-gap-2"
+        >
           <input 
-            className="p-2 text-carbon-500 text-description placeholder-p_blue-300"
+            className={`${formik.errors.value && formik.touched.value ? 'bg-red-200 placeholder-red-500' : 'placeholder-p_blue-300' } p-2 text-carbon-500 text-description placeholder-p_blue-300`}
             type="number"
             name="value" id="value"
             min="0"
@@ -113,7 +117,7 @@ export default function FormNewProduct(){
             onBlur={ formik.handleBlur }
           />        
           <input 
-            className="bg-p_blue-100 p-2 px-3 text-carbon-500 text-description placeholder-p_blue-400"
+            className={`${formik.errors.price && formik.touched.price ? 'bg-red-200 placeholder-red-500' : 'bg-p_blue-100 placeholder-p_blue-400' }  p-2 px-3 text-carbon-500 text-description `}
             type="number"
             name="price" id="price"
             min="0"
@@ -178,9 +182,10 @@ export default function FormNewProduct(){
         />
       </div>
 
-      <section className="my-4">
+      <section className="mb-6">
         { formik.errors.name && formik.touched.name ? <Required message={formik.errors.name} /> : null }
         { formik.errors.value && formik.touched.value ? <Required message={formik.errors.value} /> : null }
+        { formik.errors.price && formik.touched.price ? <Required message={formik.errors.price} /> : null }
       </section>
 
       <button 

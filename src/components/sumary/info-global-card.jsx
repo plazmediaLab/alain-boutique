@@ -1,68 +1,59 @@
 /**@jsx jsx */
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { jsx, css } from '@emotion/core';
 import ItemList from './item-list';
 import { skeletonBackground } from 'components/Resources/skeleton-style';
+import UserContext from 'context/user/UserContext';
 
-export default function InfoGlobalCard({ loading }){
+export default function InfoGlobalCard({ loading, setStep2 }){
 
-  const list = [
-    {
-      group: 'Ropa de Evan',
-      ganancia: 200,
-      acumulado: 600,
-      total: 800,
-      piezas: 12,
-      vendidas: 15,
-    },
-    {
-      group: 'Ropa para niña',
-      ganancia: 150,
-      acumulado: 950,
-      total: 1100,
-      piezas: 30,
-      vendidas: 5,
-    },
-    {
-      group: 'Nueva',
-      ganancia: 50,
-      acumulado: 300,
-      total: 350,
-      piezas: 25,
-      vendidas: 6,
-    },
-    {
-      group: 'Invierno',
-      ganancia: 1200,
-      acumulado: 3530,
-      total: 4730,
-      piezas: 150,
-      vendidas: 40,
-    },
-    {
-      group: 'Deportiva',
-      ganancia: 30,
-      acumulado: 540,
-      total: 570,
-      piezas: 63,
-      vendidas: 40,
-    },
-  ];
+  const [pzas, setPzas] = useState({});
+  const [list, setList] = useState([]);
 
-  const colors = [
-    'red-500',
-    'orange-500',
-    'green-500',
-    'teal-500',
-    'blue-500',
-    'indigo-500',
-    'purple-500',
-    'pink-500',
-  ];
-  
-  function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-  }
+  const userContext = useContext(UserContext);
+  const { products, groups } = userContext;
+
+  useEffect(() => {
+    if(products.length > 0){
+      const newList = products.filter(x => x.sale === true);
+      setPzas({
+        sales: newList.length,
+        total: products.length
+      })
+      setList(products);
+      setStep2(true)
+    }else{
+      setList([]);
+      setPzas({
+        sales: 0,
+        total: 0
+      })
+      setStep2(true)
+    }
+  }, [products]);
+
+const handleData = itemName => {
+    const newList = list.filter(x => x.group === itemName);
+
+    let profit = 0;
+    let total = 0;
+    let accumulated = 0;
+    let sales = list.filter(x => x.sale === true && x.group === itemName);
+
+    newList.map(i => {
+      profit = profit + (i.price - i.value);
+      accumulated += i.value
+      total += i.price
+    });
+    
+    return {
+      pzas: newList.length,
+      profit,
+      accumulated,
+      total,
+      sales: sales.length
+    }
+  };
 
   return (
     <>
@@ -80,9 +71,9 @@ export default function InfoGlobalCard({ loading }){
       ) : (
         <section className="p-3 rounded-container shadow-container bg-white text-carbon-500">
           <aside className="grid grid-cols-2 col-gap-3 mb-4">
-            <div className="bg-background rounded-card p-3 relative">
+            <div className="bg-background rounded-card p-2 relative">
               <h1 className="text-label font-medium">Pzas. vendidas</h1>
-              <p className="text-number-h1 text-blue-400 font-medium">{ 360 }</p>
+              <p className="text-number-h1 text-blue-400 font-medium">{ pzas.sales }</p>
               <svg 
               css={css`
                 position: absolute;
@@ -93,9 +84,9 @@ export default function InfoGlobalCard({ loading }){
               `}
               className="text-p_blue-500 badge-check" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path></svg>
             </div>
-            <div className="bg-background rounded-card p-3 relative">
+            <div className="bg-background rounded-card p-2 relative">
               <h1 className="text-label font-medium">Pzas. totales</h1>
-              <p className="text-number-h1 text-blue-400 font-medium">{ 360 }</p>
+              <p className="text-number-h1 text-blue-400 font-medium">{ pzas.total }</p>
               <svg 
               css={css`
                 position: absolute;
@@ -108,12 +99,21 @@ export default function InfoGlobalCard({ loading }){
             </div>
           </aside>
         
-          <ul>
-            { list.map( (item, index) =>{
-                const color = colors[getRandomInt(1, 8)];
+          <ul
+            css={css`
+              > li:not(:last-child){
+                margin-bottom: .5rem;
+              }
+              > li:last-child{
+                margin-bottom: .15rem;
+              }
+            `}
+          >
+            { groups.map( (item, index) =>{
+
                 return (
                   
-                  <ItemList item={ item } color={ color } key={ index }/>
+                  <ItemList item={ item }  key={ index } data={ handleData(item.name) } />
         
                 )
               }
