@@ -126,7 +126,7 @@ export default function ItemsSales({ item, filter }){
                     padding-top: .1rem; 
                     padding-bottom: .1rem; 
                   `}
-                >{ moment.utc(item.date.seconds*1000).fromNow() }</span>
+                >{ moment.utc(item.date.seconds * 1000).fromNow() }</span>
               </div>
               <button 
                 className="rounded py-1 px-2 border border-bluegray-100 text-red-600"

@@ -27,7 +27,7 @@ export default function InfoTopCard({ loading, setStep1 }){
 
       let countProfit = 0;
 
-      const saleProducList = products.filter(x => x.sale === true);
+      const saleProducList = products.filter(x => x.sold === true);
       saleProducList.map(i => {
         countProfit = countProfit + (i.price - i.value);
       })

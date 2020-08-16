@@ -55,10 +55,7 @@ export default function ContentToggle({ reference }){
             <hr className="border-bluegray-100"/>
             <button 
               className="w-full min-w-full whitespace-no-wrap py-2 px-4 border border-red-600 bg-transparent text-red-600 text-sm rounded-full mt-3 hover:bg-red-600 hover:text-white"
-              onClick={() => {
-                logOut()
-                console.log('Click...');
-              }}
+              onClick={() => logOut()}
             >
               Cerrar sesión
             </button>

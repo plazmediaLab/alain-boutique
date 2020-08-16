@@ -2,6 +2,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import UserContext from '../../context/user/UserContext';
 import { jsx, css } from '@emotion/core';
+import moment from 'moment';
+import 'moment/locale/es';
 
 export default function Sales(){
 
@@ -39,6 +41,7 @@ export default function Sales(){
       { list.map(item => {
 
         const colorTag = groups.find(x => x.name === item.group);
+        console.log(item);
       
         return(
           <li 
@@ -60,13 +63,14 @@ export default function Sales(){
             <section
               className={`grid items-center justify-end text-description text-bluegray-400 whitespace-no-wrap text-right w-full`}
               css={css`
-                grid-template-columns: 1fr auto;
+                grid-template-columns: auto 1fr auto;
                 span{
                   margin-left: .5rem;
                 }
               `}
             >
-              <p>Grupo: <span className={`font-bold text-${colorTag.color}`}>{ capitalize(item.group.replace(/(_)/g, ' ')) }</span></p>
+              <p className="text-description text-bluegray-200 bg-background rounded-full px-2">{ moment.utc(item.soldDate.seconds * 1000).format('ll') }</p>
+              <p>Grupo: <span className={`font-bold truncate overflow-hidden text-${colorTag.color}`}>{ capitalize(item.group.replace(/(_)/g, ' ')) }</span></p>
               <span className={`w-3 h-3 rounded-full block bg-${colorTag.color}`}/>
             </section>
           </li>

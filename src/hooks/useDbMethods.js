@@ -13,7 +13,6 @@ export default function useDbMethods(){
     user,
     products,
     groups,
-    activeGroup,
     getProductsMethod,
     getGroupsMethod,
     activeGroupMethod 
@@ -73,7 +72,6 @@ export default function useDbMethods(){
     .onSnapshot(snapshot => {
       let products = []
       snapshot.forEach(a => {
-        console.log(a.data());
         products = [...products, {
           comment: a.data().comment,
           color: a.color === undefined ? '' : a.color,
@@ -85,14 +83,14 @@ export default function useDbMethods(){
           name: a.data().name,
           price: a.data().price,
           sold: a.data().sold,
-          soldDate: a.data().sold,
+          soldDate: a.data().soldDate,
           status: a.data().status,
           value: a.data().value,
         }]
       })
       getProductsMethod(products);
     });
-  };
+  }; 
 
   const getGroups = userId => {
 
@@ -308,7 +306,7 @@ export default function useDbMethods(){
     
     delete obj.id
     
-    const data = {...obj, status: 'STOCK', sold: true}
+    const data = {...obj, status: 'STOCK', sold: true, soldDate: new Date()}
     
     try {
       db.collection(user.uid)
