@@ -9,8 +9,8 @@ export default function InfoHead({ products, setFilter, groups, activeGroup, act
 
   const select = useRef(null);
 
-  const countActive   =   products.filter(x => x.status === 'ACTIVE' && x.group === activeGroup.name && !x.sale)
-  const countTotal    =   products.filter(x => x.group === activeGroup.name && !x.sale)
+  const countActive   =   products.filter(x => x.status === 'ACTIVE' && x.group === activeGroup.name && !x.sold)
+  const countTotal    =   products.filter(x => x.group === activeGroup.name && !x.sold)
 
   function capitalize(word) {
     return word[0].toUpperCase() + word.slice(1);

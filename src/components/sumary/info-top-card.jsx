@@ -34,6 +34,8 @@ export default function InfoTopCard({ loading, setStep1 }){
       setProfit(countProfit);
 
       setStep1(true);
+    }else{
+      setStep1(true);
     }
   }, [products]);
 

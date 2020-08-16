@@ -34,7 +34,7 @@ export default ( state, action ) => {
         user: null,
         products: [],
         groups: [],
-        activeGroup: '',
+        activeGroup: {},
         modalOpen: false,
       }
     case AUTH_STATE:

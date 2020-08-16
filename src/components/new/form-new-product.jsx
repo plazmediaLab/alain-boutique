@@ -61,7 +61,8 @@ export default function FormNewProduct(){
         mode: mode,
         name: val.name,
         price: val.price,
-        sale: false,
+        sold: false,
+        soldDate: null,
         status: statusItem,
         value: val.value,
       }

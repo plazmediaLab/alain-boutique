@@ -12,7 +12,7 @@ export default function Sales(){
 
   useEffect(() => {
     if(products.length > 0){
-      setList(products.filter(x => x.sale === true));
+      setList(products.filter(x => x.sold === true));
     }
   }, [products]);
 

@@ -2,7 +2,7 @@
 import React from 'react';
 import { jsx, css } from '@emotion/core';
 
-export default function ItemList({ item, list, data }){
+export default function ItemList({ item, data }){
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',

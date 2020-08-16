@@ -15,7 +15,7 @@ export default function InfoGlobalCard({ loading, setStep2 }){
 
   useEffect(() => {
     if(products.length > 0){
-      const newList = products.filter(x => x.sale === true);
+      const newList = products.filter(x => x.sold === true);
       setPzas({
         sales: newList.length,
         total: products.length
@@ -38,7 +38,7 @@ const handleData = itemName => {
     let profit = 0;
     let total = 0;
     let accumulated = 0;
-    let sales = list.filter(x => x.sale === true && x.group === itemName);
+    let sales = list.filter(x => x.sold === true && x.group === itemName);
 
     newList.map(i => {
       profit = profit + (i.price - i.value);

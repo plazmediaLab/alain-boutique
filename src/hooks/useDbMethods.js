@@ -50,9 +50,11 @@ export default function useDbMethods(){
                 mode: "NEW",
                 name: "Plazmedia initial product test",
                 price: 22,
-                sale: false,
+                sold: false,
+                soldDate: null,
                 status: "STOCK",
                 value: 18,
+                soldDate: null
               })
             }
           });
@@ -71,6 +73,7 @@ export default function useDbMethods(){
     .onSnapshot(snapshot => {
       let products = []
       snapshot.forEach(a => {
+        console.log(a.data());
         products = [...products, {
           comment: a.data().comment,
           color: a.color === undefined ? '' : a.color,
@@ -81,7 +84,8 @@ export default function useDbMethods(){
           mode: a.data().mode,
           name: a.data().name,
           price: a.data().price,
-          sale: a.data().sale,
+          sold: a.data().sold,
+          soldDate: a.data().sold,
           status: a.data().status,
           value: a.data().value,
         }]
@@ -304,7 +308,7 @@ export default function useDbMethods(){
     
     delete obj.id
     
-    const data = {...obj, status: 'STOCK', sale: true}
+    const data = {...obj, status: 'STOCK', sold: true}
     
     try {
       db.collection(user.uid)
