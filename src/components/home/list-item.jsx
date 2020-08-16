@@ -1,5 +1,5 @@
 /**@jsx jsx */
-import { useState, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import { jsx, css } from '@emotion/core';
 import { 
   handleClickToggleInfo, 
@@ -13,6 +13,7 @@ import moment from 'moment';
 import 'moment/locale/es';
 import useDbMethods from '../../hooks/useDbMethods';
 import FetchingIcon from 'components/Resources/fetching-icon';
+import UserContext from 'context/user/UserContext';
 
 
 export default function ItemsSales({ item, filter }){
@@ -22,6 +23,9 @@ export default function ItemsSales({ item, filter }){
   const [Y, setY] = useState('');
 
   const { activeProduct, deleteProduct, fetching, productSold } = useDbMethods();
+
+  const userContext = useContext(UserContext);
+  const { activeGroup } = userContext;
 
   const OpenToggleInfo = e => {
 
@@ -105,7 +109,10 @@ export default function ItemsSales({ item, filter }){
       <div className="bg-transparent rounded-b-card pr-3 pl-8 col-span-2 text-description text-bluegray-400">
         <section className="toggle-info">
           <div className="container-info mb-3 mt-1">
-            { item.comment ? <p className="pb-6"><span className="font-bold">Comentario: </span>{ item.comment }</p> : null }
+            { item.value > 0 ? (
+              <p className={`text-description text-${activeGroup.color} pb-2`}><span className="font-bold">Precio de:</span> { formatter.format(item.value) }</p>
+            ) : null }
+            { item.comment ? <p className="pb-4"><span className="font-bold">Comentario: </span>{ item.comment }</p> : null }
             <nav
               className="grid items-center col-gap-2 font-light"
               css={css`

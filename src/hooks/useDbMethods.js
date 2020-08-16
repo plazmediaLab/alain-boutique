@@ -297,7 +297,6 @@ export default function useDbMethods(){
   };
 
   const productSold = productID => {
-    console.log(productID);
     setFetching(true)
 
     // Remover lo no deseado de productos
