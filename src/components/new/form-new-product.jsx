@@ -45,8 +45,6 @@ export default function FormNewProduct(){
       price: Yup.number().required('El campo PRECIO es obligatorio').min(0, 'El VALOR no puede ser menor a 0'),
     }),
     onSubmit: async (val, { resetForm }) => {
-      
-      console.log(formik.errors);
 
       if(val.value === ''){
         val.value = 0
@@ -72,6 +70,9 @@ export default function FormNewProduct(){
         createProduct(data);
         
         resetForm(formik.initialValues);
+        setMode('USED');
+        setStatusItem('STOCK');
+
       } catch (error) {
         console.log(error.message);
       }

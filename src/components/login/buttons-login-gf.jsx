@@ -12,7 +12,7 @@ export default function ButtonsLoginGF(){
 
   return (
     <>
-      <p className="text-p_blue-500 my-3 text-sm">Inicia sesión con</p>
+      <p className="text-bluegray-400 my-3 text-title-item font-medium">Inicia sesión con</p>
       <section className="grid grid-cols-2 justify-around mb-4 col-gap-10">
         <button
           className="btn-login shadow-btnsquare rounded-container w-20 h-12 flex items-center justify-center sm:w-24 sm:h-12"

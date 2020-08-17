@@ -36,8 +36,6 @@ export default function App({ location }){
 
           <Header location={ location.pathname } photo={ user.photo }/>
 
-          {/* <Link to={`/app/edit/${ uid }`}>Editar producto</Link> */}
-
           <div className="px-3 box-content">
             <Router>
               <Home path="/app"/>

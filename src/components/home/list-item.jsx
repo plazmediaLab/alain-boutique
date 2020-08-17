@@ -1,6 +1,7 @@
 /**@jsx jsx */
 import { useState, useContext } from 'react';
 import { jsx, css } from '@emotion/core';
+import { Link } from 'gatsby';
 import { 
   handleClickToggleInfo, 
   rippleContent, 
@@ -116,7 +117,7 @@ export default function ItemsSales({ item, filter }){
             <nav
               className="grid items-center col-gap-2 font-light"
               css={css`
-                grid-template-columns: 1fr auto auto;
+                grid-template-columns: 1fr repeat(3, auto);
               `}
             >
               <div>
@@ -128,12 +129,20 @@ export default function ItemsSales({ item, filter }){
                   `}
                 >{ moment.utc(item.date.seconds * 1000).fromNow() }</span>
               </div>
+              {/* <Link to={`/app/edit/${ uid }`}>Editar producto</Link> */}
+              <Link 
+                className="rounded py-1 px-2 border border-bluegray-100 text-p_blue-400"
+                to={`/app/edit/${ item.id }`}
+                state={{ productSent: true }}
+              >
+                <svg className="pencil-alt w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+              </Link>
               <button 
-                className="rounded py-1 px-2 border border-bluegray-100 text-red-600"
+                className="rounded py-1 px-2 border border-bluegray-100 text-red-400"
                 type="button"
                 onClick={ () => deleteProduct(item.id) }
               >
-                Eliminar
+                <svg className="trash w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
               </button>
               <button 
                 className={`rounded py-1 px-2 border border-bluegray-100 ${item.status === 'STOCK' ? 'text-p_blue-500' : '' } flex items-center`}
