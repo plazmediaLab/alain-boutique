@@ -21,6 +21,51 @@ button:focus {
     @apply outline-none
 }
 
+.bg-red{
+    @apply bg-red-500
+}
+.bg-orange{
+    @apply bg-orange-500
+}
+.bg-yellow{
+    @apply bg-yellow-500
+}
+.bg-green{
+    @apply bg-green-500
+}
+.bg-teal{
+    @apply bg-teal-500
+}
+.bg-blue{
+    @apply bg-blue-500
+}
+.bg-indigo{
+    @apply bg-indigo-500
+}
+.bg-purple{
+    @apply bg-purple-500
+}
+.bg-pink{
+    @apply bg-pink-500
+}
+
+/* ---------------------------- */
+/* Modal Blur */
+/* --------ˇˇˇˇˇˇˇˇˇˇˇˇ-------- */
+.modal-blur{
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, .5);
+    backdrop-filter: blur(5px);
+    overflow: hidden;
+    display: none;
+}
+.modal-blur.on{
+    display: block;
+}
 /* ---------------------------- */
 /* Header */
 /* --------ˇˇˇˇˇˇˇˇˇˇˇˇ-------- */
@@ -33,12 +78,8 @@ button.on{
 }
 
 
-.btn-login{
-    transition: all .3s ease-in-out;
-    background: linear-gradient(180deg, #E8EEFB 0%, #E2E7EE 0.01%, rgba(255, 255, 255, 0) 100%), #ECF0F3;
-    box-shadow: 7px 7px 15px #D1D9E6, -10px -10px 15px #FFFFFF;
-    border-radius: 10px;
-    @apply w-24 h-12 flex justify-center items-center
+.btn-login:disabled{
+    @apply opacity-50 cursor-not-allowed
 }
 .btn-login:hover{
     background: linear-gradient(180deg, #FFFFFF 0%, #E2E7EE 100%), #ECF0F3;
@@ -47,7 +88,7 @@ button.on{
     box-shadow: inset 7px 7px 15px #D1D9E6, inset -10px -10px 15px #FFFFFF;
 }
 .input-form{
-    @apply shadow appearance-none border rounded w-full p-3 text-gray-700 leading-none mb-2 text-sm
+    @apply shadow appearance-none border rounded w-full p-3 leading-none text-sm
 }
 .input-form:focus{
     @apply outline-none shadow-outline

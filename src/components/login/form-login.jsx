@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // Formik 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import Error from '../messages/error';
 // SweetAlert
 import Swal from 'sweetalert2';
 // Custom Hooks
 import useAuthMethods from '../../hooks/useAuthMethods';
+import Required from 'components/messages/required';
 
 export default function FormLogin(){
 
@@ -49,37 +49,42 @@ export default function FormLogin(){
 
   return (
     <form 
-      className="flex flex-col justify-center items-center mb-4 w-full"
+      className="flex flex-col justify-center w-full"
       onSubmit={ formik.handleSubmit }
     >
-      <p className="text-carbon-200 mb-4 text-xs">——— O ———</p>
-      <input 
-        type="email"
-        name="email"
-        placeholder="Correo electrónico"
-        className="input-form sm:w-64"
-        value={formik.values.email}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-      />
-      { formik.touched.email && formik.errors.email ? (
-        <Error 
-          message={ formik.errors.email }
-          sm_w='w-64'
-          mb='mb-2'
+      <div className="mb-1">
+        <p className="text-center mb-5 text-lg font-medium text-bluegray-300">Inicio de sesión</p>
+        
+        <label htmlFor="email" className="text-label text-left uppercase text-bluegray-300 my-1 block">Correo</label>
+        <input 
+          type="email"
+          name="email"
+          id="email"
+          placeholder="mi_correo@example.com"
+          className={`input-form ${formik.touched.email && formik.errors.email ? 'placeholder-red-300 bg-red-100 text-red-600 border-red-300' : 'text-gray-700'}`}
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
         />
-      ) : null }
-      <input 
-        type="password"
-        name="password"
-        placeholder="Contraseña"
-        className="input-form sm:w-64"
-        value={formik.values.password}
-        onChange={formik.handleChange}
-      />
+      </div>
+      { formik.touched.email && formik.errors.email ? (
+        <Required message={formik.errors.email} />
+        ) : null }
+      <div className="mb-1">
+        <label htmlFor="password" className="text-label text-left uppercase text-bluegray-300 my-1 block">Contaseña</label>
+        <input 
+          type="password"
+          name="password"
+          id="password"
+          placeholder="***********"
+          className="input-form"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+        />
+      </div>
       <button
         type="submit"
-        className="w-full bg-p_blue-500 rounded text-white text-sm py-3 mt-4 sm:w-64 hover:bg-p_blue-400"
+        className="w-full bg-p_blue-500 rounded text-white text-sm py-3 mt-4 hover:bg-p_blue-400"
       >
         Iniciar sesión
       </button>

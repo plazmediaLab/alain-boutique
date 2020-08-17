@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import UserContext from '../context/user/UserContext';
 import { useNavigate } from '@reach/router';
 // Firebase
@@ -9,8 +9,9 @@ import useDbMethods from './useDbMethods';
 
 export default function useAuthMethods(){
 
-  const push = useNavigate()
+  const push = useNavigate();
 
+  const [loading, setLoading] = useState(false);
   
   const userContext = useContext(UserContext);
   const {
@@ -88,11 +89,13 @@ export default function useAuthMethods(){
   // Autenticación con Google
   const googleAuth = () => {
     
+    setLoading(true);
+    
     auth.signInWithPopup(googleProvider).then(res => {
       
       // Set token in LocalStorage
       localStorage.setItem("token-user", res.user.refreshToken);
-
+      
       const data = {
         name: res.user.displayName,
         email: res.user.email,
@@ -100,24 +103,30 @@ export default function useAuthMethods(){
         photo: res.user.photoURL,
         token: res.user.refreshToken,
       }
-
+      
       googleAuthMethod(data);
-
+      
       init(res.user.uid);
-
+      
+      setLoading(false);
+      
       push('/app');
-
+      
     }).catch(err => {
+      setLoading(false);
       console.log(err);
     })
   };
   // Autenticación con Facebook
   const facebookAuth = () => {
+
+    setLoading(true);
+    
     auth.signInWithPopup(facebookProvier).then(res => {
       
       // Set token in LocalStorage
       localStorage.setItem("token-user", res.user.refreshToken);
-
+      
       const data = {
         name: res.user.displayName,
         email: res.user.email,
@@ -125,14 +134,17 @@ export default function useAuthMethods(){
         photo: res.user.photoURL,
         token: res.user.refreshToken,
       }
-
+      
       facebookAuthMethod(data);
-
+      
       init(res.user.uid);
-
+      
+      setLoading(false);
+      
       push('/app');
-
+      
     }).catch(error => {
+      setLoading(false);
       console.log(error);
     })
   };
@@ -145,8 +157,10 @@ export default function useAuthMethods(){
     });
   };
   // Estado de usuario auteticado
-  const authState = () => {
-    auth.onAuthStateChanged( user => {
+  const authState = async () => {
+    await auth.onAuthStateChanged( user => {
+
+      setLoading(true);
 
       if(user) {
         // Set token in LocalStorage
@@ -160,22 +174,26 @@ export default function useAuthMethods(){
           token: user.refreshToken,
         }
   
-        authStateMethod(data)
+        authStateMethod(data);
 
         getProducts(user.uid);
 
-        getGroups(user.uid)
-  
+        getGroups(user.uid);
+
+        setLoading(false);
+        
         push('/app');
-  
+        
       }else{
         localStorage.removeItem('token-user');
+        setLoading(false);
         push('/');
       }
     });
   };
 
   return {
+    loading,
     signUp,
     emailAuth,
     googleAuth,

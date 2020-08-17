@@ -25,6 +25,7 @@ export default function App({ location }){
   useEffect(() => {
 
     authState();
+
     //eslint-disable-next-line
   }, []);
 

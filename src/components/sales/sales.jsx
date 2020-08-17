@@ -41,7 +41,6 @@ export default function Sales(){
       { list.map(item => {
 
         const colorTag = groups.find(x => x.name === item.group);
-        console.log(item);
       
         return(
           <li 
