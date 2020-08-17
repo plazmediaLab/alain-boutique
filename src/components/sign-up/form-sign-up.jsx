@@ -1,3 +1,4 @@
+/**@jsx jsx */
 import React from 'react';
 // Formik 
 import { useFormik } from 'formik';
@@ -7,6 +8,7 @@ import Error from '../messages/error';
 import Swal from 'sweetalert2';
 // Custom Hooks
 import useAuthMethods from '../../hooks/useAuthMethods';
+import { jsx, css } from '@emotion/core';
 
 export default function FormSignUp(){
 
@@ -56,6 +58,11 @@ export default function FormSignUp(){
       <form
         className="flex flex-col items-center w-full"
         onSubmit={formik.handleSubmit}
+        css={css`
+          > input:not(:last-of-type){
+            margin-bottom: .5rem;
+          }
+        `}
       >
         <input 
           type="email"
