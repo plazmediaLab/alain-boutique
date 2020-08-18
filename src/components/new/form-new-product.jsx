@@ -134,7 +134,7 @@ export default function FormNewProduct(){
         <div>
           <label className="label-form-new" htmlFor="mode">
             <svg className="w-4 h-4 text-bluegray-200 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path></svg>
-            <span>Precio</span>
+            <span>Estado</span>
           </label>
           <div className="p-1 pr-2 border border-bluegray-200 bg-transparent rounded flex items-center">
             <svg className={`w-5 h-5 mx-1 ${mode === 'NEW' ? 'text-green-400' : 'text-bluegray-200'}`} fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd"></path></svg>
@@ -145,15 +145,15 @@ export default function FormNewProduct(){
               value={ mode }
               onChange={ handleMode }
             >
-              <option value="USED">Usado</option>
-              <option value="NEW">Nuevo</option>
+              <option value="USED">USADO</option>
+              <option value="NEW">NUEVO</option>
             </select>
           </div>
         </div>
         <div>
           <label className="label-form-new" htmlFor="status">
             <svg className="w-4 h-4 text-bluegray-200 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path></svg>
-            <span>Precio</span>
+            <span>Modo</span>
           </label>
           <div className="p-1 pr-2 border border-bluegray-200 bg-transparent rounded flex items-center">
             <svg className={`w-6 h-6 ml-1 ${statusItem === 'ACTIVE' ? 'text-yellow-500' : 'text-bluegray-200'}`} fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path></svg>
@@ -164,8 +164,8 @@ export default function FormNewProduct(){
               value={ statusItem }
               onChange={ handleStatus }
             >
-              <option value="STOCK">Stock</option>
-              <option value="ACTIVE">Venta</option>
+              <option value="STOCK">STOCK</option>
+              <option value="ACTIVE">VENTA</option>
             </select>
           </div>
         </div>

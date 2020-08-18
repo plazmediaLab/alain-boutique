@@ -5,6 +5,8 @@ import InfoHead from './InfoHead';
 
 export default function Home(){
 
+  // console.log(location.state);
+
   const [filter, setFilter] = useState('active');
   const [list, setlist] = useState([]);
 
@@ -13,10 +15,10 @@ export default function Home(){
 
   useEffect(() => {
     if(filter === 'active'){
-      setlist(products.filter(x => x.status === 'ACTIVE' && x.group === activeGroup.name && !x.sold))
+      setlist(products.filter(x => x.status === 'ACTIVE' && x.group === activeGroup.name && !x.sold));
     }
     if(filter === 'total'){
-      setlist(products.filter(x => x.group === activeGroup.name && !x.sold))
+      setlist(products.filter(x => x.group === activeGroup.name && !x.sold));
     }
     if(Object.keys(activeGroup).length === 0 && groups.length > 0){
       activeGroupMethod({

@@ -14,6 +14,9 @@ body{
 * {
     @apply box-border
 }
+textarea{
+    resize: none;
+}
 *:focus,
 *:active,
 button:focus {

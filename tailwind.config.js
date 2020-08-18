@@ -11,6 +11,7 @@ module.exports = {
         btncircle: 'drop-shadow(0px 3px 8px rgba(100, 140, 225, 0.7))',
         btnsquare: '-10px -10px 15px #FFFFFF, 5px 5px 10px rgba(84, 128, 222, 0.15)',
         container: '0px 1px 3px rgba(187, 204, 242, 0.3), 0px 3px 12px -2px rgba(187, 204, 242, 0.8)',
+        container_inner: 'inset 0px 1px 3px rgba(187, 204, 242, 0.3), inset 0px 3px 12px -2px rgba(187, 204, 242, 0.8)',
         item: '0px 1px 3px rgba(187, 204, 242, 0.3), 0px 3px 12px -2px rgba(187, 204, 242, 0.8)',
         menutoggle: '10px 0px 15px 0px rgba(0,0,0,0.4), 3px 0px 6px 0px rgba(0,0,0,0.25)',
         under: '-5px -5px 15px #FFFFFF, 5px 5px 10px rgba(84, 128, 222, 0.15), inset -2px -2px 9px #FFFFFF, inset 5px 5px 10px rgba(84, 128, 222, 0.15)'

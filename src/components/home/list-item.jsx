@@ -1,5 +1,5 @@
 /**@jsx jsx */
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { jsx, css } from '@emotion/core';
 import { Link } from 'gatsby';
 import { 
@@ -132,7 +132,7 @@ export default function ItemsSales({ item, filter }){
               {/* <Link to={`/app/edit/${ uid }`}>Editar producto</Link> */}
               <Link 
                 className="rounded py-1 px-2 border border-bluegray-100 text-p_blue-400"
-                to={`/app/edit/${ item.id }`}
+                to={`/app/edit/${ item.id}`}
                 state={{ productSent: true }}
               >
                 <svg className="pencil-alt w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
