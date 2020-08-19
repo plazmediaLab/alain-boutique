@@ -40,7 +40,8 @@ export default function FormNewProduct(){
       value: '',
     },
     validationSchema: Yup.object({
-      name: Yup.string().required('El campo NOMBRE es obligatorio').trim(),
+      name: Yup.string().required('El campo NOMBRE es obligatorio').trim('El NOMBRE no puede ser de solo espacios en blanco'),
+      comment: Yup.string().required('El campo NOMBRE es obligatorio').trim('El COMENTARIO no puede ser de solo espacios en blanco'),
       value: Yup.number().min(0, 'El VALOR no puede ser menor a 0').lessThan(Yup.ref('price'), 'El VALOR no puede ser mayor al PRECIO'),
       price: Yup.number().required('El campo PRECIO es obligatorio').min(0, 'El VALOR no puede ser menor a 0'),
     }),
