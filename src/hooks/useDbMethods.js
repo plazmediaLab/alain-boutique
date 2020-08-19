@@ -299,29 +299,61 @@ export default function useDbMethods(){
   };
 
   const productSold = productID => {
-    setFetching(true)
-
-    // Remover lo no deseado de productos
+    setFetching(true);
+    
     let obj = products.find(p => p.id === productID);
     
+    // Remover lo no deseado de productos
     delete obj.id
     
     const data = {...obj, status: 'STOCK', sold: true, soldDate: new Date()}
     
     try {
       db.collection(user.uid)
-        .doc(productsDoc)
-        .collection(subCollection)
-        .doc(productID)
-        .update(data);
-
-        setFetching(false);
+      .doc(productsDoc)
+      .collection(subCollection)
+      .doc(productID)
+      .update(data);
+      
+      setFetching(false);
     } catch (error) {
-        console.log(error);
-        setFetching(false);
+      console.log(error);
+      setFetching(false);
     }
   };
+  
+  const updateProduct = (productID, data) => {
+    setFetching(true);
+    
+    const product = products.find(x => x.id === productID);
 
+    // Remover lo no deseado de productos
+    delete product.id
+    
+    const newData = {
+      ...product,
+      name: data.name,
+      value: data.value,
+      price: data.price,
+      mode: data.mode,
+      status: data.status,
+      comment: data.comment,
+    }
+
+    try {
+      db.collection(user.uid)
+      .doc(productsDoc)
+      .collection(subCollection)
+      .doc(productID)
+      .update(newData);
+      
+      setFetching(false);
+    } catch (error) {
+      console.log(error);
+      setFetching(false);
+    }
+  };
+  
   return {
     fetching,
     init,
@@ -332,6 +364,7 @@ export default function useDbMethods(){
     deleteProduct,
     createGroup,
     deleteGroup,
-    productSold
+    productSold,
+    updateProduct
   };
 };

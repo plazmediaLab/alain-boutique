@@ -8,6 +8,8 @@ import { jsx, css } from '@emotion/core';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Required from 'components/messages/required';
+import useDbMethods from 'hooks/useDbMethods';
+import FetchingIcon from 'components/Resources/fetching-icon';
 
 export default function EditProduct({ productID, location }){
 
@@ -22,6 +24,8 @@ export default function EditProduct({ productID, location }){
 
   const userContext = useContext(UserContext);
   const { products, activeGroup } = userContext;
+
+  const { fetching, updateProduct } = useDbMethods();
 
   useEffect(() => {
     if(location.state.productSent){
@@ -56,17 +60,36 @@ export default function EditProduct({ productID, location }){
     },
     validationSchema: Yup.object({
       name: Yup.string().trim('El NOMBRE no puede ser de solo espacios en blanco').strict(true),
-      value: Yup.number().min(0, 'El VALOR no puede ser menor de 0.'),
-      price: Yup.number().min(0, 'El PRECIO no puede ser menor de 0.').moreThan(Yup.ref('value'), 'El PRECIO no puede ser menor al valor.'),
+      value: Yup.number().min(0, 'El VALOR no puede ser menor de 0.').lessThan(Yup.ref('price'), 'El VALOR no puede ser mayor al precio.'),
+      price: Yup.number().min(0, 'El PRECIO no puede ser menor de 0.'),
       comment: Yup.string().trim('El COMENTARIO no puede ser de solo espacios en blanco').strict(true),
     }),
-    onSubmit: val => {
-      
-      console.log(val);
-      console.log(formik.errors);
+    onSubmit: async val => {
+
+      const data = {
+        name: val.name !== '' ? val.name : product.name,
+        value: val.value !== '' ? val.value : product.value,
+        price: val.price !== '' ? val.price : product.price,
+        mode,
+        status,
+        comment: val.comment !== '' ? val.comment : product.comment,
+      }
+
+      try {
+
+        updateProduct(product.id, data);
+        navigate('/app');
+        
+      } catch (error) {
+        console.log(error.message);
+      }
 
     }
   })
+
+  const disabled = () => {
+    return fetching ? true : false
+  };
 
   return (
     <>
@@ -108,7 +131,7 @@ export default function EditProduct({ productID, location }){
             </header>
             <form 
               onSubmit={ formik.handleSubmit }
-              className="p-4"
+              className="p-4 text-carbon-400"
               css={css`
                 > * {
                   /* border: 1px solid red; */
@@ -119,11 +142,16 @@ export default function EditProduct({ productID, location }){
                 > div:last-child{
                   margin-top: 2rem;
                 }
-                > div:nth-child(1){
+                > div:nth-of-type(1){
                   margin-bottom: 1.5rem;
                 }
                 input, textarea, select{
                   border-radius: 0;
+                }
+                input:disabled,
+                textarea:disabled,
+                select:disabled{
+                  opacity: .7;
                 }
                 aside > svg{
                   position: absolute;
@@ -139,41 +167,44 @@ export default function EditProduct({ productID, location }){
                   type="text"
                   name="name"
                   id="name" 
-                  className="placeholder-p_blue-300 text-title-page font-medium text-center border-b border-bluegray-100 p-2 w-full bg-transparent focus:border-p_blue-400"
+                  className={`${formik.errors.name ? 'placeholder-red-300 bg-red-100 border-red-300' : 'placeholder-p_blue-300 bg-transparent border-bluegray-100'} text-title-page font-medium text-center border-b p-2 w-full focus:border-p_blue-400`}
                   placeholder={ product.name }
                   value={ formik.values.name }
                   onChange={ formik.handleChange }
                   onBlur={ formik.handleBlur }
+                  disabled={ disabled() }
                 />
               </div>
 
               <div className="grid grid-cols-2 col-gap-8">
                 <aside className="relative">
-                  <svg  class="currency-dollar text-bluegray-400 w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                  <svg className={`${formik.errors.value ? 'text-red-300' : 'text-bluegray-400'} currency-dollar w-5 h-5`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                   <label htmlFor="value" className="text-label uppercase text-bluegray-300 block">Valor</label>
                   <input 
                     type="number"
                     name="value"
                     id="value"
-                    className="placeholder-p_blue-300 text-carbon-500 text-title-item border-b border-bluegray-100 p-2 pl-8 w-full bg-transparent appearance-none focus:border-p_blue-400"
+                    className={`${formik.errors.price ? 'placeholder-red-300 bg-red-100 border-red-300' : 'placeholder-p_blue-300 bg-transparent border-bluegray-100'} text-title-item border-b p-2 pl-8 w-full appearance-none focus:border-p_blue-400`}
                     placeholder={ product.value }
                     value={ formik.values.value }
                     onChange={ formik.handleChange }
                     onBlur={ formik.handleBlur }
+                    disabled={ disabled() }
                   />
                 </aside>
                 <aside className="relative">
-                  <svg  class="currency-dollar text-bluegray-400 w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                  <svg className={`${formik.errors.name ? 'text-red-300' : 'text-bluegray-400'} currency-dollar w-5 h-5`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                   <label htmlFor="price" className="text-label uppercase text-bluegray-300 block">Precio</label>
                   <input 
                     type="number"
                     name="price"
                     id="price"
-                    className="placeholder-p_blue-300 text-carbon-500 text-title-item border-b border-bluegray-100 p-2 pl-8 w-full bg-transparent appearance-none focus:border-p_blue-400"
+                    className={`${formik.errors.price ? 'placeholder-red-300 bg-red-100 border-red-300' : 'placeholder-p_blue-300 bg-transparent border-bluegray-100'} text-title-item border-b p-2 pl-8 w-full appearance-none focus:border-p_blue-400`}
                     placeholder={ product.price }
                     value={ formik.values.price }
                     onChange={ formik.handleChange }
                     onBlur={ formik.handleBlur }
+                    disabled={ disabled() }
                   />
                 </aside>
               </div>
@@ -186,8 +217,9 @@ export default function EditProduct({ productID, location }){
                     ref={ selectMode }
                     name="mode"
                     id="mode"
-                    className="text-carbon-500 text-description border-b border-bluegray-100 p-2 pl-8 w-full bg-transparent appearance-none focus:border-p_blue-400"
+                    className="text-description border-b border-bluegray-100 p-2 pl-8 w-full bg-transparent appearance-none focus:border-p_blue-400"
                     onChange={ () => setMode(selectMode.current.value) }
+                    disabled={ disabled() }
                     >
                     <option 
                       value="NEW" 
@@ -210,8 +242,9 @@ export default function EditProduct({ productID, location }){
                     ref={ selectStatus }
                     name="status"
                     id="status"
-                    className="text-carbon-500 text-description border-b border-bluegray-100 p-2 pl-8 w-full bg-transparent appearance-none focus:border-p_blue-400"
+                    className="text-description border-b border-bluegray-100 p-2 pl-8 w-full bg-transparent appearance-none focus:border-p_blue-400"
                     onChange={ () => setStatus(selectStatus.current.value) }
+                    disabled={ disabled() }
                   >
                     <option 
                       value="STOCK" 
@@ -219,7 +252,7 @@ export default function EditProduct({ productID, location }){
                     >
                       STOCK
                     </option>
-                    <option 
+                    <option
                       value="ACTIVE" 
                       selected={status === 'ACTIVE' ? true : false}
                     >
@@ -235,11 +268,12 @@ export default function EditProduct({ productID, location }){
                   name="comment"
                   id="comment"
                   cols="comment"
-                  className="placeholder-p_blue-300 text-description border-b border-bluegray-100 py-2 w-full bg-transparent appearance-none focus:border-p_blue-400"
-                  placeholder={ product.comment }
+                  className={`${ product.comment.length === 0 ? 'placeholder-bluegray-200' : 'placeholder-p_blue-300' } ${formik.errors.name ? 'placeholder-red-300 bg-red-100 border-red-300' : 'placeholder-p_blue-300 bg-transparent border-bluegray-100'} text-description border-b py-2 w-full appearance-none focus:border-p_blue-400`}
+                  placeholder={ product.comment.length === 0 ? 'Vacío' : product.comment }
                   value={ formik.values.comment }
                   onChange={ formik.handleChange }
                   onBlur={ formik.handleBlur }
+                  disabled={ disabled() }
                 ></textarea>
               </div>
 
@@ -251,16 +285,19 @@ export default function EditProduct({ productID, location }){
 
               <div className="text-description grid grid-cols-2 col-gap-3">
                 <button 
-                  type="submit"
+                  type="button"
                   className="flex items-center justify-center p-2 uppercase text-bluegray-400 hover:text-red-500"
+                  disabled={ disabled() }
                 >
-                  <svg class="trash w-5 h-5 inline-block mr-1" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd"></path></svg>
+                  <svg className="trash w-5 h-5 inline-block mr-1" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd"></path></svg>
                   Eliminar
                 </button>
                 <button 
-                  type="button"
-                  className="bg-p_blue-500 text-white rounded-card p-2 uppercase hover:bg-p_blue-400"
+                  type="submit"
+                  className="bg-p_blue-500 text-white rounded-card p-2 uppercase hover:bg-p_blue-400 flex items-center justify-center"
+                  disabled={ disabled() }
                 >
+                  { fetching ? <FetchingIcon classN="inline-block mr-1" strokeWidth="4"/> : null }
                   Guardar cambios
                 </button>
               </div>
