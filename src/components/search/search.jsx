@@ -11,13 +11,17 @@ export default function Search(){
 
   const userContext = useContext(UserContext);
   const { products } = userContext;
+
+  const accentsDelete = str => {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g,"");
+  };
   
   const search = str => {
     setHasResult(true);
     let newList = [];
     products.map(item => {
-      const name = item.name.toLowerCase();
-      const word = str.toLowerCase().trim();
+      const name = accentsDelete(item.name.toLowerCase());
+      const word = accentsDelete(str.toLowerCase().trim());
       
       if(name.indexOf(word) !== -1){
         newList = [...newList, item];
