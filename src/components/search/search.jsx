@@ -1,15 +1,68 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import SearchInput from './search-input';
+import UserContext from 'context/user/UserContext';
 
 export default function Search(){
 
+  const [loading, setLoading] = useState(false);
+  const [hasResult, setHasResult] = useState(true);
   const [searchWord, setSearchWord] = useState('');
+  const [listFound, setListFound] = useState([]);
+
+  const userContext = useContext(UserContext);
+  const { products } = userContext;
+  
+  const search = str => {
+    setHasResult(true);
+    let newList = [];
+    products.map(item => {
+      const name = item.name.toLowerCase();
+      const word = str.toLowerCase().trim();
+      
+      if(name.indexOf(word) !== -1){
+        newList = [...newList, item];
+      }
+    });
+    if(newList.length === 0){
+      console.log('Sin resultados...');
+      setHasResult(!hasResult);
+    }
+    setListFound(newList);
+  };
+
+  useEffect(() => {
+    if(searchWord !== ''){
+      search(searchWord);
+      setLoading(false);
+    }
+    if(searchWord === ''){
+      setListFound([]);
+      setLoading(false);
+      setHasResult(true);
+    }
+  }, [searchWord]);
 
   return (
     <>
-      <SearchInput setSearchWord={ setSearchWord }/>
+      <SearchInput setSearchWord={ setSearchWord } setLoading={ setLoading } loading={ loading }/>
 
-      <p>{searchWord}</p>
+      {listFound.length > 0 ? (
+
+        <section className="bg-white rounded-container shadow-container p-3 mt-5">
+
+          <ul>
+            { listFound.map(item => (
+              <li key={ item.id }> { item.name } </li>
+            )) }
+          </ul>
+
+        
+        </section>
+
+      ) : null}
+
+      { !hasResult ? <p>No hay resultados...</p> : null }
+
     </>
   );
 };

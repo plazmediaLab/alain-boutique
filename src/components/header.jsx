@@ -14,8 +14,6 @@ export default function Header({ location }){
   let containerToggle = useRef(null);
   let btnToggle = useRef(null);
 
-  console.log(location);
-
   // eslint-disabled-next-line
   const { openToggle } = useToggleActions();
 

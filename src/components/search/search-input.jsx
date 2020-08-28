@@ -1,11 +1,23 @@
 /**@jsx jsx */
 import React, { useRef, useEffect, useState } from 'react';
 import FetchingIcon from 'components/Resources/fetching-icon';
-import { jsx, css } from '@emotion/core';
+import { jsx, css, keyframes } from '@emotion/core';
 
-export default function SearchInput({ setSearchWord }){
+const intermittent = keyframes`
+  from 0 to {
+    opacity: 1;
+  }
+  50%{
+    opacity: .4;
+  }
+  100%{
+    opacity: 1;
+  }
+`;
 
-  const [loading, setLoading] = useState(false);
+export default function SearchInput({ setSearchWord, setLoading, loading }){
+
+  
   const [keyWord, setKeyWord] = useState('');
 
   const inputSearch = useRef(null);
@@ -14,7 +26,6 @@ export default function SearchInput({ setSearchWord }){
   const search = () => {
     time = setTimeout(() => {
       setSearchWord(keyWord);
-      setLoading(false);
     }, 3000);
   };
   
@@ -22,6 +33,9 @@ export default function SearchInput({ setSearchWord }){
     setLoading(true);
     clearTimeout(time);
     setKeyWord(e.target.value);
+    if(e.target.value === ''){
+      setSearchWord('')
+    }
   };
   
   useEffect(() => {
@@ -31,38 +45,29 @@ export default function SearchInput({ setSearchWord }){
     if(keyWord !== ''){
       search();
     }
-    if(keyWord === ''){
-      setSearchWord('')
-      setLoading(false);
-    }
   }, [keyWord]);
 
   return (
     <div
         className="relative w-full"
         css={css`
-          svg{
-            position: absolute;
-            right: .7rem;
-            top: calc(50% - 5px);
-          }
           svg.ring{
             position: absolute;
             right: .5rem;
             top: calc(50% - 10px);
+            animation: ${intermittent} .8s infinite;
           }
         `}
       >
         <input 
           ref={ inputSearch }
-          type="text"
+          type="search"
           placeholder="Busca por nombre de producto"
-          className="pr-10 w-full rounded-full border border-bluegray-100 shadow-xl py-2 px-3 text-description focus:outline-none focus:shadow-outline placeholder-bluegray-200"
+          className={`${loading ? 'pr-10' : ''} w-full rounded-full border border-bluegray-100 shadow-xl py-2 px-3 text-description focus:border-p_blue-400 placeholder-bluegray-200`}
           onChange={ e => handleSearch(e) }
         />
         { loading ? (
           <>
-            <svg viewBox="0 0 20 20" fill="currentColor" className="search w-3 h-3 text-p_blue-300"><path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" /></svg>
             <FetchingIcon strokeC="#98B3EB" width="20" height="20" classN="ring" strokeWidth="3"/>
           </>
         ) : null }
