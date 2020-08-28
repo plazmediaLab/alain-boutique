@@ -5,6 +5,7 @@ import ContentToggle from './nav-bar-toggle/content-toggle';
 import useToggleActions from '../hooks/useToggleActions';
 import { jsx, css } from '@emotion/core';
 import BtnToggle from './nav-bar-toggle/btn-toggle';
+import { navigate } from 'gatsby';
 
 
 export default function Header({ location }){
@@ -12,6 +13,8 @@ export default function Header({ location }){
   let backgroundToggle = useRef(null);
   let containerToggle = useRef(null);
   let btnToggle = useRef(null);
+
+  console.log(location);
 
   // eslint-disabled-next-line
   const { openToggle } = useToggleActions();
@@ -44,8 +47,9 @@ export default function Header({ location }){
       <BtnToggle reference={ btnToggle } openToggle={ () => openToggle(btnToggle, backgroundToggle, containerToggle ) } />
 
       <h1 className="text-title-page font-medium text-center">{ title() }</h1>
-      <button type="button" className="p-2" onClick={ () => console.log('Serach...') }>
-        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"></path></svg>
+
+      <button type="button" className={`p-2 rounded-full ${location === '/app/search' ? 'bg-p_blue-300 text-white' : '' }`} onClick={ () => navigate('/app/search') }>
+        <svg className={`w-5 h-5`} fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"></path></svg>
       </button>
 
       <ContentToggle reference={ containerToggle } />

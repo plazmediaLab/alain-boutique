@@ -59,11 +59,6 @@ export default function ItemsSales({ item, filter }){
       className="grid items-center w-full shadow-container rounded-card bg-white"
       css={css`
         grid-template-columns: auto 1fr;
-        /* background-image: radial-gradient(#0099ff 1px, #fdfdfd 1px);
-        background-position: 0 0, 25px 25px;
-        background-size: 60px 60px;
-        padding: 0;
-        margin: 0; */
 
         .toggle-info{
           height: 0px;
