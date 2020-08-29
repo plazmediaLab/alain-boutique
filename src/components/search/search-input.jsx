@@ -1,23 +1,26 @@
 /**@jsx jsx */
 import React, { useRef, useEffect, useState } from 'react';
-import FetchingIcon from 'components/Resources/fetching-icon';
 import { jsx, css, keyframes } from '@emotion/core';
+import LoadingIcon from 'components/Resources/loading-icon';
 
 const intermittent = keyframes`
   from 0 to {
     opacity: .2;
   }
-  25%{
+  20%{
     opacity: .5;
   }
-  50%{
-    opacity: 1;
+  40%{
+    opacity: .8;
   }
-  75%{
+  60%{
+    opacity: .8;
+  }
+  80%{
     opacity: .5;
   }
   100%{
-    opacity: .2;
+    opacity: .3;
   }
 `;
 
@@ -64,11 +67,11 @@ export default function SearchInput({ setSearchWord, setLoading, loading }){
           
           svg.ring{
             position: absolute;
-            right: .9rem;
-            top: calc(50% - 10px);
-            opacity: 0;
+            right: .8rem;
+            top: calc(50% - 9px);
+            opacity: .3;
             animation: ${intermittent} .8s infinite;
-            animation-delay: .1s;
+            animation-delay: .3s;
             transition: all .2s ease-in-out;
           }
         `}
@@ -82,7 +85,7 @@ export default function SearchInput({ setSearchWord, setLoading, loading }){
         />
         { loading ? (
           <>
-            <FetchingIcon strokeC="#98B3EB" width="20" height="20" classN="ring" strokeWidth="3"/>
+            <LoadingIcon w="18" h="18" classN="ring"/>
           </>
         ) : null }
     </div>

@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import SearchInput from './search-input';
 import UserContext from 'context/user/UserContext';
 import notResults from 'images/not-found-results.svg';
+import LoadingIcon from 'components/Resources/loading-icon';
 
 export default function Search(){
 
@@ -29,7 +30,6 @@ export default function Search(){
       }
     });
     if(newList.length === 0){
-      console.log('Sin resultados...');
       setHasResult(!hasResult);
     }
     setListFound(newList);
