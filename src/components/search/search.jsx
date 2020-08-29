@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import SearchInput from './search-input';
 import UserContext from 'context/user/UserContext';
+import notResults from 'images/not-found-results.svg';
 
 export default function Search(){
 
@@ -65,7 +66,7 @@ export default function Search(){
 
       ) : null}
 
-      { !hasResult ? <p>No hay resultados...</p> : null }
+      { !hasResult ? <img src={notResults} alt="Not found results" className="p-6 mt-5 md:max-w-md mx-auto"/> : null }
 
     </>
   );

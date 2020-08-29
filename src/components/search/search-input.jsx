@@ -5,13 +5,19 @@ import { jsx, css, keyframes } from '@emotion/core';
 
 const intermittent = keyframes`
   from 0 to {
-    opacity: 1;
+    opacity: .2;
+  }
+  25%{
+    opacity: .5;
   }
   50%{
-    opacity: .4;
+    opacity: 1;
+  }
+  75%{
+    opacity: .5;
   }
   100%{
-    opacity: 1;
+    opacity: .2;
   }
 `;
 
@@ -51,11 +57,19 @@ export default function SearchInput({ setSearchWord, setLoading, loading }){
     <div
         className="relative w-full"
         css={css`
+          
+          input[type="search"]{
+            transition: all .2s ease-in-out;
+          }
+          
           svg.ring{
             position: absolute;
-            right: .5rem;
+            right: .9rem;
             top: calc(50% - 10px);
+            opacity: 0;
             animation: ${intermittent} .8s infinite;
+            animation-delay: .1s;
+            transition: all .2s ease-in-out;
           }
         `}
       >
@@ -63,7 +77,7 @@ export default function SearchInput({ setSearchWord, setLoading, loading }){
           ref={ inputSearch }
           type="search"
           placeholder="Busca por nombre de producto"
-          className={`${loading ? 'pr-10' : ''} w-full rounded-full border border-bluegray-100 shadow-xl py-2 px-3 text-description focus:border-p_blue-400 placeholder-bluegray-200`}
+          className={`${loading ? 'pr-10' : ''} w-full rounded-full shadow-skin py-3 px-4 text-description placeholder-bluegray-200 bg-background border border-white`}
           onChange={ e => handleSearch(e) }
         />
         { loading ? (

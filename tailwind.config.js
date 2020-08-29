@@ -14,7 +14,8 @@ module.exports = {
         container_inner: 'inset 0px 1px 3px rgba(187, 204, 242, 0.3), inset 0px 3px 12px -2px rgba(187, 204, 242, 0.8)',
         item: '0px 1px 3px rgba(187, 204, 242, 0.3), 0px 3px 12px -2px rgba(187, 204, 242, 0.8)',
         menutoggle: '10px 0px 15px 0px rgba(0,0,0,0.4), 3px 0px 6px 0px rgba(0,0,0,0.25)',
-        under: '-5px -5px 15px #FFFFFF, 5px 5px 10px rgba(84, 128, 222, 0.15), inset -2px -2px 9px #FFFFFF, inset 5px 5px 10px rgba(84, 128, 222, 0.15)'
+        under: '-5px -5px 15px #FFFFFF, 5px 5px 10px rgba(84, 128, 222, 0.15), inset -2px -2px 9px #FFFFFF, inset 5px 5px 10px rgba(84, 128, 222, 0.15)',
+        skin: '-3px -3px 10px #FFFFFF, 3px 3px 6px #D1D9E6, inset -2px -2px 9px #FFFFFF, inset 5px 5px 10px rgba(209, 217, 230, 0.5)'
       },
       fontSize: {
         'number-h1': '24px',
