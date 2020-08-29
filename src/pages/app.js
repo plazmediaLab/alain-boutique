@@ -15,6 +15,7 @@ import SideBar from 'components/side-bar';
 import Header from 'components/header';
 import Editproduct from 'components/edit/edit-product';
 import Search from 'components/search/search';
+import Product from 'components/product/product';
 
 export default function App({ location }){
 
@@ -45,6 +46,7 @@ export default function App({ location }){
               <NewProduct path="/app/new"/>
               <Editproduct path="/app/edit/:productID"/>
               <Search path="/app/search"/>
+              <Product path="/app/product/:productSlug"/>
             </Router>
           </div>
 

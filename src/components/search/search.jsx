@@ -2,7 +2,8 @@ import React, { useState, useContext, useEffect } from 'react';
 import SearchInput from './search-input';
 import UserContext from 'context/user/UserContext';
 import notResults from 'images/not-found-results.svg';
-import LoadingIcon from 'components/Resources/loading-icon';
+import slugify  from 'slugify';
+import { Link } from 'gatsby';
 
 export default function Search(){
 
@@ -57,7 +58,12 @@ export default function Search(){
 
           <ul>
             { listFound.map(item => (
-              <li key={ item.id }> { item.name } </li>
+              <li key={ item.id } className="p-2"> 
+                <Link to={`/app/product/${slugify(item.name, {
+                  replacement: '_',  // replace spaces with replacement character, defaults to `-`
+                  lower: true,      // convert to lower case, defaults to `false`
+                })}`}> { item.name } </Link>
+              </li>
             )) }
           </ul>
 
