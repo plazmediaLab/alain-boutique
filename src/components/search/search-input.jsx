@@ -1,7 +1,8 @@
 /**@jsx jsx */
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useContext } from 'react';
 import { jsx, css, keyframes } from '@emotion/core';
 import LoadingIcon from 'components/Resources/loading-icon';
+import UserContext from 'context/user/UserContext';
 
 const intermittent = keyframes`
   from 0 to {
@@ -26,11 +27,14 @@ const intermittent = keyframes`
 
 export default function SearchInput({ setSearchWord, setLoading, loading }){
 
-  // TODO · Validar si hay productos agregados o no 08/30/2020 
+  // TODO · Cambiar los iconos de los elementos select 08/30/2020 
   
   const [keyWord, setKeyWord] = useState('');
 
   const inputSearch = useRef(null);
+
+  const userContext = useContext(UserContext);
+  const { products } = userContext;
 
   let time;
   const search = () => {
@@ -81,8 +85,9 @@ export default function SearchInput({ setSearchWord, setLoading, loading }){
           ref={ inputSearch }
           type="search"
           placeholder="Busca por nombre de producto"
-          className={`${loading ? 'pr-10' : ''} w-full rounded-full shadow-skin py-3 px-4 text-description placeholder-bluegray-200 bg-background border border-white`}
+          className={`${loading ? 'pr-10' : ''} w-full rounded-full py-3 px-4 text-description placeholder-bluegray-200 border ${ products.length === 0 ? 'cursor-not-allowed bg-bluegray-100' : 'shadow-skin border-white bg-background' }`}
           onChange={ e => handleSearch(e) }
+          disabled={ products.length === 0 ? true : false }
         />
         { loading ? (
           <>

@@ -115,7 +115,7 @@ export default function NewGroup(){
 
       <div className="py-3 text-center">
         <p className="text-title-item text-bluegray-300 mb-2">Selecciona un color para etiquetar al grupo</p>
-        <div className="input-form-new relative flex items-center"
+        <div className="bg-transparent rounded border border-bluegray-200 w-full text-carbon-500 leading-tight text-description relative flex items-center"
           css={css`
             svg.chevron-down{
               position: absolute;
@@ -129,16 +129,16 @@ export default function NewGroup(){
           `}
         >
           <svg viewBox="0 0 20 20" fill="currentColor" className="chevron-down w-6 h-6 text-carbon-200"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
-          <span className={`bg-${ color } inline-block w-4 h-4 mr-3 rounded-full`}></span>
+          <span className={`bg-${ color } inline-block w-4 h-4 ml-3 rounded-full`}></span>
           <select 
             ref={ colorRef }
             name="color" id="color"
-            className="appearance-none bg-transparent w-full flex-1 p-2"
+            className="appearance-none bg-transparent w-full flex-1 p-3"
             onChange={ () => setColor(colorRef.current.value) }
           >
             <option value="bluegray-200" label="--- Sin color ---"></option>
             { colors.map( (color, index) => (
-              <option value={ color.value } className="px-3" key={index}>{ capitalize(color.name) }</option>
+              <option value={ color.value } key={index}>{ capitalize(color.name) }</option>
             )) }
           </select>
         </div>
