@@ -8,7 +8,8 @@ import {
   GET_GROUPS,
   ACTIVE_GROUP,
   OPEN_MODAL,
-  CLOSE_MODAL
+  CLOSE_MODAL,
+  DISABLE_LOCK,
 } from '../types';
 
 // TODO · Refactorisar los reducer que se puedan 07/24/2020 
@@ -36,6 +37,7 @@ export default ( state, action ) => {
         groups: [],
         activeGroup: {},
         modalOpen: false,
+        lock: false,
       }
     case AUTH_STATE:
       return{
@@ -66,6 +68,11 @@ export default ( state, action ) => {
       return{
         ...state,
         modalOpen: false
+      }
+    case DISABLE_LOCK:
+      return{
+        ...state,
+        lock: !state.lock
       }
   
     default:

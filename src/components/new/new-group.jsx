@@ -133,7 +133,7 @@ export default function NewGroup(){
           <select 
             ref={ colorRef }
             name="color" id="color"
-            className="appearance-none bg-transparent w-full flex-1"
+            className="appearance-none bg-transparent w-full flex-1 p-2"
             onChange={ () => setColor(colorRef.current.value) }
           >
             <option value="bluegray-200" label="--- Sin color ---"></option>

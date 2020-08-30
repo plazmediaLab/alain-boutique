@@ -26,6 +26,7 @@ const intermittent = keyframes`
 
 export default function SearchInput({ setSearchWord, setLoading, loading }){
 
+  // TODO · Validar si hay productos agregados o no 08/30/2020 
   
   const [keyWord, setKeyWord] = useState('');
 

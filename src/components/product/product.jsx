@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import UserContext from 'context/user/UserContext';
 import slugify  from 'slugify';
 
+// TODO · Agregar el skeleton para marcar el loading 08/30/2020 
+
 export default function Product({ productSlug }){
 
   const [product, setProduct] = useState({});
@@ -13,15 +15,13 @@ export default function Product({ productSlug }){
     setProduct(products.find(x => slugify(x.name, {replacement: '_', lower: true}) === productSlug));
   }, [/* dependencia */]);
 
-  console.log(product);
-
   return (
     <>
       { Object.keys(product).length > 0 ? (
   
         <h1>{ product.name }</h1>
   
-      ) : null }
+      ) : <p>Loading...</p> }
     </>
   );
 };

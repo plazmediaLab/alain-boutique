@@ -11,6 +11,8 @@ import Required from 'components/messages/required';
 import useDbMethods from 'hooks/useDbMethods';
 import FetchingIcon from 'components/Resources/fetching-icon';
 
+// TODO · Refactorizar en componentes 08/29/2020 
+
 export default function EditProduct({ productID, location }){
 
   const [product, setProduct] = useState(null);

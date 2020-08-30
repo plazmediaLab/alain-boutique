@@ -12,7 +12,8 @@ import {
   GET_GROUPS,
   ACTIVE_GROUP,
   OPEN_MODAL,
-  CLOSE_MODAL
+  CLOSE_MODAL,
+  DISABLE_LOCK,
 } from '../types';
 
 
@@ -24,7 +25,8 @@ const UserState = ({ children }) => {
     products: [],
     groups: [],
     modalOpen: false,
-    activeGroup: {}
+    activeGroup: {},
+    lock: false
   };
 
   const [ state, dispatch ] = useReducer(UserReducer, initialState);
@@ -90,6 +92,11 @@ const UserState = ({ children }) => {
       type: CLOSE_MODAL
     })
   }
+  function disableLock(){
+    dispatch({
+      type: DISABLE_LOCK
+    })
+  }
   
   return (
     <UserContext.Provider
@@ -99,6 +106,7 @@ const UserState = ({ children }) => {
         groups: state.groups,
         modalOpen: state.modalOpen,
         activeGroup: state.activeGroup,
+        lock: state.lock,
         emailAuthMethod,
         googleAuthMethod,
         facebookAuthMethod,
@@ -108,7 +116,8 @@ const UserState = ({ children }) => {
         getGroupsMethod,
         activeGroupMethod,
         openModal,
-        closeModal
+        closeModal,
+        disableLock
       }}
     >
 

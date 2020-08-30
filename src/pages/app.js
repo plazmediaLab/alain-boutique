@@ -16,13 +16,14 @@ import Header from 'components/header';
 import Editproduct from 'components/edit/edit-product';
 import Search from 'components/search/search';
 import Product from 'components/product/product';
+import LoadingIcon from 'components/Resources/loading-icon';
 
 export default function App({ location }){
 
   const { authState } = useAuthMethods();
 
   const userContext = useContext(UserContext);
-  const { user } = userContext;
+  const { user, lock } = userContext;
 
   useEffect(() => {
 
@@ -32,11 +33,18 @@ export default function App({ location }){
   }, []);
 
   return (
-    <>
+    <div className="relative">
       {user ? (
         <Layout>
 
           <Header location={ location.pathname } photo={ user.photo }/>
+
+          { lock ? <div className="absolute top-0 left-0 z-50 bg-carbon-500 bg-opacity-50 w-full h-full flex items-center justify-center">
+            <div className="py-5 px-10 rounded-container shadow-lg bg-white text-bluegray-300 text-sm">
+              <LoadingIcon w="60" h="60" classN="mx-auto mb-3 opacity-50"/>
+              <p>Procesando...</p>
+            </div>
+          </div> : null }
 
           <div className="px-3 box-content">
             <Router>
@@ -56,6 +64,6 @@ export default function App({ location }){
 
         </Layout>
       ) : null}
-    </>
+    </div>
   );
 };

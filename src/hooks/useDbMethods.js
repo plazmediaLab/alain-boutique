@@ -6,7 +6,6 @@ import Swal from 'sweetalert2'
 export default function useDbMethods(){
 
   const [fetching, setFetching] = useState(false);
-  const [deletGroup, setDeletGroup] = useState(false);
 
   const userContext = useContext(UserContext);
   const { 
@@ -15,7 +14,8 @@ export default function useDbMethods(){
     groups,
     getProductsMethod,
     getGroupsMethod,
-    activeGroupMethod 
+    activeGroupMethod,
+    disableLock 
   } = userContext;
 
   const productsDoc = 'products';
@@ -250,13 +250,15 @@ export default function useDbMethods(){
     }
   };
 
-  const deleteGroup = nameGroup => {
+  const deleteGroup = async nameGroup => {
     const group = groups.find(item => item.name === nameGroup);
+    const productsToDelete = products.filter(item => item.group === nameGroup);
+
     const { id } = group;
     
     Swal.fire({
       title: '¿Estas segur@ de querer eliminar este grupo?',
-      text: "Esto eliminara todos los productos relacionados a este y esta acción no podrá ser revertida",
+      text: "Esto eliminara todos los productos relacionados a este. Esta acción no podrá ser revertida!!!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#5480DE',
@@ -265,18 +267,15 @@ export default function useDbMethods(){
     }).then((result) => {
       if (result.value) {
 
-        setDeletGroup(true);
+        // setDeletGroup(true);
 
-        db.collection(user.uid)
-        .doc(groupDoc)
-        .collection(subCollectionG)
+        const referenceSubGroup = db.collection(user.uid).doc(groupDoc).collection(subCollectionG);
+        const referenceSubProduct = db.collection(user.uid).doc(productsDoc).collection(subCollection);
+
+        referenceSubGroup
         .doc(id)
         .delete().then(() => {
-          Swal.fire(
-            'Grupo eliminado correctamente',
-            'El grupo y sus productos ya no aparecerán en la lista',
-            'success'
-          )
+          disableLock();
 
           const newGroupsList = groups.filter(x => x.name !== nameGroup);
 
@@ -292,8 +291,23 @@ export default function useDbMethods(){
             });
           }
 
+        }).then(() => {
 
+          productsToDelete.map( x => {
+            referenceSubProduct.doc(x.id).delete();
+          })
+          
+        }).then(() => {
+          disableLock();
+          Swal.fire(
+            'Grupo eliminado correctamente',
+            'El grupo y sus productos ya no aparecerán en la lista',
+            'success'
+          )
+        }).catch(error => {
+          console.log(error.message);
         });
+        
       }
     })
   };
