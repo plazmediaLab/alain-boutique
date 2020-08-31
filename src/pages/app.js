@@ -17,6 +17,8 @@ import Editproduct from 'components/edit/edit-product';
 import Search from 'components/search/search';
 import Product from 'components/product/product';
 import LoadingIcon from 'components/Resources/loading-icon';
+import User from 'components/user/user';
+import Parner from 'components/parner/parner';
 
 export default function App({ location }){
 
@@ -55,6 +57,8 @@ export default function App({ location }){
               <Editproduct path="/app/edit/:productID"/>
               <Search path="/app/search"/>
               <Product path="/app/product/:productSlug"/>
+              <User path="/app/user/:userID"/>
+              <Parner path="/app/parner"/>
             </Router>
           </div>
 

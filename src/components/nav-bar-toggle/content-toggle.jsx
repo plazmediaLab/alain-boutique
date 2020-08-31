@@ -7,15 +7,15 @@ import PlazmediaLogo from '../../images/plazmedia-logo-ligth.svg';
 import PerfilDefaultImage from '../../images/perfil-default-img.png';
 // ---------------------------------------------------------------
 import useAuthMethods from '../../hooks/useAuthMethods';
+import { Link } from 'gatsby';
+import useToggleActions from 'hooks/useToggleActions';
 
-export default function ContentToggle({ reference }){
+export default function ContentToggle({ reference, openToggle }){
 
   const userContext = useContext(UserContext);
   const { user } = userContext;
 
   const { logOut } = useAuthMethods()
-
-
 
   return (
     <div
@@ -48,9 +48,12 @@ export default function ContentToggle({ reference }){
               <p className="text-xs text-carbon-200">{user.email}</p>
             </div>
           </div>
-          {/* <li className="p-4 bg-background border-r-4 border-p_blue-500">
-            Item
-          </li> */}
+          <li className="text-sm p-4 cursor-pointer border-r-4 border-bluegray-200 hover:border-p_blue-500 hover:bg-background">
+            <Link to="/app/parner" onClick={openToggle}>Parner</Link>
+          </li>
+          <li className="text-sm p-4 cursor-pointer border-r-4 border-bluegray-200 hover:border-p_blue-500 hover:bg-background">
+            <Link to={`/app/user/${ user.uid }`} onClick={openToggle}>Mi perfil</Link>
+          </li>
           <div className="p-4">
             <hr className="border-bluegray-100"/>
             <button 

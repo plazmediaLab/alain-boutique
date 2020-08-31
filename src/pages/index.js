@@ -44,7 +44,6 @@ export default function Home() {
 
       <ModalBlur closeModal={ closeModal }/>
       
-
       <section className="flex flex-col justify-center items-center bg-background relative min-h-screen px-16 text-title-item z-0">
         <img src={ isotype } alt="isotype" className="w-32 h-32 sm:w-40 sm:h-40"/>
         <h1 className="text-2xl font-semibold text-carbon-500 sm:text-3xl">Alain Boutique</h1>
