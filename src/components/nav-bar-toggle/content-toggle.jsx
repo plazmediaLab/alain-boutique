@@ -45,14 +45,14 @@ export default function ContentToggle({ reference, openToggle }){
             `}/>
             <div>
               <p className="text-p_blue-500">{user.name}</p>
-              <p className="text-xs text-carbon-200">{user.email}</p>
+              <p className="text-xs text-carbon-200">{user.email}</p> 
             </div>
           </div>
-          <li className="text-sm p-4 cursor-pointer border-r-4 border-bluegray-200 hover:border-p_blue-500 hover:bg-background">
-            <Link to="/app/parner" onClick={openToggle}>Parner</Link>
+          <li className="text-sm cursor-pointer border-r-4 border-bluegray-200 hover:border-p_blue-500 hover:bg-background">
+            <Link to={`/app/user/${ user.uid }`} onClick={openToggle} className="p-4 block">Mi perfil</Link>
           </li>
-          <li className="text-sm p-4 cursor-pointer border-r-4 border-bluegray-200 hover:border-p_blue-500 hover:bg-background">
-            <Link to={`/app/user/${ user.uid }`} onClick={openToggle}>Mi perfil</Link>
+          <li className="text-sm cursor-pointer border-r-4 border-bluegray-200 hover:border-p_blue-500 hover:bg-background">
+            <Link to="/app/parner" onClick={openToggle} className="p-4 block">Parner</Link>
           </li>
           <div className="p-4">
             <hr className="border-bluegray-100"/>

@@ -32,6 +32,7 @@ export default ( state, action ) => {
       }
     case LOG_OUT:
       return{
+        userID: null,
         user: null,
         products: [],
         groups: [],

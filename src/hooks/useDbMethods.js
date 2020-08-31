@@ -25,40 +25,49 @@ export default function useDbMethods(){
   const subCollectionG = 'list';
   
   // Usuario nuevo, primer registro de prueba
-  const init = userId => {
-    let collectionRef = db.collection(userId);
+  const init = data => {
+    let collectionRefUserID = db.collection(data.uid);
 
-    collectionRef.get().then(userRegister => {
+    collectionRefUserID.get().then(userRegister => {
       if(userRegister.empty){
         console.log('Nuevo usuario');
-        collectionRef
+        collectionRefUserID
           .doc(userDoc)
-          .set({ register: true })
-        collectionRef
-          .doc(productsDoc)
-          .collection(subCollection)
-          .get()
-          .then(snapshot => {
-            if(snapshot.empty){
-              collectionRef.doc(productsDoc).collection(subCollection).add({
-                comment: "This is an initial info test to how add one item on your product list",
-                color: '',
-                date: new Date(),
-                group: "Sister's clothes",
-                init: "1819222020",
-                mode: "NEW",
-                name: "Plazmedia initial product test",
-                price: 22,
-                sold: false,
-                soldDate: null,
-                status: "STOCK",
-                value: 18,
-                soldDate: null
-              })
-            }
+          .set({
+            email: data.email, 
+            name: data.name, 
+            photo: data.photo, 
+            register: true,
+            token: data.token, 
           });
+        // collectionRefUserID
+        //   .doc(productsDoc)
+        //   .collection(subCollection)
+        //   .get()
+        //   .then(snapshot => {
+        //     if(snapshot.empty){
+        //       collectionRefUserID.doc(productsDoc).collection(subCollection).add({
+        //         comment: "This is an initial info test to how add one item on your product list",
+        //         color: '',
+        //         date: new Date(),
+        //         group: "Sister's clothes",
+        //         init: "1819222020",
+        //         mode: "NEW",
+        //         name: "Plazmedia initial product test",
+        //         price: 22,
+        //         sold: false,
+        //         soldDate: null,
+        //         status: "STOCK",
+        //         value: 18,
+        //         soldDate: null
+        //       })
+        //     }
+        //   });
       }else{
         console.log('Usuario ya registrado');
+        db.collection(data.uid).doc(userDoc).get().then(snapshot => {
+          console.log(snapshot.data());
+        });
       };
     });
   };

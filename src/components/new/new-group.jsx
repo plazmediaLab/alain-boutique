@@ -138,7 +138,7 @@ export default function NewGroup(){
           >
             <option value="bluegray-200" label="--- Sin color ---"></option>
             { colors.map( (color, index) => (
-              <option value={ color.value } key={index}>{ capitalize(color.name) }</option>
+              <option value={ color.value } key={index} className="p-10">{ capitalize(color.name) }</option>
             )) }
           </select>
         </div>

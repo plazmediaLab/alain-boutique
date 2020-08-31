@@ -15,6 +15,7 @@ export default function useAuthMethods(){
   
   const userContext = useContext(UserContext);
   const {
+    setUserID,
     emailAuthMethod,
     googleAuthMethod,
     facebookAuthMethod,
@@ -23,7 +24,7 @@ export default function useAuthMethods(){
   } = userContext;
 
   const { init, getProducts, getGroups } = useDbMethods();
-  
+
   // Registro de usuario
   const signUp = (email, pass) => {
     auth.createUserWithEmailAndPassword(email, pass).then(res => {
@@ -95,7 +96,7 @@ export default function useAuthMethods(){
       
       // Set token in LocalStorage
       localStorage.setItem("token-user", res.user.refreshToken);
-      
+
       const data = {
         name: res.user.displayName,
         email: res.user.email,
@@ -106,7 +107,7 @@ export default function useAuthMethods(){
       
       googleAuthMethod(data);
       
-      init(res.user.uid);
+      init(data);
       
       setLoading(false);
       
